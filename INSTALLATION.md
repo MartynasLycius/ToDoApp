@@ -1,13 +1,13 @@
 # ToDoApp
 
-####Application Objectives:
+#### Application Objectives:
 
 1. Page for listing all the todo items (http://HOST:PORT/)
 2. Todo item add  forms (http://HOST:PORT/add-item)
 3. ToDo item edit forms (http://HOST:PORT/update-item)
 
 
-####Description:
+#### Description:
 HOME page lists all the ToDo items, it has navigation menu to reach ToDo add page and each ToDo listing as two icon in rightmost column. One to reach the edit page another to delete the ToDo item. 
 
 
@@ -22,9 +22,9 @@ ToDoApp
 
 ```
 
-##Backend
+## Backend
 
-####Technology used: 
+#### Technology used: 
 
 - spring-boot
 - springfox-swagger2
@@ -34,7 +34,7 @@ ToDoApp
 - MySQL
 - Java 8
 
-####Folder Structure: 
+#### Folder Structure: 
 ```
 backend
 ├── src
@@ -61,7 +61,7 @@ backend
 └── pom.xml
 ```
 
-####Installation: 
+#### Installation: 
  * Modify the database properties of *application.yml* with your designated database information 
  * Modify **spring.jpa.hibernate.dl-auto** of *application.yml* to (**create/update/create-drop** ) accordingly to automate the table creation
  * Modify **server.port** of *application.yml* with your designated port number 
@@ -69,9 +69,9 @@ backend
  * Go to the link *http://YOUR_HOST:PORT/api/swagger-ui.html*
  * (Optional) There are some sample data in **data.sql** file under *resource* package, you prepopulate some data before starting the frontend app
  
-##Frontend
+## Frontend
 
-####Technology used: 
+#### Technology used: 
 
 - vue
 - vuetify
@@ -79,14 +79,14 @@ backend
 - vue-router
 - axios
 
-####Description: 
+#### Description: 
 There are three view components 
  - AddTodoItem.vue (Renders new ToDo add form)
  - TodoItemList.vue (Renders ToDo listings)
  - UpdateTodoItem.vue (Renders existing ToDo update form)
  
 
-####Folder Structure: 
+#### Folder Structure: 
 ```
 frontend
 ├── public 
@@ -121,7 +121,7 @@ frontend
 
 ```
 
-####Installation: 
+#### Installation: 
  * Modify the **properties.js** file under *frontend/src/resource* directory with backend api related information 
  * Modify port number the **.env** file under *frontend* directory with your designated port (default port is 3000)
  * Open the terminal, traverse to *ToDoApp/frontend/* directory and execute the commands **npm install** and **npm run serve**
