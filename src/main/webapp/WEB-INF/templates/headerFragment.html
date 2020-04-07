@@ -1,0 +1,122 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+
+
+<body class="nav-md">
+
+<div class="container body" th:fragment="header">
+
+    <script th:src="@{/webjars/jquery/3.1.0/jquery.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/jquery-ui-themes/1.11.4/excite-bike/jquery-ui.css}">
+    <script th:src="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.js}"></script>
+    <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+
+
+    <script type="text/javascript">
+
+    </script>
+
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a th:href="@{/}" class="site_title"><span>TODO</span></a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+
+                <!-- /menu profile quick info -->
+
+                <!--<br/>-->
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+
+                        <ul class="nav side-menu" id="navSide">
+                            <li><a th:href="@{/}"><i class="fa fa-home"></i> Home </a></li>
+                            <script type="application/javascript">
+
+
+                            </script>
+
+                        </ul>
+                    </div>
+
+
+                </div>
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <ul class="fmcg-left-menu">
+
+                        <li><a th:href="@{/}">Home</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+
+
+                        <li>
+
+                            <form th:action="@{/logout}" method="post" id="target">
+                                <a href="">
+                                    <button type="submit" id="button_id">
+                                        <i class="fa fa-power-off" aria-hidden="true"></i>
+                                    </button>
+                                </a>
+                            </form>
+                        </li>
+
+
+                        <li role="presentation" class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown"
+                               aria-expanded="false">
+                                <i class="fa fa-envelope-o"></i>
+                                <span class="badge bg-green" id="badge"></span>
+                            </a>
+                            <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+
+
+                                <script type="application/javascript">
+
+
+
+                                </script>
+
+
+                            </ul>
+                        </li>
+
+                        <li class="">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                               aria-expanded="false">
+                                [[${#httpServletRequest.remoteUser}]]
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+
+                                <li><a href="http://www.todo.com/">Help</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

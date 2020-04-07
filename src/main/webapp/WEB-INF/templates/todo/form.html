@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta name="context-path" th:content="@{/}"/>
+    <link rel="shortcut icon">
+    <title>TODO</title>
+    <script th:src="@{/webjars/jquery/3.1.0/jquery.min.js}"></script>
+    <script th:src="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.js}"></script>
+
+    <link rel="stylesheet" th:href="@{/webjars/jquery-ui-themes/1.11.4/excite-bike/jquery-ui.css}">
+
+    <!-- Bootstrap -->
+    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <!-- NProgress -->
+    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+
+    <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link th:href="@{/build/css/custom.css}" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/input-style.css}">
+
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/custom_switch.css}">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+
+    <script>
+        $.noConflict();
+        jQuery(document).ready(function ($) {
+
+            $("#startDateString").datepicker({
+                showOn: 'focus',
+                changeMonth: true,
+                changeYear: true
+            });
+
+
+            $("#endDateString").datepicker({
+                showOn: 'focus',
+                changeMonth: true,
+                changeYear: true
+            });
+
+
+        });
+
+    </script>
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+
+
+        <!-- top navigation -->
+        <div th:replace="headerFragment :: header"></div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="top-pagination">
+                        <div class="page-title">
+                            <div class="title_left">
+                                <h4 th:text="${todo.id != null} ? 'Edit TODO' : 'Add TODO'"></h4>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <form name="form" class="forms-basic" onsubmit="return validationCheckToDO();" th:action="@{/todo/save}"
+                  th:object="${todo}" method="post">
+                <input id="price_details_id" type="hidden" th:field="*{id}"/>
+                <div class="row">
+
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="col-3 input-effect">
+                            <label style="">Item Name : <span style="color: red">*</span></label>
+                            <input class="effect" type="text" id="itemName" onchange="itemNameOnChange ();"
+                                   th:field="*{itemName}">
+                            <span class="focus-border"></span>
+                            <span style="color: red;" th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}">Name Error</span>
+                            <span id="itemName_error" style="color: red;display: none"></span>
+                        </div>
+                    </div>
+
+                    <!--<div class="col-md-4 col-sm-4 col-xs-12">-->
+                        <!--<div class="col-3 input-effect">-->
+                            <!--<label style="">Item Name : <span style="color: red">*</span></label>-->
+                            <!--<input class="effect" type="text" id="itemDescription"-->
+                                   <!--th:field="*{itemDescription}">-->
+                            <!--<span class="focus-border"></span>-->
+                            <!--<span style="color: red;" th:if="${#fields.hasErrors('itemDescription')}" th:errors="*{itemDescription}">Name Error</span>-->
+                            <!--<span id="itemDescription_error" style="color: red;display: none"></span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label>Item Description<span style="color: red">*</span></label>
+
+                            <textarea class="form-control" rows="3" th:field="*{itemDescription}"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="col-3 input-effect">
+                            <label>Start Date<span style="color: red">*</span></label>
+                            <input class="effect" type="text" id="startDateString"
+                                   onchange="startDateStringOnChange();" th:field="*{startDateString}">
+
+                            <span class="focus-border"></span>
+                            <span id="startDateString_error" style="color: red;display: none;"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="col-3 input">
+                            <label>End Date<span style="color: red">*</span></label>
+                            <input class="effect" type="text" id="endDateString" onchange="endDateStringOnChange();"
+                                   placeholder="" th:field="*{endDateString}">
+                            <span class="focus-border"></span>
+                            <span id="endDateString_error" style="color: red;display: none;"></span>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+
+            </form>
+
+
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+    </div>
+</div>
+
+<!-- jQuery -->
+<script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+<!-- Booth:tstra@{/ -->
+<script th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- Fasth:tClic@{/ -->
+<script th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
+<!-- NPrth:ogres@{/ -->
+<script th:src="@{/vendors/nprogress/nprogress.js}"></script>
+<script th:src="@{/vendors/Chart.js/dist/Chart.min.js}"></script>
+<script th:src="@{/vendors/raphael/raphael.min.js}"></script>
+<script th:src="@{/vendors/morris.js/morris.min.js}"></script>
+
+<!-- Custom Theme Scripts -->
+<script th:src="@{/build/js/custom.js}"></script>
+<script th:src="@{/js/todo/todo_form_validation.js}"></script>
+
+
+</body>
+</html>
