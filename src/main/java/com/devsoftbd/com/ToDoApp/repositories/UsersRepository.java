@@ -7,5 +7,5 @@ import com.devsoftbd.com.ToDoApp.models.UsersModel;
 
 @Repository
 public interface UsersRepository extends JpaRepository<UsersModel, Integer> {
-
+	public UsersModel findByUsername(String username);
 }
