@@ -26,3 +26,7 @@ All the other specific requirements are up to you
 * Use best practises
 * Use naming conventions
 * Show understanding of software development concepts
+
+## Project Details
+* Used spring boot 2.1.3 as backend and Thymeleaf as frontend framework. As its small monolithic app so didnt separate frontend and backend.
+* Used spring security to secure app. Now login access is admin/admin
