@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>TODO</title>
+
+    <!-- Bootstrap -->
+    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <!-- NProgress -->
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/input-style.css}">
+    <meta name="image-path" th:content="@{/images/notification/paper_plane.png}"/>
+    <meta name="context-path" th:content="@{/}"/>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+
+    <link th:href="@{/css/jquery.notify.css}" type="text/css" rel="stylesheet" />
+
+    <script th:src="@{/webjars/jquery/3.1.0/jquery.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/jquery-ui-themes/1.11.4/excite-bike/jquery-ui.css}">
+    <script th:src="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.js}"></script>
+    <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+    <script type="text/javascript" th:src="@{/vendors/js/jquery.notify.min.js}"></script>
+
+
+</head>
+
+<body>
+
+<div th:if="${param.error}">
+    <script type="text/javascript">
+        notify({
+            type: "error", //alert | success | error | warning | info
+            title: "Invalid User",
+            message: 'Invalid User Name or Password',
+            position: {
+                x: "right", //right | left | center
+                y: "top" //top | bottom | center
+            },
+            icon: '<img id="im"/>', //<i>
+            size: "normal", //normal | full | small
+            overlay: true, //true | false
+            closeBtn: false, //true | false
+            overflowHide: false, //true | false
+            spacing: 20, //number px
+            theme: "dark-theme", //default | dark-theme
+            autoHide: true, //true | false
+            delay: 1500, //number ms
+            onShow: null, //function
+            onClick: null, //function
+            onHide: null, //function
+            template: '<div class="notify"><div class="notify-text"></div></div>'
+        });
+        var BASE_IMAGE_PATH = $('meta[name=image-path]').attr("content");
+        document.getElementById('im').src=BASE_IMAGE_PATH;
+    </script>
+</div>
+
+<div th:if="${param.logout}">
+    <script type="text/javascript">
+        notify({
+            type: "warning", //alert | success | error | warning | info
+            title: "Logged Out",
+            message: 'You Have Been Successfully Logged Out!',
+            position: {
+                x: "right", //right | left | center
+                y: "top" //top | bottom | center
+            },
+            icon: '<img id="im"/>', //<i>
+            size: "normal", //normal | full | small
+            overlay: true, //true | false
+            closeBtn: false, //true | false
+            overflowHide: false, //true | false
+            spacing: 20, //number px
+            theme: "dark-theme", //default | dark-theme
+            autoHide: true, //true | false
+            delay: 1500, //number ms
+            onShow: null, //function
+            onClick: null, //function
+            onHide: null, //function
+            template: '<div class="notify"><div class="notify-text"></div></div>'
+        });
+        var BASE_IMAGE_PATH = $('meta[name=image-path]').attr("content");
+        document.getElementById('im').src=BASE_IMAGE_PATH;
+    </script>
+</div>
+
+
+<div class="container">
+    <div th:if="${!checkExpiration}" class="row">
+        <div class="col-md-12">
+            <div class="login_form">
+                <div class="login-top">
+                    <img th:src="@{/images/loginicon.png}">
+                    <h3>SIGN IN</h3>
+                    <p class="login-sele">Hello There ! Sign In And Start Managing Your TODO List.</p>
+                    <form th:action="@{/login}" method="post" name="form" class="forms-basic">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-3 input-effect">
+                                    <input class="effect-16" type="text" placeholder="" name="username">
+                                    <label>User Name: </label>
+                                    <span class="focus-border"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-3 input-effect">
+                                    <input class="effect-16" type="password" placeholder="" name="password">
+                                    <label>Password </label>
+                                    <span class="focus-border"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="submit" name="login" value="Login" >
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${checkExpiration}" class="row">
+        <div class="col-md-12">
+            <div class="login_form">
+                <div class="login-top">
+                    <img th:src="@{/images/loginicon.png}">
+                    <h3 style="color: darkred">License Expired</h3>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- jQuery -->
+<script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap -->
+<script th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+
+<script>
+    // JavaScript for label effects only
+    $(window).load(function(){
+        $(".col-3 input").val("");
+
+        $(".input-effect input").focusout(function(){
+            if($(this).val() != ""){
+                $(this).addClass("has-content");
+            }else{
+                $(this).removeClass("has-content");
+            }
+        })
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="esl.js"></script>
+        <script src="config.js"></script>
+        <script src="lib/jquery.min.js"></script>
+    </head>
+    <body>
+        <style>
+            html, body, #main {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+            }
+        </style>
+        <div id="main"></div>
+        <script>
+
+            require([
+                'echarts',
+                'echarts/chart/map',
+                'echarts/component/legend',
+                'echarts/component/geo',
+                'echarts/component/visualMap'
+            ], function (echarts) {
+
+                $.get('../map/json/world.json', function (worldJson) {
+                    echarts.registerMap('world', worldJson);
+
+                    var chart = echarts.init(document.getElementById('main'), null, {
+                        renderer: 'canvas'
+                    });
+
+                    var itemStyle = {
+                        normal:{
+                            borderWidth: 0.5,
+                            borderColor: 'black'
+                        },
+                        emphasis:{
+                            label:{show:true}
+                            // shadowOffsetX: 0,
+                            // shadowOffsetY: 0,
+                            // shadowBlur: 20,
+                            // shadowColor: 'rgba(0, 0, 0, 0.3)'
+                        }
+                    };
+
+                    chart.setOption({
+                        title : {
+                            text: 'World Population (2010)',
+                            subtext: 'from United Nations, Total population, both sexes combined, as of 1 July (thousands)',
+                            sublink : 'http://esa.un.org/wpp/Excel-Data/population.htm',
+                            left: 'center',
+                            top: 'top'
+                        },
+                        tooltip : {
+                            trigger: 'item',
+                            formatter : function (params) {
+                                var value = (params.value + '').split('.');
+                                value = value[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,')
+                                        + '.' + value[1];
+                                return params.seriesName + '<br/>' + params.itemName + ' : ' + value;
+                            }
+                        },
+                        visualMap: {
+                            min: 0,
+                            max: 1000000,
+                            text:['High','Low'],
+                            realtime: true,
+                            calculable : true,
+                            color: ['orangered','yellow','lightskyblue']
+                        },
+                        series : [
+                            {
+                                itemName: 'World Population (2010)',
+                                type: 'map',
+                                map: 'world',
+                                roam: true,
+                                top: 60,
+                                width: '80%',
+                                itemStyle: itemStyle,
+                                data:[
+                                    {itemName : 'Afghanistan', value : 28397.812},
+                                    {itemName : 'Angola', value : 19549.124},
+                                    {itemName : 'Albania', value : 3150.143},
+                                    {itemName : 'United Arab Emirates', value : 8441.537},
+                                    {itemName : 'Argentina', value : 40374.224},
+                                    {itemName : 'Armenia', value : 2963.496},
+                                    {itemName : 'French Southern and Antarctic Lands', value : 268.065},
+                                    {itemName : 'Australia', value : 22404.488},
+                                    {itemName : 'Austria', value : 8401.924},
+                                    {itemName : 'Azerbaijan', value : 9094.718},
+                                    {itemName : 'Burundi', value : 9232.753},
+                                    {itemName : 'Belgium', value : 10941.288},
+                                    {itemName : 'Benin', value : 9509.798},
+                                    {itemName : 'Burkina Faso', value : 15540.284},
+                                    {itemName : '', value : 151125.475},
+                                    {itemName : 'Bulgaria', value : 7389.175},
+                                    {itemName : 'The Bahamas', value : 66402.316},
+                                    {itemName : 'Bosnia and Herzegovina', value : 3845.929},
+                                    {itemName : 'Belarus', value : 9491.07},
+                                    {itemName : 'Belize', value : 308.595},
+                                    {itemName : 'Bermuda', value : 64.951},
+                                    {itemName : 'Bolivia', value : 716.939},
+                                    {itemName : 'Brazil', value : 195210.154},
+                                    {itemName : 'Brunei', value : 27.223},
+                                    {itemName : 'Bhutan', value : 716.939},
+                                    {itemName : 'Botswana', value : 1969.341},
+                                    {itemName : 'Central African Republic', value : 4349.921},
+                                    {itemName : 'Canada', value : 34126.24},
+                                    {itemName : 'Switzerland', value : 7830.534},
+                                    {itemName : 'Chile', value : 17150.76},
+                                    {itemName : 'China', value : 1359821.465},
+                                    {itemName : 'Ivory Coast', value : 60508.978},
+                                    {itemName : 'Cameroon', value : 20624.343},
+                                    {itemName : 'Democratic Republic of the Congo', value : 62191.161},
+                                    {itemName : 'Republic of the Congo', value : 3573.024},
+                                    {itemName : 'Colombia', value : 46444.798},
+                                    {itemName : 'Costa Rica', value : 4669.685},
+                                    {itemName : 'Cuba', value : 11281.768},
+                                    {itemName : 'Northern Cyprus', value : 1.468},
+                                    {itemName : 'Cyprus', value : 1103.685},
+                                    {itemName : 'Czech Republic', value : 10553.701},
+                                    {itemName : 'Germany', value : 83017.404},
+                                    {itemName : 'Djibouti', value : 834.036},
+                                    {itemName : 'Denmark', value : 5550.959},
+                                    {itemName : 'Dominican Republic', value : 10016.797},
+                                    {itemName : 'Algeria', value : 37062.82},
+                                    {itemName : 'Ecuador', value : 15001.072},
+                                    {itemName : 'Egypt', value : 78075.705},
+                                    {itemName : 'Eritrea', value : 5741.159},
+                                    {itemName : 'Spain', value : 46182.038},
+                                    {itemName : 'Estonia', value : 1298.533},
+                                    {itemName : 'Ethiopia', value : 87095.281},
+                                    {itemName : 'Finland', value : 5367.693},
+                                    {itemName : 'Fiji', value : 860.559},
+                                    {itemName : 'Falkland Islands', value : 49.581},
+                                    {itemName : 'France', value : 63230.866},
+                                    {itemName : 'Gabon', value : 1556.222},
+                                    {itemName : 'United Kingdom', value : 62066.35},
+                                    {itemName : 'Georgia', value : 4388.674},
+                                    {itemName : 'Ghana', value : 24262.901},
+                                    {itemName : 'Guinea', value : 10876.033},
+                                    {itemName : 'Gambia', value : 1680.64},
+                                    {itemName : 'Guinea Bissau', value : 10876.033},
+                                    {itemName : 'Equatorial Guinea', value : 696.167},
+                                    {itemName : 'Greece', value : 11109.999},
+                                    {itemName : 'Greenland', value : 56.546},
+                                    {itemName : 'Guatemala', value : 14341.576},
+                                    {itemName : 'French Guiana', value : 231.169},
+                                    {itemName : 'Guyana', value : 786.126},
+                                    {itemName : 'Honduras', value : 7621.204},
+                                    {itemName : 'Croatia', value : 4338.027},
+                                    {itemName : 'Haiti', value : 9896.4},
+                                    {itemName : 'Hungary', value : 10014.633},
+                                    {itemName : 'Indonesia', value : 240676.485},
+                                    {itemName : 'India', value : 1205624.648},
+                                    {itemName : 'Ireland', value : 4467.561},
+                                    {itemName : 'Iran', value : 240676.485},
+                                    {itemName : 'Iraq', value : 30962.38},
+                                    {itemName : 'Iceland', value : 318.042},
+                                    {itemName : 'Israel', value : 7420.368},
+                                    {itemName : 'Italy', value : 60508.978},
+                                    {itemName : 'Jamaica', value : 2741.485},
+                                    {itemName : 'Jordan', value : 6454.554},
+                                    {itemName : 'Japan', value : 127352.833},
+                                    {itemName : 'Kazakhstan', value : 15921.127},
+                                    {itemName : 'Kenya', value : 40909.194},
+                                    {itemName : 'Kyrgyzstan', value : 5334.223},
+                                    {itemName : 'Cambodia', value : 14364.931},
+                                    {itemName : 'South Korea', value : 51452.352},
+                                    {itemName : 'Kosovo', value : 97.743},
+                                    {itemName : 'Kuwait', value : 2991.58},
+                                    {itemName : 'Laos', value : 6395.713},
+                                    {itemName : 'Lebanon', value : 4341.092},
+                                    {itemName : 'Liberia', value : 3957.99},
+                                    {itemName : 'Libya', value : 6040.612},
+                                    {itemName : 'Sri Lanka', value : 20758.779},
+                                    {itemName : 'Lesotho', value : 2008.921},
+                                    {itemName : 'Lithuania', value : 3068.457},
+                                    {itemName : 'Luxembourg', value : 507.885},
+                                    {itemName : 'Latvia', value : 2090.519},
+                                    {itemName : 'Morocco', value : 31642.36},
+                                    {itemName : 'Moldova', value : 103.619},
+                                    {itemName : 'Madagascar', value : 21079.532},
+                                    {itemName : 'Mexico', value : 117886.404},
+                                    {itemName : 'Macedonia', value : 507.885},
+                                    {itemName : 'Mali', value : 13985.961},
+                                    {itemName : 'Myanmar', value : 51931.231},
+                                    {itemName : 'Montenegro', value : 620.078},
+                                    {itemName : 'Mongolia', value : 2712.738},
+                                    {itemName : 'Mozambique', value : 23967.265},
+                                    {itemName : 'Mauritania', value : 3609.42},
+                                    {itemName : 'Malawi', value : 15013.694},
+                                    {itemName : 'Malaysia', value : 28275.835},
+                                    {itemName : 'Namibia', value : 2178.967},
+                                    {itemName : 'New Caledonia', value : 246.379},
+                                    {itemName : 'Niger', value : 15893.746},
+                                    {itemName : 'Nigeria', value : 159707.78},
+                                    {itemName : 'Nicaragua', value : 5822.209},
+                                    {itemName : 'Netherlands', value : 16615.243},
+                                    {itemName : 'Norway', value : 4891.251},
+                                    {itemName : 'Nepal', value : 26846.016},
+                                    {itemName : 'New Zealand', value : 4368.136},
+                                    {itemName : 'Oman', value : 2802.768},
+                                    {itemName : 'Pakistan', value : 173149.306},
+                                    {itemName : 'Panama', value : 3678.128},
+                                    {itemName : 'Peru', value : 29262.83},
+                                    {itemName : 'Philippines', value : 93444.322},
+                                    {itemName : 'Papua New Guinea', value : 6858.945},
+                                    {itemName : 'Poland', value : 38198.754},
+                                    {itemName : 'Puerto Rico', value : 3709.671},
+                                    {itemName : 'North Korea', value : 1.468},
+                                    {itemName : 'Portugal', value : 10589.792},
+                                    {itemName : 'Paraguay', value : 6459.721},
+                                    {itemName : 'Qatar', value : 1749.713},
+                                    {itemName : 'Romania', value : 21861.476},
+                                    {itemName : 'Russia', value : 21861.476},
+                                    {itemName : 'Rwanda', value : 10836.732},
+                                    {itemName : 'Western Sahara', value : 514.648},
+                                    {itemName : 'Saudi Arabia', value : 27258.387},
+                                    {itemName : 'Sudan', value : 35652.002},
+                                    {itemName : 'South Sudan', value : 9940.929},
+                                    {itemName : 'Senegal', value : 12950.564},
+                                    {itemName : 'Solomon Islands', value : 526.447},
+                                    {itemName : 'Sierra Leone', value : 5751.976},
+                                    {itemName : 'El Salvador', value : 6218.195},
+                                    {itemName : 'Somaliland', value : 9636.173},
+                                    {itemName : 'Somalia', value : 9636.173},
+                                    {itemName : 'Republic of Serbia', value : 3573.024},
+                                    {itemName : 'Suriname', value : 524.96},
+                                    {itemName : 'Slovakia', value : 5433.437},
+                                    {itemName : 'Slovenia', value : 2054.232},
+                                    {itemName : 'Sweden', value : 9382.297},
+                                    {itemName : 'Swaziland', value : 1193.148},
+                                    {itemName : 'Syria', value : 7830.534},
+                                    {itemName : 'Chad', value : 11720.781},
+                                    {itemName : 'Togo', value : 6306.014},
+                                    {itemName : 'Thailand', value : 66402.316},
+                                    {itemName : 'Tajikistan', value : 7627.326},
+                                    {itemName : 'Turkmenistan', value : 5041.995},
+                                    {itemName : 'East Timor', value : 10016.797},
+                                    {itemName : 'Trinidad and Tobago', value : 1328.095},
+                                    {itemName : 'Tunisia', value : 10631.83},
+                                    {itemName : 'Turkey', value : 72137.546},
+                                    {itemName : 'United Republic of Tanzania', value : 44973.33},
+                                    {itemName : 'Uganda', value : 33987.213},
+                                    {itemName : 'Ukraine', value : 46050.22},
+                                    {itemName : 'Uruguay', value : 3371.982},
+                                    {itemName : 'United States of America', value : 312247.116},
+                                    {itemName : 'Uzbekistan', value : 27769.27},
+                                    {itemName : 'Venezuela', value : 236.299},
+                                    {itemName : 'Vietnam', value : 89047.397},
+                                    {itemName : 'Vanuatu', value : 236.299},
+                                    {itemName : 'West Bank', value : 13.565},
+                                    {itemName : 'Yemen', value : 22763.008},
+                                    {itemName : 'South Africa', value : 51452.352},
+                                    {itemName : 'Zambia', value : 13216.985},
+                                    {itemName : 'Zimbabwe', value : 13076.978}
+                                ]
+                            }
+                        ]
+                    });
+                });
+            });
+
+        </script>
+    </body>
+</html>

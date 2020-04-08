@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta itemName="viewport" content="width=device-width, initial-scale=1">
+    <meta id="_csrf" itemName="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" itemName="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta itemName="context-path" th:content="@{/}"/>
+    <link rel="shortcut icon" href="http://integrateddairies.com/wp-content/themes/integrated-diaries/images/favicon.ico">
+    <title>IDL</title>
+
+    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <!-- NProgress -->
+    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+
+
+    <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+
+
+    <!-- Custom Theme Style -->
+    <link th:href="@{/build/css/custom.css}" rel="stylesheet">
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="index.html" class="site_title"><span>TODO</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+           
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+               
+               
+              </div>
+              
+
+            </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+              <ul class="fmcg-left-menu">
+                <li><a href=""></a></li>
+                
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li>  
+                    <a href=""><i class="fa fa-power-off" aria-hidden="true"></i></a>
+                </li>
+                
+               
+
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+
+        <style type="text/css">
+          .pagenotfound{
+
+          }
+          .pagenotfound4{
+
+          }
+          .pagenotfound44{
+              padding-top: 12%;
+              text-align: center;
+          }
+          .pagenotfound44 h2{
+              font-size: 100px;
+              font-weight: bold;
+          }
+          .pagenotfound44 p{
+
+          }
+
+        </style>
+        <div class="right_col" role="main">
+            <div class="">
+              <div class="pagenotfound">
+                <div class="pagenotfound4">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="pagenotfound44">
+                            <h2>403</h2>
+                            <p>You don't have permission to access on this server</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            TODO <a href="http://www.todo.com/">todo  Ltd.</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+    <!-- Booth:tstra@{/ -->
+    <script th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <!-- Fasth:tClic@{/ -->
+    <script th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
+    <!-- NPrth:ogres@{/ -->
+    <script th:src="@{/vendors/nprogress/nprogress.js}"></script>
+    <script th:src="@{/vendors/Chart.js/dist/Chart.min.js}"></script>
+    <script th:src="@{/vendors/raphael/raphael.min.js}"></script>
+    <script th:src="@{/vendors/morris.js/morris.min.js}"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script th:src="@{/build/js/custom.js}"></script>
+  </body>
+</html>

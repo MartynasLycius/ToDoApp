@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sd="http://www.thymeleaf.org/spring-data">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="image-path" th:content="@{/images/notification/paper_plane.png}"/>
+    <meta name="context-path" th:content="@{/}"/>
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+    <title>TODO</title>
+
+    <!-- Bootstrap -->
+    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <!-- NProgress -->
+    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+
+    <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link th:href="@{/build/css/custom.css}" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/input-style.css}">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link th:href="@{/css/jquery.notify.css}" type="text/css" rel="stylesheet"/>
+
+    <script th:src="@{/webjars/jquery/3.1.0/jquery.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/jquery-ui-themes/1.11.4/excite-bike/jquery-ui.css}">
+    <script th:src="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.js}"></script>
+    <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+    <script type="text/javascript" th:src="@{/vendors/js/jquery.notify.min.js}"></script>
+    <script>
+
+        jQuery(document).ready(function ($) {
+            $(".del").on("click", function (e) {
+                var link = this;
+                e.preventDefault();
+
+                $("#dialog-confirm").dialog({
+                    resizable: false,
+                    height: "auto",
+                    width: 400,
+                    modal: true,
+                    buttons: {
+                        "Delete Todo": function () {
+                            window.location = link.href;
+                        },
+                        Cancel: function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    <script th:inline="javascript">
+
+        function onDailog(id, name, desc) {
+            console.log(id);
+            console.log(name);
+            console.log(desc);
+
+            $("#organization_type_id").val(id)
+            $("#organization_type_name").val(name)
+            $("#organization_type_description").val(desc)
+        }
+
+    </script>
+
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+
+        <script type="text/javascript" th:if="${save != null}">
+            notify({
+                type: "success", //alert | success | error | warning | info
+                title: "Saved",
+                message: '[[${save}]]',
+                position: {
+                    x: "right", //right | left | center
+                    y: "bottom" //top | bottom | center
+                },
+                icon: '<img id="im"/>', //<i>
+                size: "normal", //normal | full | small
+                overlay: true, //true | false
+                closeBtn: true, //true | false
+                overflowHide: false, //true | false
+                spacing: 20, //number px
+                theme: "dark-theme", //default | dark-theme
+                autoHide: true, //true | false
+                delay: 1500, //number ms
+                onShow: null, //function
+                onClick: null, //function
+                onHide: null, //function
+                template: '<div class="notify"><div class="notify-text"></div></div>'
+            });
+            var BASE_IMAGE_PATH = $('meta[name=image-path]').attr("content");
+            document.getElementById('im').src = BASE_IMAGE_PATH;
+        </script>
+
+        <script type="text/javascript" th:if="${edit != null}">
+            notify({
+                type: "success", //alert | success | error | warning | info
+                title: "Updated",
+                message: '[[${edit}]]',
+                position: {
+                    x: "right", //right | left | center
+                    y: "bottom" //top | bottom | center
+                },
+                icon: '<img id="im"/>', //<i>
+                size: "normal", //normal | full | small
+                overlay: true, //true | false
+                closeBtn: true, //true | false
+                overflowHide: false, //true | false
+                spacing: 20, //number px
+                theme: "dark-theme", //default | dark-theme
+                autoHide: true, //true | false
+                delay: 1500, //number ms
+                onShow: null, //function
+                onClick: null, //function
+                onHide: null, //function
+                template: '<div class="notify"><div class="notify-text"></div></div>'
+            });
+            var BASE_IMAGE_PATH = $('meta[name=image-path]').attr("content");
+            document.getElementById('im').src = BASE_IMAGE_PATH;
+        </script>
+
+        <script type="text/javascript" th:if="${delete != null}">
+            notify({
+                type: "error", //alert | success | error | warning | info
+                title: "Deleted",
+                message: '[[${delete}]]',
+                position: {
+                    x: "right", //right | left | center
+                    y: "bottom" //top | bottom | center
+                },
+                icon: '<img id="im"/>', //<i>
+                size: "normal", //normal | full | small
+                overlay: true, //true | false
+                closeBtn: true, //true | false
+                overflowHide: false, //true | false
+                spacing: 20, //number px
+                theme: "dark-theme", //default | dark-theme
+                autoHide: true, //true | false
+                delay: 1500, //number ms
+                onShow: null, //function
+                onClick: null, //function
+                onHide: null, //function
+                template: '<div class="notify"><div class="notify-text"></div></div>'
+            });
+            var BASE_IMAGE_PATH = $('meta[name=image-path]').attr("content");
+            document.getElementById('im').src = BASE_IMAGE_PATH;
+        </script>
+
+        <div style="display:none;" id="dialog-confirm" title="Delete this TODO Item?">
+            <p>
+                <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+                This Item will be permanently deleted and cannot be recovered. Are you sure?
+            </p>
+        </div>
+        <!-- top navigation -->
+        <div th:replace="headerFragment :: header"></div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="top-pagination">
+                        <div class="page-title">
+                            <div class="title_left">
+                                <h4> Todo Details</h4>
+                            </div>
+                            <a sec:authorize="!hasRole('ROLE_SALES')"  th:href="@{/todo/show}" style="float: right">
+                                <button type="button" id="add" class="btn btn-primary">Add New</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="grid-heading">
+                        <nav class="navbar navbar-default">
+                            <div class="container-fluid">
+                                <div class="navbar-header">
+
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li role="presentation" class="active">
+                                            <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
+                                                <i class="fa fa-th-list" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
+                                                <i class="fa fa-th-large" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                        <li role="presentation_new" class="presentation_new">
+
+                                        </li>
+                                    </ul>
+                                    <!-- Nav tabs -->
+
+                                    <form th:action="@{/todo/search}" method="post">
+                                        <div class="title_right">
+                                            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                                                <div class="input-group">
+                                                    <input name="ser" type="text" class="form-control"
+                                                           placeholder="Search for...">
+                                                    <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">Go!</button>
+                              </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="grid-content">
+                        <div>
+
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                   TODO LIST
+                                                </div>
+                                            </div>
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <!--<th>#</th>-->
+                                                    <th><a class="sorted" sd:pagination-sort="itemName">Item Name</a></th>
+
+                                                    <th><a class="sorted" sd:pagination-sort="itemDescription">Item Description</a></th>
+
+                                                    <th><a class="sorted"
+                                                           sd:pagination-sort="startDate">Start Date</a></th>
+
+                                                    <th><a class="sorted"
+                                                           sd:pagination-sort="endDate">End Date</a></th>
+                                                    <th sec:authorize="!hasRole('ROLE_SALES')" >Edit</th>
+                                                    <th sec:authorize="!hasRole('ROLE_SALES')" >Delete</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="todo : ${allTodo}">
+
+                                                    <td th:text="${todo.itemName}">Mark</td>
+                                                    <td th:text="${todo.itemDescription}">Mark</td>
+                                                    <td th:text="${todo.startDate != null} ? ${#temporals.format(todo.startDate, 'dd MMM yyyy')} : 'NO DATE'"></td>
+                                                    <td th:text="${todo.endDate != null} ? ${#temporals.format(todo.endDate, 'dd MMM yyyy')} : 'NO DATE'"></td>
+
+                                                    <td sec:authorize="!hasRole('ROLE_SALES')" >
+                                                        <a th:href="@{${'/todo/edit/' + todo.id}}">Edit</a>
+                                                    </td>
+                                                    <td sec:authorize="!hasRole('ROLE_SALES')" ><a class="del"
+                                                           th:href="@{${'/todo/delete/' + todo.id}}">Delete</a>
+                                                    </td>
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="profile">
+                                    <div class="row">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div sd:pagination-summary="">info</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <nav class="pull-right">
+                                        <ul class="pagination" sd:pagination="full">
+                                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                            <li class="disabled"><a href="#" aria-label="Previous"><span
+                                                    aria-hidden="true">&laquo;</span></a></li>
+                                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+
+
+        <!-- the div that represents the modal dialog -->
+        <div class="modal fade" id="contact_dialog1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Enter your Information</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <input id="organization_type_id" type="hidden"/>
+                            <div class="form-group">
+                                <label>Organization Type Name :</label>
+                                <input type="text" class="form-control" id="organization_type_name">
+                                <span id="organization_type_name_error" style="color: red;display: none;"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Description :</label>
+                                <textarea type="text" class="form-control"
+                                          id="organization_type_description"></textarea>
+                            </div>
+
+
+                            <button type="button" onclick="sendFormData();" class="btn btn-default">Submit</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- /footer content -->
+    </div>
+</div>
+
+<script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+<!-- Booth:tstra@{/ -->
+<script th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- Fasth:tClic@{/ -->
+<script th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
+<!-- NPrth:ogres@{/ -->
+<script th:src="@{/vendors/nprogress/nprogress.js}"></script>
+<script th:src="@{/vendors/Chart.js/dist/Chart.min.js}"></script>
+<script th:src="@{/vendors/raphael/raphael.min.js}"></script>
+<script th:src="@{/vendors/morris.js/morris.min.js}"></script>
+
+<!-- Custom Theme Scripts -->
+<script th:src="@{/build/js/custom.js}"></script>
+<script th:src="@{/js/OrganizationType/organization_type_show_edit.js}"></script>
+
+<!-- Script here -->
+
+<script>
+    // JavaScript for label effects only
+    $(window).load(function () {
+        $(".col-3 input").val("");
+
+        $(".input-effect input").focusout(function () {
+            if ($(this).val() != "") {
+                $(this).addClass("has-content");
+            } else {
+                $(this).removeClass("has-content");
+            }
+        })
+    });
+
+
+    //custom input file
+    $(function () {
+
+        // We can attach the `fileselect` event to all file inputs on the page
+        $(document).on('change', ':file', function () {
+            var input = $(this),
+                numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [numFiles, label]);
+        });
+
+        // We can watch for our custom `fileselect` event like this
+        $(document).ready(function () {
+            $(':file').on('fileselect', function (event, numFiles, label) {
+
+                var input = $(this).parents('.input-group').find(':text'),
+                    log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+                if (input.length) {
+                    input.val(log);
+                } else {
+                    if (log) alert(log);
+                }
+
+            });
+        });
+
+    });
+
+    // modal
+
+    /* must apply only after HTML has loaded */
+    $(document).ready(function () {
+        $("#contact_form").on("submit", function (e) {
+            var postData = $(this).serializeArray();
+            var formURL = $(this).attr("action");
+            $.ajax({
+                url: formURL,
+                type: "POST",
+                data: postData,
+                success: function (data, textStatus, jqXHR) {
+                    $('#contact_dialog .modal-header .modal-title').html("Result");
+                    $('#contact_dialog .modal-body').html(data);
+                    $("#submitForm").remove();
+                },
+                error: function (jqXHR, status, error) {
+                    console.log(status + ": " + error);
+                }
+            });
+            e.preventDefault();
+        });
+
+        $("#submitForm").on('click', function () {
+            $("#contact_form").submit();
+        });
+    });
+</script>
+
+
+</body>
+</html>
