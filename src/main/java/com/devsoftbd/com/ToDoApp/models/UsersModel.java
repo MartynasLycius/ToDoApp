@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
@@ -27,7 +28,8 @@ public class UsersModel {
 	@Column(name = "user_id")
 	private Integer userId;
 	@NotEmpty
-	@Column(columnDefinition = "varchar(32)", nullable = false)
+	@NotNull(message = "username must have value")
+	@Column(columnDefinition = "varchar(32)")
 	@Length(max = 32, min = 3)
 	private String username;
 	@NotEmpty
