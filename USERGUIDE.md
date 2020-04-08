@@ -9,7 +9,8 @@ In home page (http://HOST:PORT/) you will find two menu
 a.By clicking TODO List(http://HOST:PORT/todo/alltodolist)  you will able to see all todo list .
 b.upper rightmost conner there is a "add new" button to add new todo (http://HOST:PORT/todo/show)
 c.you can Edit todo by clicking edit button on the table (http://HOST:PORT/todo/edit/todoId)
-d.you can Dlete todo by clicking delte button on the table (http://HOST:PORT/todo/dlete/todoId)
+d.you can Dlete todo by clicking delete button on the table (http://HOST:PORT/todo/delete/todoId)
+e.one can search todo on the search bar.
 
 2. USER List
 
@@ -18,7 +19,8 @@ b.upper rightmost conner there is a "add new" button to add new user (http://HOS
    2.b.1 ROLE_ADMIN
    2.b.2 ROLE_USER
 c.you can Edit User by clicking edit button on the table (http://HOST:PORT/user/edit/todoId)
-d.you can Dlete User by clicking delte button on the table (http://HOST:PORT/user/dlete/todoId) .But You can not delete "Admin USER"
+d.you can Dlete User by clicking delete button on the table (http://HOST:PORT/user/delete/todoId) .But You can not delete "Admin USER"
+e.one can search user on the search bar.
 
 
 
@@ -59,8 +61,8 @@ spring.datasource.password ="YOUR_DB_PASSWORD"
 
 * When run the project It will create a amdin user for the first Time .
 with below creadintial:
-USER NAME:admin
-PASSWORD :1234
+*USER NAME:admin
+*PASSWORD :1234
 
 you can also find a database in data folder . which named "tododb.sql"
 ```
@@ -75,10 +77,10 @@ ToDoApp
 
 *Build Spring Boot Project with Maven:
 To be able to run your Spring Boot app you will need to first build it. To build and package a Spring Boot app into a single executable Jar file with a Maven, use the below command. You will need to run it from the project folder which contains the pom.xml file.
- "mvn install"
+ *"mvn install"
 
 OR,You can also use Maven plugin to run your Spring Boot app. Use the below example to run your Spring Boot app with Maven plugin:
- "mvn spring-boot:run"
+ *"mvn spring-boot:run"
 
 
 
