@@ -3,6 +3,7 @@ package com.kids.crm.todo.ui;
 import com.kids.crm.todo.GreetService;
 import com.kids.crm.todo.model.Todo;
 import com.kids.crm.todo.service.TodoService;
+import com.kids.crm.todo.ui.component.ComponentFactory;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
@@ -31,14 +32,9 @@ public class TodoList extends VerticalLayout {
         setClassName("auto-margin");
 
         Grid<Todo> grid = new Grid<>(Todo.class);
-
         List<Todo> todos = todoService.fetch();
-
-
         grid.setItems(todos);
-
         grid.removeColumnByKey("id");
-
 
         grid.setColumns("id", "title", "description");
 
@@ -47,18 +43,19 @@ public class TodoList extends VerticalLayout {
         horizontalLayout.add(new Button("Edit Selected",
                 e -> Notification.show("clicked")));
         horizontalLayout.add(new Button("Delete Selected",
-                e -> Notification.show("clicked")));
+                e -> {
+                        grid.getSelectedItems().forEach(todo -> {
+                            todos.remove(todo);
+                            grid.getDataProvider().refreshAll();
+                            todoService.delete(todo);
+                        });
+                        Notification.show("Item deleted");
+                }
+        ));
 
-        HorizontalLayout header = new HorizontalLayout();
-        header.setJustifyContentMode(JustifyContentMode.CENTER);
-        header.setSizeFull();
-        header.setAlignItems(Alignment.CENTER);
 
-        Label label = new Label("All Todo");
-        header.add(label);
-        header.setClassName("heading-label");
-
-
-        add(header, horizontalLayout, grid);
+        add(ComponentFactory.createHeader("All Todo"),
+                horizontalLayout,
+                grid);
     }
 }

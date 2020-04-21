@@ -1,11 +1,11 @@
 package com.kids.crm.todo.repository;
 
 import com.kids.crm.todo.model.Todo;
-import com.kids.crm.todo.utils.PersistenceManager;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 
 @Stateless
 public class TodoRepositoryImpl implements TodoRepository {
@@ -30,8 +30,13 @@ public class TodoRepositoryImpl implements TodoRepository {
         return query.getResultList();
     }
 
+    @Override
+    public void delete(Todo todo) {
+        entityManager.remove(todo);
+    }
 
-    public Todo findById(Long id) {
-        return entityManager.find(Todo.class, id);
+
+    public Optional<Todo> findById(Long id) {
+        return Optional.of(entityManager.find(Todo.class, id));
     }
 }

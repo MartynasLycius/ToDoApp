@@ -5,6 +5,7 @@ import com.kids.crm.todo.model.Todo;
 import javax.ejb.Local;
 import javax.ejb.TransactionAttribute;
 import java.util.List;
+import java.util.Optional;
 
 @TransactionAttribute
 @Local
@@ -14,4 +15,7 @@ public interface TodoRepository {
     List<Todo> fetch();
 
 
+    void delete(Todo todo);
+
+    Optional<Todo> findById(Long id);
 }
