@@ -4,6 +4,7 @@ import com.kids.crm.todo.model.Todo;
 import com.kids.crm.todo.repository.TodoRepository;
 
 import javax.ejb.Stateless;
+import java.util.List;
 
 @Stateless
 public class TodoServiceImpl implements TodoService {
@@ -17,5 +18,11 @@ public class TodoServiceImpl implements TodoService {
 
         TodoRepository todoRepository = new TodoRepository();
         todoRepository.createTodo(todo);
+    }
+
+    @Override
+    public List<Todo> fetch() {
+        TodoRepository todoRepository = new TodoRepository();
+        return todoRepository.fetch();
     }
 }
