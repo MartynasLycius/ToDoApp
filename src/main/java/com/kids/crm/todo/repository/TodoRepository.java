@@ -18,4 +18,6 @@ public interface TodoRepository {
     void delete(Todo todo);
 
     Optional<Todo> findById(Long id);
+
+    Todo update(Todo todo);
 }

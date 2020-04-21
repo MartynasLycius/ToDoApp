@@ -13,4 +13,6 @@ public interface TodoService {
     void create(Todo todo);
 
     void delete(Todo todo);
+
+    void update(Todo todo);
 }

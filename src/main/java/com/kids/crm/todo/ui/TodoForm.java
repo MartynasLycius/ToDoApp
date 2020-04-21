@@ -32,7 +32,7 @@ public class TodoForm extends VerticalLayout {
                 e -> {
                     todoService.create(new Todo(titleField.getValue(), descField.getValue()));
                     UI.getCurrent().navigate("list");
-                });
+                });  UI.getCurrent().navigate("list");
         setWidth("590px");
         setClassName("auto-margin");
         add(ComponentFactory.createHeader("Add Todo"),

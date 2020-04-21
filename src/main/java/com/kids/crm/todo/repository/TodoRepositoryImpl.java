@@ -39,4 +39,9 @@ public class TodoRepositoryImpl implements TodoRepository {
     public Optional<Todo> findById(Long id) {
         return Optional.of(entityManager.find(Todo.class, id));
     }
+
+    @Override
+    public Todo update(Todo todo) {
+        return entityManager.merge(todo);
+    }
 }

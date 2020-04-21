@@ -34,4 +34,9 @@ public class TodoServiceImpl implements TodoService {
                 .ifPresent(todo1 -> todoRepository.delete(todo1));
 
     }
+
+    @Override
+    public void update(Todo todo) {
+        todoRepository.update(todo);
+    }
 }
