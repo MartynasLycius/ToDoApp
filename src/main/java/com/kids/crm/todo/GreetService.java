@@ -2,7 +2,10 @@ package com.kids.crm.todo;
 
 import com.kids.crm.todo.model.Todo;
 import com.kids.crm.todo.repository.TodoRepository;
+import com.kids.crm.todo.service.TodoService;
 import com.vaadin.cdi.annotation.VaadinSessionScoped;
+
+import javax.inject.Inject;
 
 /**
  * Data provider bean scoped for each user session.
@@ -10,17 +13,14 @@ import com.vaadin.cdi.annotation.VaadinSessionScoped;
 @VaadinSessionScoped
 public class GreetService {
 
+    @Inject
+    TodoService todoService;
+
     public String greet(String name) {
         if (name == null || name.isEmpty()) {
             return "Hello anonymous user";
         } else {
-            Todo todo = new Todo();
-            todo.setDescription("df");
-            todo.setTitle(name);
-
-
-            TodoRepository todoRepository = new TodoRepository();
-            todoRepository.createTodo(todo);
+            todoService.create(name);
             return "Hello " + name;
         }
     }
