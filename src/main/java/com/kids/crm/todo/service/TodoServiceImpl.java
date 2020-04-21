@@ -2,12 +2,16 @@ package com.kids.crm.todo.service;
 
 import com.kids.crm.todo.model.Todo;
 import com.kids.crm.todo.repository.TodoRepository;
+import com.kids.crm.todo.repository.TodoRepositoryImpl;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import java.util.List;
 
 @Stateless
 public class TodoServiceImpl implements TodoService {
+
+    @Inject TodoRepository todoRepository2;
 
     @Override
     public void create(String name) {
@@ -16,13 +20,13 @@ public class TodoServiceImpl implements TodoService {
         todo.setTitle(name);
 
 
-        TodoRepository todoRepository = new TodoRepository();
+        TodoRepositoryImpl todoRepository = new TodoRepositoryImpl();
         todoRepository.createTodo(todo);
     }
 
     @Override
     public List<Todo> fetch() {
-        TodoRepository todoRepository = new TodoRepository();
-        return todoRepository.fetch();
+
+        return todoRepository2.fetch();
     }
 }
