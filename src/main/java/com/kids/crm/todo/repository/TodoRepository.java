@@ -9,5 +9,9 @@ import java.util.List;
 @TransactionAttribute
 @Local
 public interface TodoRepository {
+
+    void createTodo(Todo todo);
     List<Todo> fetch();
+
+
 }

@@ -10,3 +10,10 @@
   max-width: 250px;
 }
 
+.heading-label{
+  font: 35px solid white;
+}
+
+.auto-margin{
+  margin: 0px auto;
+}

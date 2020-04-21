@@ -8,36 +8,30 @@ import javax.persistence.*;
 import java.util.List;
 
 @Stateless
-public class TodoRepositoryImpl implements TodoRepository{
+public class TodoRepositoryImpl implements TodoRepository {
 
     @PersistenceContext(name = "jpa-example")
     protected EntityManager entityManager;
 
-
-    public void createTodo(Todo todo){
-        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
+    @Override
+    public void createTodo(Todo todo) {
+      /*  EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
         em.getTransaction()
                 .begin();
         em.persist(todo);
         em.getTransaction()
                 .commit();
-        PersistenceManager.INSTANCE.close();
+        PersistenceManager.INSTANCE.close();*/
+        entityManager.persist(todo);
     }
 
     public List<Todo> fetch() {
-        /*EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
-        em.getTransaction()
-                .begin();
-
-        Query query = em.createQuery("select t from Todo t");
-        List<Todo> todos = query.getResultList();
-        em.getTransaction()
-                .commit();
-        PersistenceManager.INSTANCE.close();
-        return todos;*/
         Query query = entityManager.createQuery("select t from Todo t");
-        List<Todo> todos = query.getResultList();
-        return todos;
+        return query.getResultList();
+    }
 
+
+    public Todo findById(Long id) {
+        return entityManager.find(Todo.class, id);
     }
 }

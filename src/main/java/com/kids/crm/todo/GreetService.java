@@ -20,7 +20,7 @@ public class GreetService {
         if (name == null || name.isEmpty()) {
             return "Hello anonymous user";
         } else {
-            todoService.create(name);
+
             return "Hello " + name;
         }
     }

@@ -11,22 +11,15 @@ import java.util.List;
 @Stateless
 public class TodoServiceImpl implements TodoService {
 
-    @Inject TodoRepository todoRepository2;
-
-    @Override
-    public void create(String name) {
-        Todo todo = new Todo();
-        todo.setDescription("df");
-        todo.setTitle(name);
-
-
-        TodoRepositoryImpl todoRepository = new TodoRepositoryImpl();
-        todoRepository.createTodo(todo);
-    }
+    @Inject TodoRepository todoRepository;
 
     @Override
     public List<Todo> fetch() {
+        return todoRepository.fetch();
+    }
 
-        return todoRepository2.fetch();
+    @Override
+    public void create(Todo todo) {
+        todoRepository.createTodo(todo);
     }
 }
