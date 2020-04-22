@@ -50,7 +50,6 @@ public class TodoEditForm extends TodoForm implements HasUrlParameter<Long> {
                     edit.setDescription(descField.getValue());
                     edit.setCompletionDate(completionDate.getValue());
                     if(validateForm().validate().isOk()) {
-                        System.out.println("\n\n\n\n Form valid \n\n\n");
                         todoService.update(edit);
                         UI.getCurrent().navigate("list");
                     }
