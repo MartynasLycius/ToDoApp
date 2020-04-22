@@ -1,32 +1,24 @@
 package com.kids.crm.todo.ui;
 
-import com.kids.crm.todo.GreetService;
 import com.kids.crm.todo.model.Todo;
 import com.kids.crm.todo.service.TodoService;
 import com.kids.crm.todo.ui.component.ComponentFactory;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
-import com.vaadin.flow.server.PWA;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 @Route(value = "list")
 public class TodoList extends VerticalLayout {
-    @Inject
-    private GreetService greetService;
 
     @Inject
     private TodoService todoService;

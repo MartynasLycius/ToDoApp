@@ -1,6 +1,5 @@
 package com.kids.crm.todo.ui;
 
-import com.kids.crm.todo.GreetService;
 import com.kids.crm.todo.model.Todo;
 import com.kids.crm.todo.service.TodoService;
 import com.kids.crm.todo.ui.component.ComponentFactory;
@@ -17,8 +16,6 @@ import javax.inject.Inject;
 
 @Route(value = "add")
 public class TodoForm extends VerticalLayout {
-    @Inject
-    private GreetService greetService;
 
     @Inject
     private TodoService todoService;

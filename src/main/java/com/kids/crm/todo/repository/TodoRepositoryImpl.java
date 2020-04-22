@@ -15,13 +15,6 @@ public class TodoRepositoryImpl implements TodoRepository {
 
     @Override
     public void createTodo(Todo todo) {
-      /*  EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
-        em.getTransaction()
-                .begin();
-        em.persist(todo);
-        em.getTransaction()
-                .commit();
-        PersistenceManager.INSTANCE.close();*/
         entityManager.persist(todo);
     }
 
