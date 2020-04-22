@@ -29,7 +29,7 @@ public class TodoList extends VerticalLayout {
         setWidth("590px");
         setClassName("auto-margin");
 
-        List<Todo> todos = todoService.fetch();
+        List<Todo> todos = todoService.findAll();
         Grid<Todo> grid = buildTable(todos);
 
         HorizontalLayout buttonHolder = buildActionBar(todos, grid);
@@ -70,7 +70,7 @@ public class TodoList extends VerticalLayout {
         Grid<Todo> grid = new Grid<>(Todo.class);
         grid.setItems(todos);
         grid.removeColumnByKey("id");
-        grid.setColumns("id", "title", "description");
+        grid.setColumns("id", "title", "description", "completionDate");
         return grid;
     }
 }

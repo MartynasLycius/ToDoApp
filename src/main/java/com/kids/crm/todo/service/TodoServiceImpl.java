@@ -14,7 +14,7 @@ public class TodoServiceImpl implements TodoService {
     @Inject TodoRepository todoRepository;
 
     @Override
-    public List<Todo> fetch() {
+    public List<Todo> findAll() {
         return todoRepository.fetch();
     }
 
