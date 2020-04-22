@@ -29,16 +29,20 @@ public class TodoList extends VerticalLayout {
         setWidth("590px");
         setClassName("auto-margin");
 
-        Grid<Todo> grid = new Grid<>(Todo.class);
         List<Todo> todos = todoService.fetch();
-        grid.setItems(todos);
-        grid.removeColumnByKey("id");
+        Grid<Todo> grid = buildTable(todos);
 
-        grid.setColumns("id", "title", "description");
+        HorizontalLayout buttonHolder = buildActionBar(todos, grid);
 
-        HorizontalLayout horizontalLayout = new HorizontalLayout();
-        horizontalLayout.add(new RouterLink("Add Todo", TodoForm.class));
-        horizontalLayout.add(new Button("Edit Selected",
+        add(ComponentFactory.createHeader("All Todo"),
+                buttonHolder,
+                grid);
+    }
+
+    private HorizontalLayout buildActionBar(List<Todo> todos, Grid<Todo> grid){
+        HorizontalLayout buttonHolder = new HorizontalLayout();
+        buttonHolder.add(new RouterLink("Add Todo", TodoAddForm.class));
+        buttonHolder.add(new Button("Edit Selected",
                 e -> {
                     Set<Todo> selectedItems = grid.getSelectedItems();
                     if(selectedItems.isEmpty()){
@@ -48,20 +52,25 @@ public class TodoList extends VerticalLayout {
                     }
 
                 }));
-        horizontalLayout.add(new Button("Delete Selected",
+        buttonHolder.add(new Button("Delete Selected",
                 e -> {
-                        grid.getSelectedItems().forEach(todo -> {
-                            todos.remove(todo);
-                            grid.getDataProvider().refreshAll();
-                            todoService.delete(todo);
-                        });
-                        Notification.show("Item deleted");
+                    grid.getSelectedItems().forEach(todo -> {
+                        todos.remove(todo);
+                        grid.getDataProvider().refreshAll();
+                        todoService.delete(todo);
+                    });
+                    Notification.show("Item deleted");
                 }
         ));
 
+        return buttonHolder;
+    }
 
-        add(ComponentFactory.createHeader("All Todo"),
-                horizontalLayout,
-                grid);
+    private Grid<Todo> buildTable(List<Todo> todos){
+        Grid<Todo> grid = new Grid<>(Todo.class);
+        grid.setItems(todos);
+        grid.removeColumnByKey("id");
+        grid.setColumns("id", "title", "description");
+        return grid;
     }
 }

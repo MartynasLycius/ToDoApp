@@ -26,7 +26,7 @@ public class MainView extends VerticalLayout {
         setClassName("auto-margin");
         add(ComponentFactory.createHeader("Dashboard"),
                 new RouterLink("Todo List", TodoList.class),
-                new RouterLink("Add Todo", TodoForm.class)
+                new RouterLink("Add Todo", TodoAddForm.class)
                 );
     }
 

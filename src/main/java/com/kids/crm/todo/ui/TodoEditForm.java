@@ -20,32 +20,29 @@ public class TodoEditForm extends VerticalLayout implements HasUrlParameter<Long
     @Inject
     TodoService todoService;
 
-    Todo edit;
-
-    TextField titleField;
-    TextArea descField;
+    private Todo edit;
+    private TextField titleField;
+    private TextArea descField;
 
     @Override
     public void setParameter(BeforeEvent beforeEvent, Long parameter) {
-        System.out.println("\n\n\n\n parameterHere: \n\n\n" + parameter);
-        if(Objects.nonNull(parameter)){
+        if (Objects.nonNull(parameter)) {
             todoService.findById(parameter)
-            .map(todo -> {
-                edit = todo;
-                populateField(edit);
-                return todo;
-            })
-            .orElseThrow(NotFoundException::new)
-            ;
+                    .map(todo -> {
+                        edit = todo;
+                        populateField(todo);
+                        return todo;
+                    })
+                    .orElseThrow(NotFoundException::new);
         } else {
             Notification.show("Id missing");
         }
     }
 
 
-    void populateField(Todo todo){
-        titleField.setValue(edit.getTitle());
-        descField.setValue(edit.getDescription());
+    private void populateField(Todo todo) {
+        titleField.setValue(todo.getTitle());
+        descField.setValue(todo.getDescription());
     }
 
     @PostConstruct
@@ -59,7 +56,8 @@ public class TodoEditForm extends VerticalLayout implements HasUrlParameter<Long
                     edit.setDescription(descField.getValue());
                     todoService.update(edit);
                     UI.getCurrent().navigate("list");
-                });  UI.getCurrent().navigate("list");
+                });
+
         setWidth("590px");
         setClassName("auto-margin");
 
