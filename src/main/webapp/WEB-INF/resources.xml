@@ -1,0 +1,8 @@
+<resources>
+    <Resource id="nirvanaDatasource" type="DataSource">
+        JdbcDriver com.mysql.jdbc.Driver
+        JdbcUrl jdbc:mysql://localhost/todo
+        UserName root
+        Password a
+    </Resource>
+</resources>
