@@ -1,0 +1,8 @@
+<resources>
+    <Resource id="db" type="DataSource">
+        JdbcDriver com.mysql.jdbc.Driver
+        JdbcUrl jdbc:mysql://localhost/todo
+        UserName jotno
+        Password jotno123
+    </Resource>
+</resources>
