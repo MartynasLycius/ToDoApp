@@ -1,24 +1,22 @@
 package com.proit.todo.core.service.impl;
 
-import com.proit.todo.core.Form.PaginationForm;
+import com.proit.todo.core.persistence.specification.TaskSpecification;
+import com.proit.todo.core.persistence.repository.TaskRepository;
+import com.proit.todo.core.exceptions.RecordNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
+import com.proit.todo.core.service.iface.TaskService;
 import com.proit.todo.core.Form.task.TaskCreateForm;
 import com.proit.todo.core.Form.task.TaskSearchForm;
 import com.proit.todo.core.Form.task.TaskUpdateForm;
-import com.proit.todo.core.exceptions.RecordNotFoundException;
-import com.proit.todo.core.constant.Enums;
-import com.proit.todo.core.helper.DateHelper;
-import com.proit.todo.core.helper.SanitizerHelper;
 import com.proit.todo.core.persistence.entity.Task;
-import com.proit.todo.core.persistence.repository.TaskRepository;
-import com.proit.todo.core.persistence.specification.TaskSpecification;
-import com.proit.todo.core.service.iface.TaskService;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
-
-import org.springframework.data.jpa.domain.Specification;
-
+import com.proit.todo.core.helper.SanitizerHelper;
+import com.proit.todo.core.Form.PaginationForm;
 import org.springframework.stereotype.Service;
+import com.proit.todo.core.helper.DateHelper;
+import org.apache.commons.lang3.StringUtils;
+import com.proit.todo.core.constant.Enums;
+import org.springframework.data.domain.*;
 
 
 import java.util.Date;
@@ -27,7 +25,6 @@ import java.util.Date;
 @Service
 public class TaskServiceImpl implements TaskService {
     private TaskRepository taskRepository;
-
 
     @Autowired
     public void setTaskRepository(TaskRepository taskRepository) {
@@ -51,15 +48,21 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Page<Task> searchTask(TaskSearchForm taskSearchForm) {
+    public Page<Task> getAllBySearchCriteria(TaskSearchForm taskSearchForm) {
+        /**
+         * Pagination data
+         * */
         PaginationForm paginationForm = taskSearchForm.getPagination();
-
         int page =  paginationForm.getPageNumber();
         int limit = paginationForm.getPageSize();
-        Specification<Task> specification = Specification
-                                        .where(TaskSpecification.getSearch(taskSearchForm));
 
+        /**
+         * Criteria building
+         * */
+        Specification<Task> specification = Specification
+                                            .where(TaskSpecification.getSearch(taskSearchForm));
         Pageable pageable = PageRequest.of(page, limit);
+
 
         return  this.taskRepository.findAll(specification,pageable);
     }
@@ -134,8 +137,15 @@ public class TaskServiceImpl implements TaskService {
         Task task = this.getById(id,true);
         if(task.getState().equals(state))return task;
 
+        /**
+         * Update state
+         * */
         task.setState(Enums.TASK_STATE.DONE);
-        return task;
+
+        /**
+         * Save task
+         * */
+        return this.save(task);
     }
 
 

@@ -1,11 +1,10 @@
 package com.proit.todo.core.validator;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import com.proit.todo.core.service.iface.TaskService;
 import com.proit.todo.core.Form.task.TaskCreateForm;
-import com.proit.todo.core.Form.task.TaskSearchForm;
 import com.proit.todo.core.Form.task.TaskUpdateForm;
 import com.proit.todo.core.persistence.entity.Task;
-import com.proit.todo.core.service.iface.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 
