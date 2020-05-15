@@ -1,0 +1,23 @@
+/*
+   CSS styling examples for the Vaadin app.
+   Visit https://vaadin.com/docs/flow/theme/theming-overview.html and
+   https://vaadin.com/themes/lumo for more information.
+*/
+
+/* Example: CSS class name to center align the content . */
+.centered-content {
+  margin: 0 auto;
+  max-width: 250px;
+}
+.cell-border {
+	width: 100%;
+}
+.cell-border h2, .cell-border span{
+	border-left: ridge 1px;
+	padding-left: 2%;
+	padding-right: 2%;
+	width: 20%;
+}
+.cell-border h2:last-of-type, .cell-border span:last-of-type {
+	border-right: ridge 1px;
+}
