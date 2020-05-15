@@ -7,14 +7,12 @@ import com.proit.todo.core.constant.Enums;
 import com.proit.todo.core.exceptions.UnprocessedEntityException;
 import com.proit.todo.core.persistence.entity.Task;
 import com.proit.todo.core.service.iface.TaskService;
+import com.proit.todo.core.validator.TaskValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 import javax.validation.Valid;
 
@@ -23,10 +21,16 @@ import javax.validation.Valid;
 public class TaskController {
 
     private TaskService taskService;
+    private TaskValidator taskValidator;
 
     @Autowired
     public void setTaskService(TaskService taskService) {
         this.taskService = taskService;
+    }
+
+    @Autowired
+    public void setTaskValidator(TaskValidator taskValidator) {
+        this.taskValidator = taskValidator;
     }
 
     @RequestMapping(path = "/get-by-id/{id}",method = RequestMethod.GET)
@@ -40,8 +44,9 @@ public class TaskController {
                                     BindingResult result){
 
         /**
-         * Form Validation Error Check
+         * Custom form validation
          * */
+        this.taskValidator.validateCreate(taskCreateForm,result);
         if(result.hasErrors())throw new UnprocessedEntityException(result);
 
         /**
@@ -55,9 +60,11 @@ public class TaskController {
     @RequestMapping(path = "/update",method = RequestMethod.POST)
     public ResponseEntity<?> update(@Valid @RequestBody TaskUpdateForm taskUpdateForm,
                                     BindingResult result){
+
         /**
-         * Form Validation Error Check
+         * Custom form validation
          * */
+        this.taskValidator.validateUpdate(taskUpdateForm,result);
         if(result.hasErrors())throw new UnprocessedEntityException(result);
 
 
@@ -86,7 +93,13 @@ public class TaskController {
     }
 
     @RequestMapping(path = "/get-all",method = RequestMethod.GET)
-    public ResponseEntity<?> getAll(TaskSearchForm taskSearchForm){
+    public ResponseEntity<?> getAll(@Valid TaskSearchForm taskSearchForm,BindingResult result){
+
+        /**
+         * Form error
+        * */
+        if(result.hasErrors())throw new UnprocessedEntityException(result);
+
         Page<Task> taskPage = this.taskService.searchTask(taskSearchForm);
         return ResponseEntity.ok(taskPage);
     }

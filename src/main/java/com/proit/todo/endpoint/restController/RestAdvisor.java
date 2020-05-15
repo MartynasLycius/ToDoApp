@@ -4,7 +4,6 @@ import com.proit.todo.core.exceptions.RecordNotFoundException;
 import com.proit.todo.core.exceptions.UnprocessedEntityException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -42,11 +41,11 @@ public class RestAdvisor extends ResponseEntityExceptionHandler {
         Map<String,String> body =  objectErrorList
                                         .stream()
                                         .collect(
-                                                Collectors
-                                                        .toMap(
-                                                                ObjectError::getObjectName,
-                                                                ObjectError::getDefaultMessage
-                                                        )
+                                            Collectors
+                                                .toMap(
+                                                    ObjectError::getObjectName,
+                                                    ObjectError::getDefaultMessage
+                                                )
                                         );
         return ResponseEntity
                 .status(HttpStatus.NOT_ACCEPTABLE)
