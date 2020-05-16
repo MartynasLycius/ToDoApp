@@ -160,7 +160,7 @@ public class TaskServiceImpl implements TaskService {
         /**
          * Update state
          * */
-        task.setState(Enums.TASK_STATE.DONE);
+        task.setState(state);
 
         /**
          * Save task
