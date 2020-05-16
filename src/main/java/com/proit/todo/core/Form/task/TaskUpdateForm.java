@@ -7,7 +7,8 @@ public class TaskUpdateForm extends TaskForm {
         return id;
     }
 
-    public void setId(int id) {
+    public TaskUpdateForm setId(int id) {
         this.id = id;
+        return this;
     }
 }

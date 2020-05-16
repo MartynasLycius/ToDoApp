@@ -1,7 +1,10 @@
 package com.proit.todo.ui.pages;
 
+import com.proit.todo.core.Form.task.TaskCreateForm;
+import com.proit.todo.core.Form.task.TaskUpdateForm;
 import com.proit.todo.core.persistence.entity.Task;
 import com.proit.todo.core.service.iface.TaskService;
+import com.proit.todo.ui.helper.TaskFormValidation;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -20,6 +23,7 @@ public class EditTaskPage extends VerticalLayout implements HasUrlParameter<Inte
     private TextArea descriptionTextField = new TextArea();
     private Button submitBtn = new Button();
     private Button homeNavBtn = new Button();
+    private int taskId;
 
 
     public EditTaskPage(TaskService taskService) {
@@ -51,6 +55,7 @@ public class EditTaskPage extends VerticalLayout implements HasUrlParameter<Inte
         this.setTaskData(id);
     }
     private void setTaskData(Integer id){
+        this.taskId = id;
 
         Task task = this.taskService.getById(id,true);
         this.nameTextField.setValue(task.getName());
@@ -60,6 +65,28 @@ public class EditTaskPage extends VerticalLayout implements HasUrlParameter<Inte
         this.nameTextField.setPlaceholder("Name");
         this.descriptionTextField.setPlaceholder("Description");
         this.submitBtn.setText("Save");
+
+
+        /**
+         * Event Register
+         * */
+
+        this.submitBtn.addClickListener(e->{
+            boolean isValid = TaskFormValidation.validateName(this.nameTextField.getValue(),true);
+
+            if(!isValid)return;
+
+            TaskUpdateForm taskCreateForm = new TaskUpdateForm();
+
+            taskCreateForm.setId(this.taskId)
+                            .setName(this.nameTextField.getValue())
+                            .setDescription(this.descriptionTextField.getValue());
+
+            this.taskService.update(taskCreateForm);
+
+            UI.getCurrent().navigate("");
+
+        });
     }
 
     private void configureNavBtn(){

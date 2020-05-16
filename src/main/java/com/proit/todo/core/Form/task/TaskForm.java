@@ -11,17 +11,17 @@ public class TaskForm {
         return name;
     }
 
-    public void setName(String name) {
+    public TaskForm setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public TaskForm setDescription(String description) {
         this.description = description;
+        return this;
     }
-
-
 }

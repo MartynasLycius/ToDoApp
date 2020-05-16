@@ -1,12 +1,18 @@
 package com.proit.todo.ui.pages;
 
+import com.proit.todo.core.Form.task.TaskCreateForm;
 import com.proit.todo.core.service.iface.TaskService;
+import com.proit.todo.ui.helper.TaskFormValidation;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.progressbar.ProgressBar;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import org.apache.commons.lang3.StringUtils;
 
 
 @Route("create-task")
@@ -42,11 +48,32 @@ public class CreateTaskPage extends VerticalLayout {
                 this.submitBtn);
     }
 
-    public void configureFormFields(){
+    private void configureFormFields(){
         this.nameTextField.setPlaceholder("Name");
         this.descriptionTextField.setPlaceholder("Description");
         this.submitBtn.setText("Submit");
+
+
+        /**
+         * Event Register
+         * */
+
+        this.submitBtn.addClickListener(e->{
+            boolean isValid = TaskFormValidation.validateName(this.nameTextField.getValue(),true);
+            if(!isValid)return;
+
+            TaskCreateForm  taskCreateForm = new TaskCreateForm();
+            taskCreateForm.setName(this.nameTextField.getValue())
+                            .setDescription(this.descriptionTextField.getValue());
+
+            this.taskService.create(taskCreateForm);
+
+            UI.getCurrent().navigate("");
+
+        });
     }
+
+
 
     private void configureNavBtn(){
         this.homeNavBtn.setText("Go Home");
