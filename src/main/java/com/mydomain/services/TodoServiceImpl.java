@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.mydomain.dao.TodoItemRepository;
@@ -18,7 +22,6 @@ public class TodoServiceImpl implements TodoService {
 	@Override
 	public TodoItem getTodoItemById(Long id) {
 		Optional<TodoItem> todo = todoItemRepository.findById(id);
-        
         if(todo.isPresent()) {
             return todo.get();
         } else {
@@ -27,8 +30,11 @@ public class TodoServiceImpl implements TodoService {
 	}
 
 	@Override
-	public List<TodoItem> getTodoItems(Long offset, Integer pageSize) {
-		return todoItemRepository.findAll();
+	public List<TodoItem> getTodoItems(Integer page, Integer pageSize, String sortBy) {		
+		Pageable pageable = PageRequest.of(page.intValue(), pageSize, Sort.by(sortBy));
+		Page<TodoItem> todoPage = todoItemRepository.findAll(pageable);
+		
+		return todoPage.getContent();
 	}
 
 	@Override
@@ -37,8 +43,8 @@ public class TodoServiceImpl implements TodoService {
 	}
 
 	@Override
-	public void deleteTodoItemById(TodoItem todoItem) {
-		todoItemRepository.delete(todoItem);
+	public void deleteTodoItemById(Long id) {
+		todoItemRepository.deleteById(id);
 	}
 
 }
