@@ -20,6 +20,7 @@ import org.springframework.data.domain.*;
 
 
 import java.util.Date;
+import java.util.List;
 
 
 @Service
@@ -48,19 +49,38 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Page<Task> getAllBySearchCriteria(TaskSearchForm taskSearchForm) {
+    public Page<Task> getAllBySearchCriteria() {
+        return this.getAllBySearchCriteria(new TaskSearchForm());
+    }
+
+    public List<Task> getAllBySearchCriteriaNoPagination(TaskSearchForm taskSearchForm) {
+
+
         /**
-         * Pagination data
+         * Criteria building
          * */
-        PaginationForm paginationForm = taskSearchForm.getPagination();
-        int page =  paginationForm.getPageNumber();
-        int limit = paginationForm.getPageSize();
+        Specification<Task> specification = Specification
+                .where(TaskSpecification.getSearch(taskSearchForm));
+
+        return  this.taskRepository.findAll(specification);
+    }
+
+    @Override
+    public Page<Task> getAllBySearchCriteria(TaskSearchForm taskSearchForm) {
+
 
         /**
          * Criteria building
          * */
         Specification<Task> specification = Specification
                                             .where(TaskSpecification.getSearch(taskSearchForm));
+
+        /**
+         * Pagination data
+         * */
+        PaginationForm paginationForm = taskSearchForm.getPagination();
+        int page =  paginationForm.getPageNumber();
+        int limit = paginationForm.getPageSize();
         Pageable pageable = PageRequest.of(page, limit);
 
 

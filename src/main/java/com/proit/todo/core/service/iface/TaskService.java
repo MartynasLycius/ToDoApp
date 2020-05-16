@@ -15,5 +15,7 @@ public interface TaskService {
     Task create(TaskCreateForm form);
     Task update(TaskUpdateForm form);
     Task updateState(int id, Enums.TASK_STATE state);
+    Page<Task> getAllBySearchCriteria();
     Page<Task> getAllBySearchCriteria(TaskSearchForm taskSearchForm);
+    List<Task> getAllBySearchCriteriaNoPagination(TaskSearchForm taskSearchForm);
 }
