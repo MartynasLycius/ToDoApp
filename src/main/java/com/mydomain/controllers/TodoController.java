@@ -35,7 +35,6 @@ public class TodoController {
 	@PostMapping(value = "/")
 	public RedirectView save(
 			@ModelAttribute("todo") TodoItem todo) {
-		todo.setDate(new Date());
 		todoService.saveTodoItem(todo);
 		return new RedirectView("/todo/");
 	}

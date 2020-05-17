@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class TodoItem {
@@ -17,6 +18,7 @@ public class TodoItem {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date date;
 	@Length(min=2, max=20)
 	private String name;

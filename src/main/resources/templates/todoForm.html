@@ -21,30 +21,20 @@
 			<textarea class="form-control"  rows="5" required th:field="*{todo.description}"></textarea>
 		</div>
 
-
-		<div class="container">
-			<div class="row">
-				<div class='col-sm-6'>
-					<div class="form-group">
-						<div class='input-group date' id='datetimepicker1'>
-							<input type='text' class="form-control" th:value="*{todo.date}" />
-							<span class="input-group-addon">
-								<span class="glyphicon glyphicon-calendar"></span>
-							</span>
-						</div>
-					</div>
-				</div>
-				<script type="text/javascript">
-					$(function () {
-						jQuery('#datetimepicker1').datetimepicker();
-					});
-				</script>
-			</div>
+		<div class="form-group col-md-6">
+			<label for="exampleFormControlTextarea1">DateTime</label>
+			<input id="datePicker" name="date" type='text' class="form-control" th:value="*{todo.date}" />
 		</div>
 
-
-
-		<button type="submit" class="btn btn-primary">Save</button>
+		<button type="submit" class="btn btn-primary">Save</button>		
 	</form>
+
+	<script type="text/javascript">
+		jQuery('#datePicker').datetimepicker({
+			format: 'Y-m-d H:i',
+			inline: false,
+			lang: 'en'
+		});
+	</script>
 </body>
 </html>
