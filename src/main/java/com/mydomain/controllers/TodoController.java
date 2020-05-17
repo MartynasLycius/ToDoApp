@@ -51,6 +51,17 @@ public class TodoController {
 		}
 	}
 	
+	@DeleteMapping("/deleteall")
+	public ResponseEntity deleteall(Model model) {
+		try{
+			todoService.deleteAllTodoItems();
+			return  new ResponseEntity<>(HttpStatus.OK);
+		} catch(Exception ex) {
+			return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
 	@GetMapping(path="/{id}")
 	public String view(@PathVariable(name="id") Long id, Model model) {
 		model.addAttribute("todo", todoService.getTodoItemById(id));

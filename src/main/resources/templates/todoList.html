@@ -1,14 +1,17 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head lang="en" th:replace="fragments/header :: header"></head>
+<head lang="en" th:replace="fragments/header :: head"></head>
 <body>
-	<h1>Todo List</h1>
- 
 
-	<a href="/todo/add" class="btn btn-dark">Add New</a>
 
- 	<div id="todo-table"></div>
-
+	<div class="container">
+		<h1><a href="/todo/">My Todo List</a></h1>	
+		<div> 
+			<a href="/todo/add" class="btn  btn-outline-dark btn-lg">
+			<i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+		</div>
+		<div id="todo-table"></div>
+	</div>
 	<script>
 		var table = new Tabulator("#todo-table", {
 			pagination:"remote", //enable remote pagination
@@ -24,19 +27,18 @@
 				"last_page":"totalPage", //change last_page parameter name to "max_pages"
 			} ,
 			columns:[
+				{ title: "Date", field: "date", formatter: "datetime", formatter: function(cell, formatterParams, onRendered){
+					let dateLocaleString = "";
+					try {
+						dateLocaleString = moment(new Date(Date.parse(cell.getData().date)).toString()).format('YYYY-MM-DD HH:mm');;
+					} catch(ex){
+						dateLocaleString = "(invalid date)" + ex;
+					}
+					return dateLocaleString;
+				}
+				},
 				{ title: "Name", field: "name" },
 				{ title: "Description", field: "description" },
-				{
-					title: "Date", field: "date", formatter: "datetime", formatter: function(cell, formatterParams, onRendered){
-						let dateLocaleString = "";
-						try {
-							dateLocaleString = moment(new Date(Date.parse(cell.getData().date)).toString()).format('YYYY-MM-DD HH:mm');;
-						} catch(ex){
-							dateLocaleString = "(invalid date)" + ex;
-						}
-						return dateLocaleString;
-					}
-				},
 				{	title: "Actions",
 					formatter:actionsFormatter, hozAlign:"center"}
 			],
@@ -44,28 +46,14 @@
 
 		//custom formatter definition
 		function actionsFormatter(cell, formatterParams, onRendered){ //plain text value
-			var viewButton = '<a  href="/todo/' + cell.getData().id + '" class="btn btn-secondary">View</a>';
-			var editButton = '<a  href="/todo/edit/' + cell.getData().id + '" class="btn btn-primary">Edit</a>';
-			var deleteButton = '<a  href="javascript:confirmTodoDelete(\''+ cell.getData().id +'\');" class="btn btn-danger">Delete</a>';
+			var viewButton = '<a href="/todo/' + cell.getData().id + '" class="btn btn-outline-info">View</a>';
+			var editButton = '<a href="/todo/edit/' + cell.getData().id + '" class="btn btn-outline-primary">Edit</a>';
+			var deleteButton = '<a href="javascript:confirmTodoDelete(\''+ cell.getData().id +'\', pageRefresh);" class="btn btn-danger">Delete</a>';
 			var actions = viewButton + " " + editButton + " " + deleteButton;
 			return actions;
 		};
 
-		function confirmTodoDelete(todoId) {
-			if(confirm("Are you sure?")) {
-				$.ajax({
-					url: '/todo/' + todoId,
-					type: 'DELETE',
-					success: function(result) {
-						alert('Record deleted Successfully!');
-						table.setPage(table.getPage()); 
-					},
-					error: function(result) {
-						alert('Something wrong , server Failed to delete this record!');
-					}
-				});
-			}
-		}
+
 
 	</script>
 </body>

@@ -45,8 +45,6 @@ public class TodoServiceImpl implements TodoService {
 		return TabulatorDataAdapter.convert(todoPage);
 	}
 
-
-	
 	@Override
 	public void saveTodoItem(TodoItem todoItem) {
 		todoItemRepository.save(todoItem);
@@ -55,6 +53,11 @@ public class TodoServiceImpl implements TodoService {
 	@Override
 	public void deleteTodoItemById(Long id) {
 		todoItemRepository.deleteById(id);
+	}
+	
+	@Override
+	public void deleteAllTodoItems() {
+		todoItemRepository.deleteAll();
 	}
 
 }
