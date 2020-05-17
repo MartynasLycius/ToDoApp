@@ -48,7 +48,7 @@ public class TodoResourceTest {
 	void createTodo_whenValidInput_thenReturns200() throws Exception {
 		
 		Todo todo = new Todo();
-		todo.setId(1L);
+		todo.setId(null);
 		todo.setTitle("Task one");
 		todo.setDescription("Task one description");
 		todo.setDueDate(LocalDate.of(2020, 05, 20));
@@ -63,7 +63,7 @@ public class TodoResourceTest {
 	void createTodo_whenNullInput_thenReturns400() throws Exception {
 		
 		Todo todo = new Todo();
-		todo.setId(1L);
+		todo.setId(null);
 		todo.setTitle(null);
 		todo.setDescription("Task one description");
 		todo.setDueDate(LocalDate.of(2020, 05, 20));
