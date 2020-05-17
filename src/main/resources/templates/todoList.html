@@ -10,8 +10,9 @@
 		var table = new Tabulator("#todo-table", {
 			pagination:"remote", //enable remote pagination
 			headerSort:false,
+			layout:"fitColumns",
 			responsiveLayout:"collapse",
-			ajaxURL:"/todo/listdemo", //set url for ajax request
+			ajaxURL:"/todo/list", //set url for ajax request
 				paginationDataReceived:{
 				"last_page":"max_pages", //change last_page parameter name to "max_pages"
 			},

@@ -1,8 +1,8 @@
 package com.mydomain.controllers;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.mydomain.models.TodoItem;
-import com.mydomain.services.TodoService;
 import com.mydomain.services.PagedTodoItems;
+import com.mydomain.services.TodoService;
 
 @Controller
 @RequestMapping("/todo")
@@ -26,7 +26,7 @@ public class TodoController {
 	@Autowired
 	private TodoService todoService;
 	
-	@GetMapping(path="/{id}", produces="application/json")
+	@GetMapping(path="/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public TodoItem viewJson(@PathVariable(name="id") Long id, Model model) {
 		return todoService.getTodoItemById(id);
@@ -37,13 +37,13 @@ public class TodoController {
 			@ModelAttribute("todo") TodoItem todo) {
 		todo.setDate(new Date());
 		todoService.saveTodoItem(todo);
-		return new RedirectView("/todo/list");
+		return new RedirectView("/todo/");
 	}
 
 	@DeleteMapping("/{id}")
 	public RedirectView delete(@PathVariable(name="id") Long id, Model model) {
 		todoService.deleteTodoItemById(id);
-		return new RedirectView("/todo/list");
+		return new RedirectView("/todo/");
 	}
 	
 	@GetMapping(path="/{id}")
@@ -69,22 +69,12 @@ public class TodoController {
 	public String home(Model model) {
 		return "todoList";
 	}
-	
-	@GetMapping(value = "/list")
-	@ResponseBody
-	public List<TodoItem> listTodo(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-			@RequestParam(name = "pageSize", required = false, defaultValue = "3") Integer pageSize, @RequestParam(name = "sortBy", required = false, defaultValue = "id") String sortBy) {
-		return  todoService.getTodoItems(page, pageSize, sortBy);
-	}
-	
-	
-	@GetMapping(value = "/listdemo")
+
+	@GetMapping(value = "/list", produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public PagedTodoItems listTodoDemo(@RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
-			@RequestParam(name = "size", required = false, defaultValue = "3") Integer pageSize, @RequestParam(name = "sortBy", required = false, defaultValue = "id") String sortBy) {
-		
-		
-		
+			@RequestParam(name = "size", required = false, defaultValue = "10") Integer pageSize, @RequestParam(name = "sortBy", required = false, defaultValue = "id") String sortBy) {
+	
 		return todoService.getTodosPage(page-1, pageSize, sortBy);
 	}
 	
