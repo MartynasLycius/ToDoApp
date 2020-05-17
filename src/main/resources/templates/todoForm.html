@@ -1,18 +1,50 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Todo Details</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
+<head lang="en" th:replace="fragments/header :: header"></head>
 <body>
-    <a href="${pageContext.request.contextPath}">Go Home</a>	
+    <a href="/todo/">Todo List</a>	
+	<h1>
+		<span th:if="${todo.id}">Edit Todo</span>
+		<span th:unless="${todo.id}">Add Todo</span>
+	</h1>
 	<form method="post" action="/todo/">
-		<label for="name">Name:</label><input type="text" th:field="*{todo.name}" />
-		<label for="description">description:</label><textarea th:field="*{todo.description}"></textarea>
-	
+
 		<input type="hidden" th:field="*{todo.id}" />
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-		<button type="submit">Save</button>
+
+		<div class="form-group col-md-6">
+			<label for="exampleFormControlInput1">Name</label>
+			<input type="text" class="form-control" required placeholder="Type upto 20 characters"  th:field="*{todo.name}" />
+		</div>
+
+		<div class="form-group col-md-6">
+			<label for="exampleFormControlTextarea1">Description</label>
+			<textarea class="form-control"  rows="5" required th:field="*{todo.description}"></textarea>
+		</div>
+
+
+		<div class="container">
+			<div class="row">
+				<div class='col-sm-6'>
+					<div class="form-group">
+						<div class='input-group date' id='datetimepicker1'>
+							<input type='text' class="form-control" />
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-calendar"></span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<script type="text/javascript">
+					$(function () {
+						jQuery('#datetimepicker1').datetimepicker();
+					});
+				</script>
+			</div>
+		</div>
+
+
+
+		<button type="submit" class="btn btn-primary">Save</button>
 	</form>
 </body>
 </html>

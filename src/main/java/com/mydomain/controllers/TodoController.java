@@ -17,6 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.mydomain.models.TodoItem;
 import com.mydomain.services.TodoService;
+import com.mydomain.services.PagedTodoItems;
 
 @Controller
 @RequestMapping("/todo")
@@ -76,7 +77,15 @@ public class TodoController {
 		return  todoService.getTodoItems(page, pageSize, sortBy);
 	}
 	
-
 	
+	@GetMapping(value = "/listdemo")
+	@ResponseBody
+	public PagedTodoItems listTodoDemo(@RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
+			@RequestParam(name = "size", required = false, defaultValue = "3") Integer pageSize, @RequestParam(name = "sortBy", required = false, defaultValue = "id") String sortBy) {
+		
+		
+		
+		return todoService.getTodosPage(page-1, pageSize, sortBy);
+	}
 	
 }

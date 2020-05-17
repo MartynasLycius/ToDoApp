@@ -1,10 +1,48 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Todo Details</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
+<head lang="en" th:replace="fragments/header :: header"></head>
 <body>
-    <p th:text="'Todo, ' + ${id} + '!'" />
+	<h1>Todo List</h1>
+ 
+ 	<div id="todo-table"></div>
+
+	<script>
+		var table = new Tabulator("#todo-table", {
+			pagination:"remote", //enable remote pagination
+			headerSort:false,
+			responsiveLayout:"collapse",
+			ajaxURL:"/todo/listdemo", //set url for ajax request
+				paginationDataReceived:{
+				"last_page":"max_pages", //change last_page parameter name to "max_pages"
+			},
+			//paginationSize:2,
+			paginationDataReceived:{
+				"last_page":"totalPage", //change last_page parameter name to "max_pages"
+			} ,
+			columns:[
+				{ title: "Name", field: "name" },
+				{ title: "Description", field: "description" },
+				{
+					title: "Date", field: "date", formatter: "datetime", formatterParams: {
+						inputFormat: "YYYY-MM-DDThh:mm:ss",
+						outputFormat: "YYYY-MM-DD HH:mm:ss",
+						invalidPlaceholder: "(invalid date)",
+					}
+				},
+				{	title: "Actions",
+					formatter:actionsFormatter, hozAlign:"center"}
+			],
+		});
+
+		//custom formatter definition
+		function actionsFormatter(cell, formatterParams, onRendered){ //plain text value
+			var viewButton = '<a  href="/todo/' + cell.getData().id + '" class="btn btn-secondary">View</a>';
+			var editButton = '<a  href="/todo/edit/' + cell.getData().id + '" class="btn btn-primary">Edit</a>';
+			var deleteButton = '<a  href="#" class="btn btn-danger">Delete</a>';
+			var actions = viewButton + " " + editButton + " " + deleteButton;
+			return actions;
+		};
+
+	</script>
 </body>
 </html>

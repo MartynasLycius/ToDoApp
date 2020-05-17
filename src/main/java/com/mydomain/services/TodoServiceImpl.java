@@ -36,7 +36,17 @@ public class TodoServiceImpl implements TodoService {
 		
 		return todoPage.getContent();
 	}
+	
+	@Override
+	public PagedTodoItems getTodosPage(Integer page, Integer pageSize, String sortBy) {		
+		Pageable pageable = PageRequest.of(page.intValue(), pageSize, Sort.by(sortBy));
+		Page<TodoItem> todoPage = todoItemRepository.findAll(pageable);
 
+		return TabulatorDataAdapter.convert(todoPage);
+	}
+
+
+	
 	@Override
 	public void saveTodoItem(TodoItem todoItem) {
 		todoItemRepository.save(todoItem);

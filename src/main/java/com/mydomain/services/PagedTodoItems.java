@@ -4,12 +4,12 @@ import java.util.List;
 
 import com.mydomain.models.TodoItem;
 
-public class TodosPage {
+public class PagedTodoItems {
 
 	private int totalPage;
 	private List<TodoItem> data;
 
-	public TodosPage() {
+	public PagedTodoItems() {
 	}
 	public int getTotalPage() {
 		return totalPage;
