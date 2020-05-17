@@ -46,10 +46,26 @@
 		function actionsFormatter(cell, formatterParams, onRendered){ //plain text value
 			var viewButton = '<a  href="/todo/' + cell.getData().id + '" class="btn btn-secondary">View</a>';
 			var editButton = '<a  href="/todo/edit/' + cell.getData().id + '" class="btn btn-primary">Edit</a>';
-			var deleteButton = '<a  href="#" class="btn btn-danger">Delete</a>';
+			var deleteButton = '<a  href="javascript:confirmTodoDelete(\''+ cell.getData().id +'\');" class="btn btn-danger">Delete</a>';
 			var actions = viewButton + " " + editButton + " " + deleteButton;
 			return actions;
 		};
+
+		function confirmTodoDelete(todoId) {
+			if(confirm("Are you sure?")) {
+				$.ajax({
+					url: '/todo/' + todoId,
+					type: 'DELETE',
+					success: function(result) {
+						alert('Record deleted Successfully!');
+						table.setPage(table.getPage()); 
+					},
+					error: function(result) {
+						alert('Something wrong , server Failed to delete this record!');
+					}
+				});
+			}
+		}
 
 	</script>
 </body>

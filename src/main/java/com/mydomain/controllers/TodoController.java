@@ -2,7 +2,9 @@ package com.mydomain.controllers;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,9 +42,13 @@ public class TodoController {
 	}
 
 	@DeleteMapping("/{id}")
-	public RedirectView delete(@PathVariable(name="id") Long id, Model model) {
-		todoService.deleteTodoItemById(id);
-		return new RedirectView("/todo/");
+	public ResponseEntity delete(@PathVariable(name="id") Long id, Model model) {
+		try{
+			todoService.deleteTodoItemById(id);
+			return  new ResponseEntity<>(HttpStatus.OK);
+		} catch(Exception ex) {
+			return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	@GetMapping(path="/{id}")
