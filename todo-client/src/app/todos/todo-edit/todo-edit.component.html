@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">{{pageTitle}}</h1>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <div class="btn-group mr-2">
+      <button (click)="goToTodos()" class="btn btn-sm btn-outline-secondary">Todo List</button>
+    </div>
+  </div>
+</div>
+<div class="card">
+    <div class="card-body">
+      <div *ngIf="todo">
+        <form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label class="col-md-4">Title *</label>
+            <input type="text" 
+                  class="form-control" 
+                  formControlName="title"
+                  [ngClass]="{ 'is-invalid':f.title.touched && f.title.invalid }"/>
+              
+                <div *ngIf="f.title.touched && f.title.invalid" class="invalid-feedback">
+                    <div *ngIf="f.title.errors?.required">Title is required</div>
+                </div>
+
+          </div>
+          <div class="form-group">
+            <label class="col-md-4">Description </label>
+            <textarea class="form-control" rows = 7 cols = "5" formControlName="description"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-12 col-12 col-md-4 form-group">Due Date</label>
+            <input type="text" 
+                  class="form-control"
+                  bsDatepicker
+                  formControlName="dueDate"
+                  autocomplete="off"
+                  [bsConfig]="{isAnimated: true }"
+                  [minDate]="minDate" />
+          </div>
+          <div class="form-group">
+              <div class="text-right">
+                  <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
+                  <button type="submit" [disabled]="todoForm.pristine || todoForm.invalid" class="btn btn-primary">Create Todo</button>
+              </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
