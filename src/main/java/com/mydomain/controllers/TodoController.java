@@ -6,8 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -82,16 +84,23 @@ public class TodoController {
 	}
 	
 	@GetMapping("/")
-	public String home(Model model) {
+	public String list(Model model) {
 		return "todoList";
 	}
 
 	@GetMapping(value = "/list", produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public PagedTodoItems listTodoDemo(@RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
+	public PagedTodoItems listJson(@RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
 			@RequestParam(name = "size", required = false, defaultValue = "10") Integer pageSize, @RequestParam(name = "sortBy", required = false, defaultValue = "id") String sortBy) {
 	
 		return todoService.getTodosPage(page-1, pageSize, sortBy);
 	}
+	
+	
+	/*
+	 * @ExceptionHandler({TransactionSystemException.class,javax.validation.
+	 * ConstraintViolationException.class}) public RedirectView
+	 * handleException(Model model) { model. return new RedirectView("/todo/"); }
+	 */
 	
 }

@@ -27,7 +27,7 @@
 
         <div class="form-group col-md-6">				
             <button type="button"  th:onclick="window.location.href = '/todo/edit/[[${todo.id}]]';"  class="btn btn-primary">Edit</button>	
-            <button type="button" onclick="window.location.href = '/todo/';"  class="btn btn-light">Go Home</button>
+            <button type="button" onclick="window.location.href = '/todo/';"  class="btn btn-outline-dark">Go Home</button>
 	        <button type="button"  th:onclick="javascript:confirmTodoDelete('[[${todo.id}]]', goHome);"  class="btn btn-danger">Delete</button>		
 	
         </div>
