@@ -1,3 +1,13 @@
+# ToDoApp Project Architecture
+
+![H2](EastNetic.jpg)
+
+Technology: Java 8, Spring Boot, Spring Cloud, Spring Cloud Netflix, Spring security, Oauth 2.0, Liquibase, Vaadin 14.
+
+References 
+1. https://developer.okta.com/blog/2018/02/13/secure-spring-microservices-with-oauth
+2. https://developer.okta.com/blog/2017/06/15/build-microservices-architecture-spring-boot
+
 # ToDoApp
 
 This is the job interview task for software developer position
