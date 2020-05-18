@@ -38,7 +38,7 @@ public class MainView extends CustomComponent implements  View {
 		this.editor = editor;
 		this.grid = new Grid<>(ToDo.class);
 		this.filter = new TextField();
-		this.addNewBtn = new Button("New student", FontAwesome.PLUS);
+		this.addNewBtn = new Button("New ToDo", FontAwesome.PLUS);
 
 		// build layout
 		HorizontalLayout actions = new HorizontalLayout(filter, addNewBtn);
