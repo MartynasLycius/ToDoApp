@@ -2,15 +2,17 @@ package com.vaadin.todo.entity;
 
 import org.hibernate.validator.constraints.SafeHtml;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Temporal;
+import javax.persistence.Table;
+import javax.persistence.Column;
 import javax.persistence.TemporalType;
+import javax.persistence.Temporal;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
+@Table(name = "todo_item")
 public class ToDoItem extends AbstractEntity implements Cloneable {
 
     @NotNull
