@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class CORSFilter implements Filter {
 
-    //Here is an exmple about CORS config
+    //In this folder create all config file. Here is an exmple about CORS config
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
             throws IOException, ServletException {
         System.out.println("Filtering on...........................................................");
