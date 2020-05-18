@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Discovery" />
+        <module name="SecurityService" />
+        <module name="ClientApp" />
+        <module name="CommonService" />
+        <module name="ToDoService" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ClientApp" target="1.8" />
+      <module name="CommonService" target="1.8" />
+      <module name="Discovery" target="1.8" />
+      <module name="SecurityService" target="1.8" />
+      <module name="ToDoService" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ClientApp" options="-parameters" />
+      <module name="CommonService" options="-parameters" />
+      <module name="Discovery" options="-parameters" />
+      <module name="SecurityService" options="-parameters" />
+      <module name="ToDoService" options="-parameters" />
+    </option>
+  </component>
+</project>

@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/ClientApp/ClientApp.iml" filepath="$PROJECT_DIR$/ClientApp/ClientApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CommonService/CommonService.iml" filepath="$PROJECT_DIR$/CommonService/CommonService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Discovery/Discovery.iml" filepath="$PROJECT_DIR$/Discovery/Discovery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SecurityService/SecurityService.iml" filepath="$PROJECT_DIR$/SecurityService/SecurityService.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/ToDoApp.iml" filepath="$PROJECT_DIR$/.idea/ToDoApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ToDoService/ToDoService.iml" filepath="$PROJECT_DIR$/ToDoService/ToDoService.iml" />
     </modules>
   </component>
 </project>
