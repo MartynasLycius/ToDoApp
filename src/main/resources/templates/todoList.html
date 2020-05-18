@@ -11,11 +11,12 @@
 		<div id="todo-table"></div>
 	</div>
 	<script>
-		var table = new Tabulator("#todo-table", {
+		var todoTable = new Tabulator("#todo-table", {
 			pagination:"remote", //enable remote pagination
 			headerSort:false,
 			layout:"fitColumns",
 			responsiveLayout:"collapse",
+			placeholder: "No Todo Available",
 			ajaxURL:"/todo/list", //set url for ajax request
 				paginationDataReceived:{
 				"last_page":"max_pages", //change last_page parameter name to "max_pages"

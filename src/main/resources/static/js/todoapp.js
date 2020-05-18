@@ -1,6 +1,6 @@
 function confirmTodoDelete(todoId, afterDeleteAction) {
 	if(confirm("Record will be deleted. Are you sure?")) {
-		$.ajax({
+		jQuery.ajax({
 			url: '/todo/' + todoId,
 			type: 'DELETE',
 			success: function(result) {
@@ -15,7 +15,7 @@ function confirmTodoDelete(todoId, afterDeleteAction) {
 }
 
 function pageRefresh(){
-	table.setPage(table.getPage());
+	todoTable.setPage(1);// TODO: stay at current page or go to previous page if no data found in current page
 }
 
 function goHome(){
