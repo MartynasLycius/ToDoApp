@@ -95,12 +95,5 @@ public class TodoController {
 	
 		return todoService.getTodosPage(page-1, pageSize, sortBy);
 	}
-	
-	
-	/*
-	 * @ExceptionHandler({TransactionSystemException.class,javax.validation.
-	 * ConstraintViolationException.class}) public RedirectView
-	 * handleException(Model model) { model. return new RedirectView("/todo/"); }
-	 */
-	
+
 }
