@@ -3,6 +3,7 @@ package com.mydomain.exceptions;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -28,6 +29,7 @@ class GlobalDefaultExceptionHandler {
     mav.addObject("exception", e);
     mav.addObject("url", req.getRequestURL());
     mav.setViewName(DEFAULT_ERROR_VIEW);
+    mav.setStatus(HttpStatus.BAD_REQUEST);
     return mav;
   }
 }
