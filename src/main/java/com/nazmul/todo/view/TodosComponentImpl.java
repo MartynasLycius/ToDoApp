@@ -8,7 +8,6 @@ package com.nazmul.todo.view;
 import com.nazmul.todo.constant.CategoryType;
 import com.nazmul.todo.MainUI;
 import com.nazmul.todo.constant.ViewIdentifires;
-import com.nazmul.todo.facade.TodoItemFacade;
 import com.nazmul.todo.util.Util;
 import com.vaadin.cdi.ViewScoped;
 import com.vaadin.icons.VaadinIcons;
@@ -21,7 +20,6 @@ import com.vaadin.ui.DateField;
 import com.vaadin.ui.ProgressBar;
 import com.vaadin.ui.themes.ValoTheme;
 import java.time.LocalDate;
-import java.util.Iterator;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.vaadin.dialogs.ConfirmDialog;
@@ -238,13 +236,19 @@ public class TodosComponentImpl extends CustomComponent implements ITodosCompone
         mv.add(dateLabel, Alignment.BOTTOM_CENTER);
         
         MLabel nameLabel = new MLabel(name).withStyleName(ValoTheme.LABEL_LARGE);
-        MLabel descLabel = new MLabel(description).withStyleName(ValoTheme.LABEL_LARGE);
+        MLabel descLabel = new MLabel(description)
+                .withStyleName(ValoTheme.LABEL_SMALL
+                                + " " + "long-sentence-wrap");
         
         MHorizontalLayout editorLayout = generateTodosEditorLayout(cssLayout, id, completed);
         
         mh.add(mv, Alignment.MIDDLE_LEFT);
         mh.add(nameLabel, Alignment.MIDDLE_CENTER);
         mh.add(descLabel, Alignment.MIDDLE_CENTER);
+        
+        mh.setExpandRatio(mv, .15f);
+        mh.setExpandRatio(nameLabel, .25f);
+        mh.setExpandRatio(descLabel, .6f);
         
         cssLayout.add(mh, editorLayout);
         todosLayout.add(cssLayout, Alignment.MIDDLE_CENTER);

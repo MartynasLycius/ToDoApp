@@ -62,6 +62,9 @@ public class TodoEditorView  extends MVerticalLayout implements View {
         this.setMargin(false);
         
         description.setWidth("100%");
+        name.setWidth("50%");
+        type.addStyleName(ValoTheme.COMBOBOX_LARGE);
+        date.addStyleName(ValoTheme.DATEFIELD_LARGE);
         FormLayout editorForm = generateEditorForm();
         add(editorForm, Alignment.MIDDLE_CENTER);
         

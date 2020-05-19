@@ -51,7 +51,7 @@ $v-component-group-spacing: 6px;
     
     .todo-editor-backgroud {
         background: #808080;
-        color: #fdf5e6;
+        color: #ffffff;
     }
     
     .category-all-color {
@@ -68,5 +68,13 @@ $v-component-group-spacing: 6px;
     
     .category-personal-color {
         color: #f5fffa;
+    }
+    
+    .long-sentence-wrap {
+        text-align: left;
+        vertical-align: middle;
+        overflow: hidden;
+        max-height: 60px;
+        white-space: normal;
     }
 }

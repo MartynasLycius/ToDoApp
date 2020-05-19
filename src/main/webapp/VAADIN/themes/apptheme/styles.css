@@ -15075,3 +15075,11 @@ div.v-layout.v-horizontal.v-widget {
 .apptheme .category-personal-color {
 	color: #f5fffa;
 }
+
+.apptheme .long-sentence-wrap {
+	text-align: left;
+	vertical-align: middle;
+	overflow: hidden;
+	max-height: 60px;
+	white-space: normal;
+}
