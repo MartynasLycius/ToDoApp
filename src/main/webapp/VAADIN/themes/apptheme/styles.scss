@@ -1,0 +1,11 @@
+@import "addons.scss";
+@import "apptheme.scss";
+
+/* This file prefixes all rules with the theme name to avoid causing conflicts with other themes. */
+/* The actual styles should be defined in mytheme.scss */
+.apptheme {
+  @include addons;
+
+  // Include mytheme theme styles in your theme
+  @include apptheme;
+}

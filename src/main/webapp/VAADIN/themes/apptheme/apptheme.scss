@@ -1,0 +1,80 @@
+$v-app-loading-text: "Loading...";
+$v-background-color: #444d50;
+$v-focus-color: #07a9ca;
+$v-focus-style: 0 0 3px 2px $v-focus-color;
+$v-bevel-depth: 40%;
+$v-gradient: v-linear 12%;
+$v-border-radius: 5px;
+$v-font-family:  Arial, Helvetica, Roboto, sans-serif;
+$v-font-weight: 400;
+$v-font-weight--header: 400;
+$v-bevel: inset 0 1px 2px v-tint, inset 0 0 1px (v-tint 0.1);
+$v-shadow: 0 0 0 3px rgba(0,0,0,0.32), 0 1px 0 3px rgba(255,255,255,0.14);
+$v-textfield-bevel: inset 0 2px 2px v-shade;
+$v-textfield-shadow: $v-shadow;
+$v-unit-size: 30px;
+$v-overlay-shadow: 0 0 0 3px (v-shade 8), 0 5px 10px (v-shade 4);
+$v-component-group-spacing: 6px;
+
+@import "../valo/valo.scss";
+
+@mixin apptheme {
+    // Insert your own theme rules here.
+
+
+    @include valo;
+
+    .shadowLayout {
+        margin-top: 1em;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+        box-shadow: .5em .5em .5em 0px rgba(0, 0, 0, 0.3);
+    }
+    
+    .clickable {
+        &:hover {
+            background: #C0C0C0;
+            color: #737373;
+            cursor: pointer;
+        }
+    }
+    
+    .header {
+        font-family: cursive;
+        background: #2f4f4f;
+        border-radius: 10px;
+    }
+    
+    .category-layout-background {
+        background: #696969;
+    }
+    
+    .todo-editor-backgroud {
+        background: #808080;
+        color: #ffffff;
+    }
+    
+    .category-all-color {
+        color: #00ffff;
+    }
+    
+    .category-work-color {
+        color: #171782;
+    }
+    
+    .category-home-color {
+        color: #8fbc8f;
+    }
+    
+    .category-personal-color {
+        color: #f5fffa;
+    }
+    
+    .long-sentence-wrap {
+        text-align: left;
+        vertical-align: middle;
+        overflow: hidden;
+        max-height: 60px;
+        white-space: normal;
+    }
+}
