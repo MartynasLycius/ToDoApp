@@ -29,7 +29,7 @@ public class TodoListView extends VerticalLayout implements RouterLayout {
         setSizeFull();
         configureGrid();
         add(toDoItemGrid);
-        updateToDOItemList();
+        updateTodoItemList();
     }
 
 
@@ -41,7 +41,7 @@ public class TodoListView extends VerticalLayout implements RouterLayout {
     }
 
 
-    private void updateToDOItemList() {
+    private void updateTodoItemList() {
         toDoItemGrid.setItems(toDoItemService.findAll());
     }
 
