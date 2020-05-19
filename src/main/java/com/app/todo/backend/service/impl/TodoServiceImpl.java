@@ -16,6 +16,7 @@ public class TodoServiceImpl implements TodoService {
 
 	@Override
 	public void save(Todo todo) {
+		System.out.println(todo);
 		todoRepo.save(todo);
 	}
 
