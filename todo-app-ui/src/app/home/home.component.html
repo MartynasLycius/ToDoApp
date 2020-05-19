@@ -1,0 +1,71 @@
+
+<div class="container mt-3">
+  <!-- Example row of columns -->
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          Todo Item List ({{todoList.length}})
+        </div>
+        <div class="card-body">
+          <a routerLink="/todo-create" class="btn btn-primary mb-2">Add New</a>
+
+          <div *ngIf="todoList.length===0" class="alert alert-primary" role="alert">
+            No Todo Items in the list !!!
+          </div>
+
+          <table *ngIf="todoList.length!==0" class="table table-striped">
+            <thead>
+            <tr>
+              <th width="5%"></th>
+              <th width="75%">Todo Name</th>
+              <th width="20%">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let todo of todoList; let i = index">
+              <td><input type="checkbox" (click)="onDoneTodo(todo)"></td>
+              <td>{{i+1}}) {{todo.itemName}}</td>
+              <td>
+                <button (click)="onEditTodoItem(todo)" class="btn btn-primary btn-sm">Edit</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          Completed List ({{todoDoneList.length}})
+        </div>
+        <div class="card-body">
+          <div *ngIf="todoDoneList.length===0" class="alert alert-primary" role="alert">
+            No Todo Done Items in the list !!!
+          </div>
+          <table *ngIf="todoDoneList.length!==0" class="table table-striped">
+            <thead>
+            <tr>
+              <th width="75%">Todo Name</th>
+              <th width="25%">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let todo of todoDoneList; let i = index">
+              <td>{{i+1}}) {{todo.itemName}}</td>
+              <td>
+                <button (click)="onMakeTodo(todo)" class="btn btn-primary btn-sm">Make Todo</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+
+</div> <!-- /container -->
