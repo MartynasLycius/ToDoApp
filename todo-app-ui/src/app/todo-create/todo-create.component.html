@@ -1,0 +1,53 @@
+<div class="container marketing mt-5" style="min-height: 500px">
+  <div class="card">
+    <div class="card-header">
+      To Do List
+    </div>
+    <div class="card-body">
+      <form #submitForm="ngForm">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Todo Date <span class="text-danger">*</span></label>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="YYYY-MM-DD"
+                     name="itemDate" [(ngModel)]="itemDate"
+                     ngbDatepicker #sd="ngbDatepicker" required>
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" (click)="sd.toggle()">
+                  <svg class="bi bi-calendar-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 2a2 2 0 012-2h12a2 2 0 012 2H0z"/>
+                    <path fill-rule="evenodd" d="M0 3h16v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3zm6.5 4a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"/>
+                  </svg></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Todo Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control"
+                   name="itemName" [(ngModel)]="itemName" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea name="description" [(ngModel)]="description"
+                    rows="3" class="form-control"></textarea>
+        </div>
+        <button type="button"
+                (click)="onBack()"
+                class="btn btn-info"> << Back
+        </button>
+        <button type="button"
+                (click)="onClearForm()"
+                class="btn btn-info ml-2">Clear
+        </button>
+        <button type="button"
+                [disabled]="!submitForm.valid"
+                (click)="onCreateTodo()"
+                class="btn btn-primary ml-2">Save Change
+        </button>
+      </form>
+    </div>
+  </div>
+
+</div>
