@@ -1,7 +1,7 @@
 package com.app.todo.frontend.events;
 
 import com.app.todo.backend.entity.Todo;
-import com.app.todo.frontend.TodoForm;
+import com.app.todo.frontend.components.TodoForm;
 import com.vaadin.flow.component.ComponentEvent;
 
 public abstract class TodoEvent extends ComponentEvent<TodoForm> {

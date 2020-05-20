@@ -1,10 +1,11 @@
-package com.app.todo.frontend;
+package com.app.todo.frontend.views;
 
 
 import java.time.format.DateTimeFormatter;
 
 import com.app.todo.backend.entity.Todo;
 import com.app.todo.backend.service.TodoService;
+import com.app.todo.frontend.MainLayout;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -14,62 +15,66 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-@Route("")
-public class MainView extends VerticalLayout {
+@Route(value="", layout=MainLayout.class)
+public class TodoListView extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Grid<Todo> grid = new Grid<>(Todo.class);
-	private Button newButton = new Button("Add new todo");
+	private Grid<Todo> grid;
 	
 	private TodoService todoService;
 
-	public MainView(TodoService todoService) {
+	public TodoListView(TodoService todoService) {
 		this.todoService = todoService;
-		
-		setSizeFull();
-		configureGrid();
-		
-		newButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-		newButton.addClickListener(event -> newButton.getUI().ifPresent(ui -> ui.navigate(TodoSaveView.class)));
 				
-		add(newButton, grid);
+		setSizeFull();
+		add(buildAddButton(), buildGrid());
 		
-		updateList();
-        
+		updateList();        
     }
 	
-	private void configureGrid() {
+	private Button buildAddButton() {
+		Button button = new Button("Add new todo");
+		button.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+		button.addClickListener(event -> button.getUI().ifPresent(ui -> ui.navigate(TodoFormSaveView.class)));
+		
+		return button;
+	}
+	
+	private Grid<Todo> buildGrid() {
+		grid = new Grid<>(Todo.class);
         grid.setSizeFull();
         grid.setColumns("title", "description");
-        grid.addColumn(this::getCreatedTime).setHeader("Created");
-        grid.addComponentColumn(this::buildDeleteButton);
+        grid.addColumn(this::getFormattedTime).setHeader("Created");
+        grid.addComponentColumn(this::configureDeleteButton);
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
         
         grid.asSingleSelect().addValueChangeListener(event -> {
         	ComponentUtil.setData(UI.getCurrent(), "todo", event.getValue());
-        	this.getUI().ifPresent(ui -> ui.navigate(TodoEditView.class));
+        	this.getUI().ifPresent(ui -> ui.navigate(TodoFormEditView.class));
         });
+        
+        return grid;
     }
 	
 	private void updateList() {
         grid.setItems(todoService.getAll());
     }
 	
-	private void delete(Todo todo) {
+	private void deleteItem(Todo todo) {
 		todoService.delete(todo);
 		updateList();
 	}
 	
-	private Button buildDeleteButton(Todo todo) {
+	private Button configureDeleteButton(Todo todo) {
 		Button button = new Button("Delete");
 		button.addThemeVariants(ButtonVariant.LUMO_ERROR);
-		button.addClickListener(event -> delete(todo));
+		button.addClickListener(event -> deleteItem(todo));
 		
 		return button;
 	}
 	
-	private String getCreatedTime(Todo todo) {
+	private String getFormattedTime(Todo todo) {
 		return todo.getDatetime().format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"));		
 	}
 }

@@ -1,10 +1,9 @@
-package com.app.todo.frontend;
+package com.app.todo.frontend.components;
 
 import com.app.todo.backend.entity.Todo;
 import com.app.todo.frontend.events.TodoEvent;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
-import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -38,9 +37,6 @@ public class TodoForm extends FormLayout{
 		
 		save.addThemeVariants(ButtonVariant.LUMO_PRIMARY); 
 		cancel.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
-
-		save.addClickShortcut(Key.ENTER); 
-		cancel.addClickShortcut(Key.ESCAPE);
 		
 		save.addClickListener(event -> validateAndSave());
 		cancel.addClickListener(event -> fireEvent(new CancelEvent(this)));

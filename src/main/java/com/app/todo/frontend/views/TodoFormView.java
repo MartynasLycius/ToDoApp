@@ -1,20 +1,23 @@
-package com.app.todo.frontend;
+package com.app.todo.frontend.views;
 
 import com.app.todo.backend.entity.Todo;
 import com.app.todo.backend.service.TodoService;
+import com.app.todo.frontend.components.TodoForm;
+import com.app.todo.frontend.components.TodoForm.CancelEvent;
+import com.app.todo.frontend.components.TodoForm.SaveEvent;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
-public class TodoView extends VerticalLayout{
+public class TodoFormView extends VerticalLayout{
 	protected TodoForm form;
-	protected H1 h1;
 	
 	private TodoService todoService;
 	
-	public TodoView(TodoService todoService, String header) {
+	public TodoFormView(TodoService todoService, String header) {
 		this.todoService = todoService;
 		
-		h1 = new H1(header);
+		add(new H2(header));
 	}
 	
 	protected void setForm(Todo todo) {
@@ -26,11 +29,11 @@ public class TodoView extends VerticalLayout{
 	
 	private void saveTodo(TodoForm.SaveEvent event) {
 		todoService.save(event.getTodo());
-		getUI().ifPresent(ui -> ui.navigate(MainView.class));
+		getUI().ifPresent(ui -> ui.navigate(TodoListView.class));
 	}
 	
 	private void cancelTodo(TodoForm.CancelEvent event) {
-		getUI().ifPresent(ui -> ui.navigate(MainView.class));
+		getUI().ifPresent(ui -> ui.navigate(TodoListView.class));
 	}
 
 }
