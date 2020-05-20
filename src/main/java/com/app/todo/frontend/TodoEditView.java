@@ -7,9 +7,9 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.router.Route;
 
 @Route("edit-todo")
-public class EditTodoView extends TodoView{
+public class TodoEditView extends TodoView{
 
-	public EditTodoView(TodoService todoService) {
+	public TodoEditView(TodoService todoService) {
 		super(todoService, "Edit TODO");
 		
 		Todo todo = (Todo) ComponentUtil.getData(UI.getCurrent(), "todo");

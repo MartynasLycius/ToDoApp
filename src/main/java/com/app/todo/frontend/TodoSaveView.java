@@ -9,9 +9,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
 @Route("save-todo")
-public class SaveTodoView extends TodoView{
+public class TodoSaveView extends TodoView{
 	
-	public SaveTodoView(TodoService todoService) {
+	public TodoSaveView(TodoService todoService) {
 		super(todoService,"Add TODO");
 		
 		Todo todo = new Todo();						

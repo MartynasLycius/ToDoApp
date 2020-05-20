@@ -1,7 +1,6 @@
 package com.app.todo.frontend;
 
 import com.app.todo.backend.entity.Todo;
-import com.app.todo.backend.service.TodoService;
 import com.app.todo.frontend.events.TodoEvent;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;

@@ -31,7 +31,7 @@ public class MainView extends VerticalLayout {
 		configureGrid();
 		
 		newButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-		newButton.addClickListener(event -> newButton.getUI().ifPresent(ui -> ui.navigate("save-todo")));
+		newButton.addClickListener(event -> newButton.getUI().ifPresent(ui -> ui.navigate(TodoSaveView.class)));
 				
 		add(newButton, grid);
 		
@@ -48,7 +48,7 @@ public class MainView extends VerticalLayout {
         
         grid.asSingleSelect().addValueChangeListener(event -> {
         	ComponentUtil.setData(UI.getCurrent(), "todo", event.getValue());
-        	this.getUI().ifPresent(ui -> ui.navigate("edit-todo"));
+        	this.getUI().ifPresent(ui -> ui.navigate(TodoEditView.class));
         });
     }
 	

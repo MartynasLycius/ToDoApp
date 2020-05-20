@@ -26,11 +26,11 @@ public class TodoView extends VerticalLayout{
 	
 	private void saveTodo(TodoForm.SaveEvent event) {
 		todoService.save(event.getTodo());
-		getUI().ifPresent(ui -> ui.navigate(""));
+		getUI().ifPresent(ui -> ui.navigate(MainView.class));
 	}
 	
 	private void cancelTodo(TodoForm.CancelEvent event) {
-		getUI().ifPresent(ui -> ui.navigate(""));
+		getUI().ifPresent(ui -> ui.navigate(MainView.class));
 	}
 
 }
