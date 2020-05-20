@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.Data;
 
 @Data
@@ -25,5 +27,6 @@ public class Todo {
 	@NotNull @NotEmpty
 	private String description;
 	
+	@CreationTimestamp
 	private LocalDateTime datetime;
 }
