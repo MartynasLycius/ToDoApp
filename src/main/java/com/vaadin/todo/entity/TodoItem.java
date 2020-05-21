@@ -13,7 +13,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "todo_item")
-public class ToDoItem extends AbstractEntity implements Cloneable {
+public class TodoItem extends AbstractEntity implements Cloneable {
 
     @NotNull
     @NotEmpty
@@ -56,7 +56,7 @@ public class ToDoItem extends AbstractEntity implements Cloneable {
 
     @Override
     public String toString() {
-        return "ToDoItem{" +
+        return "TodoItem{" +
                 "itemName='" + itemName + '\'' +
                 ", description='" + description + '\'' +
                 ", createdDate=" + createdDate +
