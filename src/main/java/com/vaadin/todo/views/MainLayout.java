@@ -18,6 +18,7 @@ public class MainLayout extends AppLayout {
 
     private void createHeader() {
         H3 logo = new H3(APPLICATION_NAME);
+        logo.addClassName("logo");
 
         HorizontalLayout header = new HorizontalLayout(logo);
         header.addClassName("header");
@@ -25,9 +26,8 @@ public class MainLayout extends AppLayout {
         header.setWidth("100%");
         header.expand(logo);
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
-        
-        addToNavbar(header);
 
+        addToNavbar(header);
     }
 
 }
