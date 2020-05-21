@@ -21,10 +21,9 @@ import org.springframework.stereotype.Component;
 public class TodoListView extends VerticalLayout implements RouterLayout {
 
     Grid<TodoItem> toDoItemGrid = new Grid<>(TodoItem.class);
-    @Autowired
     private ToDoItemService toDoItemService;
-
-    private TodoListView() {
+    private TodoListView(ToDoItemService toDoItemService) {
+        this.toDoItemService = toDoItemService;
         addClassName("todo-item-list-view");
         setSizeFull();
         configureGrid();
