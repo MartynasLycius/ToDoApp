@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <title>Update Todo</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link th:href="@{/assets/bootstrap-datepicker/css/bootstrap-datepicker.css}" th:rel="stylesheet"/>
+    <link th:href="@{/assets/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}" th:rel="stylesheet"/>
+    <link th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " th:rel="stylesheet"/>
+    <link th:href="@{/webjars/font-awesome/5.11.2/css/all.css} " th:rel="stylesheet"/>
+</head>
+<body>
+<div class="container my-5">
+    <h4>Update Todo Item</h4>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-8">
+                <form action="#" method="post" th:action="@{/todo/update}" th:object="${todoItemForm}">
+                    <input th:field="*{id}" type="hidden"/>
+                    <div class="row">
+                        <div class="form-group col-md-8">
+                            <label class="col-form-label" for="itemName">Item Name</label>
+                            <input class="form-control" id="itemName" placeholder="Name" th:field="*{itemName}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{itemName}"
+                                  th:if="${#fields.hasErrors('itemName')}"></span>
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label class="col-form-label" for="description">Description</label>
+                            <textarea class="form-control" cols="25" id="description" rows="5"
+                                      th:field="*{description}"></textarea>
+                            <span class="text-danger" th:errors="*{description}"
+                                  th:if="${#fields.hasErrors('description')}"></span>
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label for="targetDate">Target Date</label>
+                            <div class="input-group date">
+                                <input autocomplete="off" class="form-control" id="targetDate" th:field="*{targetDate}"
+                                       type="text"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                </div>
+                            </div>
+                            <span class="text-danger" th:errors="*{targetDate}"
+                                  th:if="${#fields.hasErrors('targetDate')}"></span>
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <input class="btn btn-primary" type="submit" value="Update">
+                            <a class="btn btn-info" href="/todo/list" role="button">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
+<script>
+    $('.input-group.date').datepicker({
+        autoclose: true,
+        todayHighlight: true
+    });
+
+</script>
+</body>
+</html>
