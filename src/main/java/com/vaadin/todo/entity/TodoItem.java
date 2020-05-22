@@ -9,6 +9,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -18,11 +19,13 @@ public class TodoItem extends AbstractEntity implements Cloneable {
     @NotNull
     @NotEmpty
     @SafeHtml
+    @Size(min = 3, max = 15)
     private String itemName = "";
 
     @NotNull
     @NotEmpty
     @SafeHtml
+    @Size(min = 3, max = 15)
     @Column(columnDefinition="TEXT")
     private String description = "";
 
