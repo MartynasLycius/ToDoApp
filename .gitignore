@@ -1,0 +1,27 @@
+# This file is used for Git repositories to specify intentionally untracked files that Git should ignore. 
+# If you are not using git, you can delete this file. For more information see: https://git-scm.com/docs/gitignore
+# For useful gitignore templates see: https://github.com/github/gitignore
+
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# Ignore directories
+target/
+.idea
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+*.iml
+
+# virtual machine crash logs
+hs_err_pid*
