@@ -70,3 +70,31 @@ Project follow the Maven's [standard directory layout structure](https://maven.a
 ## Notes
 
 If you run application from a command line, remember to prepend a `mvn` to the command.
+
+
+### Technologies:
+
+- Java 8
+- Spring-boot
+- Maven
+- MySql
+- Vaadin
+
+
+### Database Setup:
+- Please configure Database on  `application.properties` file
+
+### Maven Run Command:
+
+- run without test
+
+    `
+    mvn clean spring-boot:run
+    `
+- run without test
+	
+	   `
+	   mvn clean test spring-boot:run
+	   `
+    
+- run test only
