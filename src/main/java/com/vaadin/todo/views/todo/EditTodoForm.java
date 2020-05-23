@@ -1,7 +1,6 @@
 package com.vaadin.todo.views.todo;
 
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.router.*;
 import com.vaadin.todo.entity.TodoItem;
