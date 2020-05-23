@@ -4,12 +4,13 @@ package com.vaadin.todo.service;
 import com.vaadin.todo.entity.TodoItem;
 import com.vaadin.todo.execption.internalServerErrorException;
 import com.vaadin.todo.execption.notFoundException;
-import com.vaadin.todo.repository.ToDoItemRepository;
+import com.vaadin.todo.repository.TodoItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,7 +20,7 @@ public class ToDoItemService {
     @Autowired
     private MessageSource messageSource;
     @Autowired
-    private ToDoItemRepository toDoItemRepository;
+    private TodoItemRepository toDoItemRepository;
 
     private static final Logger LOGGER = Logger.getLogger(ToDoItemService.class.getName());
 
@@ -38,6 +39,14 @@ public class ToDoItemService {
             LOGGER.warning(ex.getMessage());
             throw new internalServerErrorException(messageSource.getMessage("internal.server.error", null, null));
         }
+    }
+
+    public Optional<TodoItem> findById(Long id) throws notFoundException {
+        Optional<TodoItem> todoItem = toDoItemRepository.findById(id);
+        if (todoItem == null) {
+            throw new notFoundException(messageSource.getMessage("todo.not.found", null, null));
+        }
+        return todoItem;
     }
 
 }
