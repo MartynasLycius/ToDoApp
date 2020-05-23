@@ -19,13 +19,13 @@ public class TodoItem extends AbstractEntity implements Cloneable {
     @NotNull
     @NotEmpty
     @SafeHtml
-    @Size(min = 3, max = 15)
+    @Size(min = 3, max = 300)
     private String itemName = "";
 
     @NotNull
     @NotEmpty
     @SafeHtml
-    @Size(min = 3, max = 15)
+    @Size(min = 3, max = 2000)
     @Column(columnDefinition="TEXT")
     private String description = "";
 
