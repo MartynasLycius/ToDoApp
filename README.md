@@ -15,10 +15,13 @@ DB file is located at: src/main/resources/DB/proit_todo_app.sql
 * DB User: root
 * DB Pass: tamjit123
 
-##Pages (Route)
+## Pages (Route)
 * / : List Todo Items
 * /add : add todo
 * /edit/{id} : edit todo
+
+## Tools
+Spring Boot, Spring Security, JPA, MySQL, Vaadin, Maven
 
 
 
