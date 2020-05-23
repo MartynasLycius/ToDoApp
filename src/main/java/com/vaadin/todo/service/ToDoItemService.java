@@ -28,13 +28,13 @@ public class ToDoItemService {
         return toDoItemRepository.findAll();
     }
 
-    public void save(TodoItem toDoItem) throws Exception {
+    public TodoItem save(TodoItem toDoItem) throws Exception {
         try {
             if (toDoItem == null) {
                 LOGGER.log(Level.SEVERE, messageSource.getMessage("todo.not.found", null, null));
                 throw new notFoundException(messageSource.getMessage("todo.not.found", null, null));
             }
-            toDoItemRepository.save(toDoItem);
+            return toDoItemRepository.save(toDoItem);
         }catch (Exception ex) {
             LOGGER.warning(ex.getMessage());
             throw new internalServerErrorException(messageSource.getMessage("internal.server.error", null, null));
