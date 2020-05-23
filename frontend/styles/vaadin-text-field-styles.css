@@ -1,0 +1,25 @@
+/*
+   CSS styling examples for the Vaadin app.
+   Visit https://vaadin.com/docs/flow/theme/theming-overview.html and
+   https://vaadin.com/themes/lumo for more information.
+*/
+
+/* Example: border-only style for all Vaadin textfields . */
+.login-view{
+box-shadow: black 0px 1px 2px 3px;
+}
+
+.greenButton {
+    font-weight: bold;
+    border-radius: 30px;
+    margin-bottom: 10px;
+    background-color: #3FB246;
+    color: #FFFFFF;
+}
+.redButton {
+    font-weight: bold;
+    border-radius: 30px;
+    margin-bottom: 10px;
+    background-color: #CD3E3E;
+    color: #FFFFFF;
+}

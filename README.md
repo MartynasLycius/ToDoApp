@@ -1,5 +1,30 @@
 # ToDoApp
 
+
+## User Login
+User List: 
+1. admin@proit.com; admin
+2. user@proit.com; user
+3. jhon@proit.com; user
+
+* No user restriction by role :)
+
+## Database
+DB file is located at: src/main/resources/DB/proit_todo_app.sql
+* DB Name: proit_todo
+* DB User: root
+* DB Pass: tamjit123
+
+## Pages (Route)
+* / : List Todo Items
+* /add : add todo
+* /edit/{id} : edit todo
+
+## Tools
+Spring Boot, Spring Security, JPA, MySQL, Vaadin, Maven
+
+
+
 This is the job interview task for software developer position
 
 ## What to do
