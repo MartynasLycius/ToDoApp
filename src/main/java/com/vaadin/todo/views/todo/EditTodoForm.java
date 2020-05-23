@@ -1,6 +1,7 @@
 package com.vaadin.todo.views.todo;
 
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.router.*;
 import com.vaadin.todo.entity.TodoItem;
@@ -36,18 +37,18 @@ public class EditTodoForm extends TodoForm implements HasUrlParameter<String>  {
     @Override
     protected void createButtonsLayout() {
         super.createButtonsLayout();
-        save.addClickListener(click -> validateAndSave());
+        save.addClickListener(click -> validateAndEdit());
 
 
     }
 
-    private void validateAndSave() {
+    private void validateAndEdit() {
         if (binder.isValid()) {
-            saveToDoItem();
+            editToDoItem();
         }
     }
 
-    private void saveToDoItem() {
+    private void editToDoItem() {
         try {
             todoItem.setItemName(itemName.getValue());
             todoItem.setDescription(description.getValue());
