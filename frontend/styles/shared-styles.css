@@ -1,0 +1,273 @@
+/*
+   CSS styling examples for the Vaadin app.
+   Visit https://vaadin.com/docs/flow/theme/theming-overview.html and
+   https://vaadin.com/themes/lumo for more information.
+*/
+
+/* Example: CSS class name to center align the content . */
+body{
+    background-color: #cccccc;
+    background-image: linear-gradient(#e6f2ff, #99ccff);
+    width: auto;
+    min-height: 669px;
+}
+
+.centered-content {
+  margin: 0 auto;
+  max-width: 250px;
+}
+
+/* Main layout */
+#navbarTop{
+    position: fixed!important;
+    display: contents!important;
+    background: none!important;
+}
+
+[part="navbar"] {
+    box-shadow: var(--lumo-box-shadow-xl);
+    position: fixed!important;
+    display: contents!important;
+    background: none!important;
+}
+
+a[highlight] {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.header-container {
+    border:1px #99ccff solid;
+    height: 100%;
+    background-color: #cccccc;
+    background-image: linear-gradient(#e6f2ff, #99ccff);
+}
+
+.header-content {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.header-content span {
+    font-size: 30px;
+    font-weight: bolder;
+    color: #0059b3;
+    /*background-image: linear-gradient(#e6f2ff, #99ccff);*/
+}
+
+.header {
+    padding: 10px var(--lumo-space-m);
+    margin: 0 auto;
+    width: 70%!important;
+}
+
+.header h1.logo {
+    font-size: 1em;
+    margin: var(--lumo-space-m);
+    color: var(--lumo-secondary-text-color);
+}
+
+.profile-menu-bar{
+    position: absolute;
+    float: right;
+    right: 16%;
+    top: 9px;
+}
+
+:host([part="menu-bar-button"]) {
+    background: none;
+}
+:host([theme="menu-bar-item"]) {
+    font-size: var(--lumo-font-size-s)!important;
+}
+:host([part="overlay"]) {
+    background: none;
+}
+[part="overlay"]{
+    background: none;
+}
+
+/*body*/
+vaadin-app-layout{
+    height: auto;
+}
+div.body-container{
+    margin: 0 auto;
+    border: 1px #66b3ff solid;
+    height: 100%;
+    width: 69%;
+    background-image: linear-gradient(#e6f2ff, #99ccff);
+}
+
+
+/*login*/
+vaadin-login-form{
+    padding: 0 250px;
+    display: block;
+}
+vaadin-form-layout{
+    padding: 10px 20px;
+}
+[part="vaadin-login-native-form-wrapper"]{
+    display: contents;
+    margin: 0 100px;
+}
+
+.login-view{
+    height: auto!important;
+}
+
+.form-title, .form-btn-row{
+    width: 100%!important;
+}
+
+.form-title h3{
+    margin: 0 10px;
+    color: var(--lumo-secondary-text-color);
+}
+.form-btn-row{
+    justify-content: center;
+    padding-right: 30px;
+    display: inline-grid;
+    margin-top: 20px;
+}
+
+/*Body contents*/
+div.content-row{
+    width: 100%;
+    align-content: center;
+    float: left;
+    justify-content: center;
+}
+div.content-col{
+    width: 47%;
+    align-content: center;
+    justify-content: center;
+    float: left;
+    /*border: 1px #0059b3 solid;*/
+    height: 250px;
+    margin: 12px;
+}
+div.tasklist-view{
+    position: relative;
+    background-color: #fbfbfb;
+    color: #5a5a5a;
+    width: 100%;
+    -webkit-box-shadow: 0 10px 50px -20px #8773c1;
+    box-shadow: 0 10px 50px -20px #8773c1;
+    margin: 0 auto;
+    overflow: hidden;
+    z-index: 1;
+    height: 250px;
+    padding: 10px;
+}
+div.task-view{
+    width: 97%;
+    border: 1px #0059b3 solid;
+    min-height: 200px;
+    margin: 12px;
+    position: relative;
+    background-color: #fbfbfb;
+    color: #5a5a5a;
+    -webkit-box-shadow: 0 10px 50px -20px #8773c1;
+    box-shadow: 0 10px 50px -20px #8773c1;
+    overflow: hidden;
+    z-index: 1;
+    height: auto;
+    padding: 10px;
+    text-align: justify;
+}
+.selected-task-date{
+    float: left;
+    font-weight: bold;
+    font-size: 14px;
+    width: 69%;
+    /*color: var(--_lumo-button-color, var(--lumo-primary-text-color));
+    background-color: var(--_lumo-button-background-color, var(--lumo-contrast-5pct));
+    padding: 0 10px;
+    border-radius: 4px;*/
+}
+.add-new-task-btn{
+    width: 30%;
+    font-size: 14px;
+    float: right;
+    height: 37px;
+}
+.task-view-heading{
+    font-weight: bold;
+}
+
+.comment-view-list{
+    margin: 0;
+}
+
+/* List view */
+div.list-box-container{
+    overflow: auto;
+    height: 81%;
+}
+vaadin-list-box{
+}
+vaadin-list-box vaadin-item{
+    font-size: 14px;
+    min-height: auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 1px 0;
+    background: linear-gradient(#e6f2ff, #99ccff);
+}
+vaadin-list-box vaadin-item:hover{
+    background: linear-gradient(#e6f2ff, #b3deff);
+}
+div.task-list-item{
+    padding-left: 0;
+}
+div.task-list-item:before{
+    content: "\2022";
+    color: #006400;
+    font-weight: bold;
+    display: inline-block;
+    width: 15px;
+    margin-left: 0;
+    font-size: 26px;
+    line-height: 14px;
+
+}
+
+div.task-list-item span.task-list-item-time{
+    font-weight: bold;
+    color: #a52a2a;
+    font-size: 16px;
+}
+
+div.task-list-item span.task-list-item-name{
+    font-size: 14px;
+    padding: 0 0 0 5px;
+}
+
+.list-view .content {
+    display: flex;
+}
+
+.list-view .contact-grid {
+    flex: 2;
+}
+
+.list-view .contact-form {
+    flex: 1;
+    padding: var(--lumo-space-m);
+}
+
+@media all and (max-width: 1100px) {
+    .list-view.editing .toolbar,
+    .list-view.editing .contact-grid {
+        display: none;
+    }
+}
+
+.dashboard-view .contact-stats {
+    font-size: 4em;
+    margin: 1em 0;
+}
+
