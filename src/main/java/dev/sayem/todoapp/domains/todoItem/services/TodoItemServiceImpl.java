@@ -23,6 +23,7 @@ public class TodoItemServiceImpl implements TodoItemService {
 
     @Override
     public Page<TodoItem> search(String query, int page, int size) {
+        if (query != null) query = query.toLowerCase();
         return this.todoItemRepository.search(query, PageAttr.getPageRequest(page, size));
     }
 

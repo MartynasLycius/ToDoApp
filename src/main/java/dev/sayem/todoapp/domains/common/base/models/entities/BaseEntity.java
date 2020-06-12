@@ -1,7 +1,5 @@
 package dev.sayem.todoapp.domains.common.base.models.entities;
 
-import dev.sayem.todoapp.commons.utils.DateUtil;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -28,8 +26,8 @@ public abstract class BaseEntity implements Serializable {
     @Column(name = "updated_by")
     private String updatedBy;
 
-    @Column(name = "uuid_str", nullable = false, unique = true)
-    private String uuid;
+    @Column(name = "uuid", nullable = false, unique = true)
+    private UUID uuid;
 
     @Column(nullable = false)
     private boolean deleted;
@@ -39,7 +37,7 @@ public abstract class BaseEntity implements Serializable {
         this.createdAt = new Date();
         this.updatedAt = createdAt;
         this.createdBy = "admin"; // TODO: username will come from security context
-        this.uuid = UUID.randomUUID().toString();
+        this.uuid = UUID.randomUUID();
     }
 
     @PreUpdate
@@ -49,11 +47,11 @@ public abstract class BaseEntity implements Serializable {
     }
 
 
-    public String getUuid() {
+    public UUID getUuid() {
         return uuid;
     }
 
-    public void setUuid(String uuid) {
+    public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
 
@@ -63,10 +61,6 @@ public abstract class BaseEntity implements Serializable {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
-    }
-
-    public String getReadableDate(Date date) {
-        return DateUtil.getReadableDate(date);
     }
 
     public Long getId() {

@@ -5,6 +5,7 @@ import dev.sayem.todoapp.domains.todoItem.models.dtos.TodoItemDto;
 import dev.sayem.todoapp.domains.todoItem.models.entities.TodoItem;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.Objects;
 
 @Component
@@ -16,6 +17,7 @@ public class TodoItemMapper implements BaseMapper<TodoItem, TodoItemDto> {
         TodoItemDto dto = new TodoItemDto();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
+        dto.setDescription(entity.getDescription());
         dto.setDate(entity.getDate());
         dto.setCreatedAt(entity.getCreatedAt());
         dto.setUpdatedAt(entity.getUpdatedAt());
@@ -28,7 +30,7 @@ public class TodoItemMapper implements BaseMapper<TodoItem, TodoItemDto> {
         if (entity == null) entity = new TodoItem();
         entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
-        entity.setDate(dto.getDate());
+        entity.setDate(dto.getDate() == null ? new Date() : dto.getDate());
         return entity;
     }
 }

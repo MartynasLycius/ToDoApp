@@ -9,13 +9,12 @@ create table todo_items
     deleted boolean not null,
     updated_at timestamp,
     updated_by varchar(255),
-    uuid_str varchar(255) not null
-        constraint uk_8ajuiqv4yht19w37hw861gf8o
+    uuid uuid not null
+        constraint uk_6e3cfbbdtql6rergu6unddhlx
         unique,
     date timestamp not null,
     description text,
     name varchar(255) not null
 );
 
-alter table todo.todo_items owner to sayem;
 

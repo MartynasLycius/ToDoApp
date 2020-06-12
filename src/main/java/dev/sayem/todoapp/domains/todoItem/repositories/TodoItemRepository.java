@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface TodoItemRepository extends JpaRepository<TodoItem, Long> {
 
-    @Query("SELECT t FROM TodoItem t WHERE (:q IS NULL OR t.name LIKE %:q%) AND t.deleted=false")
+    @Query("SELECT t FROM TodoItem t WHERE (:q IS NULL OR LOWER(t.name) LIKE %:q%) AND t.deleted=false")
     Page<TodoItem> search(@Param("q") String query, Pageable pageable);
 
     @Query("SELECT t FROM TodoItem t WHERE t.id=:id AND t.deleted=false")

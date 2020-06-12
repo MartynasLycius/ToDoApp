@@ -1,5 +1,6 @@
 package dev.sayem.todoapp.domains.todoItem.models.dtos;
 
+import dev.sayem.todoapp.commons.utils.DateUtil;
 import dev.sayem.todoapp.domains.common.base.models.dtos.BaseDto;
 
 import javax.validation.constraints.Size;
@@ -21,6 +22,11 @@ public class TodoItemDto extends BaseDto {
         this.name = name;
     }
 
+    public String getDescriptionShort() {
+        if (description == null) return "";
+        return description.substring(0, Math.min(50, description.length()))+"..";
+    }
+
     public String getDescription() {
         return description;
     }
@@ -36,4 +42,13 @@ public class TodoItemDto extends BaseDto {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    public String getReadableDateTime() {
+        return DateUtil.getReadableDateTime(this.date);
+    }
+
+    public String getHtmlDateTime() {
+        return DateUtil.getHtmlDateFormat().format(this.date);
+    }
+
 }
