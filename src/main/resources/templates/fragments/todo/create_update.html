@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="index">
+<div layout:fragment="main_content">
+
+    <div th:include="fragments/nav"></div>
+
+    <div class="row mt-2">
+        <div class="col-sm-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <h1>To-Do List</h1>
+                </div>
+                <div class="card-body">
+
+                    <div th:include="forms/todo_form"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</html>

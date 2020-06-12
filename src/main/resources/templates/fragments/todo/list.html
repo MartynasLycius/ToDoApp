@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="index">
+<div layout:fragment="main_content">
+
+    <div th:include="fragments/nav"></div>
+
+    <div class="row mt-2">
+        <div class="col-sm-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <h1>To-Do List</h1>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Time</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                        </thead>
+                        <tbody>
+                        <tr th:each="item : ${items}">
+                            <td th:text="${item.name}"></td>
+                            <td th:text="${item.getDescriptionShort()}"></td>
+                            <td th:text="${item.getReadableDateTime()}"></td>
+                            <td>
+                                <a th:href="@{/todos/}+${item.id}" class="btn btn-warning">Edit</a>
+                            </td>
+                            <td>
+                                <form method="post" onsubmit="return confirm('Are you sure?');"
+                                      th:action="@{/todos/}+${item?.id}+@{/delete}">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</html>
