@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="fragments/header :: head"></head>
+<body>
+  	<div class="container">
+		<h1><a href="/todo/">My Todo List</a></h1>	
+		<h3>
+			<span th:if="${todo.id}">Edit Todo</span>
+			<span th:unless="${todo.id}">Add Todo</span>
+		</h3>
+		<form method="post" action="/todo/">
+
+			<input type="hidden" th:field="*{todo.id}" />
+
+			<div class="form-group col-md-6">
+				<label for="todoDatePicker">DateTime</label>
+				<input id="todoDatePicker" name="date" required autocomplete="off" type='text' class="form-control" th:value="*{todo.date}"  placeholder="Select a Datetime"/>
+			</div>
+
+			<div class="form-group col-md-6">
+				<label for="todoName">Name</label>
+				<input type="text" id="todoName" class="form-control" required placeholder="Type upto 20 characters"  th:field="*{todo.name}" />
+			</div>
+
+			<div class="form-group col-md-6">
+				<label for="todoDesc">Description</label>
+				<textarea class="form-control" id="todoDesc"  rows="5" required th:field="*{todo.description}" placeholder="Type upto 1024 characters"></textarea>
+			</div>
+
+			<div class="form-group col-md-6">				
+				<button type="submit" class="btn btn-primary">Save</button>	
+				<button type="button" onclick="window.location.href = '/todo/';"  class="btn btn-outline-dark">Go Home</button>
+	            <span th:if="${todo.id}"><button type="button"  th:onclick="javascript:confirmTodoDelete('[[${todo.id}]]', goHome);"  class="btn btn-danger">Delete</button></span>		
+			</div>
+				
+		</form>
+	</div>
+
+	<script type="text/javascript">
+		jQuery('#todoDatePicker').datetimepicker({
+			format: 'Y-m-d H:i',
+			inline: false,
+			lang: 'en'
+		});
+	</script>
+
+</body>
+</html>
