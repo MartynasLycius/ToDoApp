@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="1" author="bitto" context="production">
+
+		<!-- Role Tables -->
+		<createTable tableName="role">
+			<column name="id" autoIncrement="true" type="NUMERIC(20)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="name" type="varchar(128)">
+				<constraints unique="true" nullable="false" />
+			</column>
+			<column name="description" type="varchar(128)" />
+			<column name="created" type="TIMESTAMP" />
+			<column name="updated" type="TIMESTAMP" />
+			<column name="deleted" type="TIMESTAMP" />
+		</createTable>
+
+		<!-- User tables -->
+		<createTable tableName="users">
+			<column name="id" autoIncrement="true" type="NUMERIC(20)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="first_name" type="varchar(128)" />
+			<column name="last_name" type="varchar(128)" />
+			<column name="user_name" type="varchar(128)" />
+			<column name="email" type="varchar(128)">
+				<constraints unique="true" nullable="false" />
+			</column>
+			<column name="password" type="varchar(128)" />
+			<column name="enabled" type="BOOLEAN" />
+			<column name="change_password" type="BOOLEAN" />
+		</createTable>
+
+		<createTable tableName="user_role">
+			<column name="user_id" type="NUMERIC(20)">
+				<constraints nullable="false" />
+			</column>
+			<column name="role_id" type="NUMERIC(20)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<addUniqueConstraint tableName="user_role"
+			columnNames="user_id,role_id" constraintName="uq_userid_roleid" />
+
+		<!-- OAuth2 Tables -->
+		<createTable tableName="oauth_client_details">
+			<column name="id" autoIncrement="true" type="NUMERIC(20)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="client_id" type="varchar(255)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="resource_ids" type="varchar(255)" />
+			<column name="client_secret" type="varchar(255)" />
+			<column name="scope" type="varchar(255)" />
+			<column name="authorized_grant_types" type="varchar(255)" />
+			<column name="web_server_redirect_uri" type="varchar(255)" />
+			<column name="authorities" type="varchar(255)" />
+			<column name="access_token_validity" type="INT" />
+			<column name="refresh_token_validity" type="INT" />
+			<column name="additional_information" type="varchar(4096)" />
+			<column name="autoapprove" type="varchar(255)" />
+		</createTable>
+
+		<createTable tableName="oauth_client_token">
+			<column name="authentication_id" type="varchar(255)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="token_id" type="varchar(255)" />
+			<column name="token" type="longvarbinary" />
+			<column name="user_name" type="varchar(255)" />
+			<column name="client_id" type="varchar(255)" />
+		</createTable>
+
+		<createTable tableName="oauth_access_token">
+			<column name="authentication_id" type="varchar(255)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="token_id" type="varchar(255)" />
+			<column name="token" type="longvarbinary" />
+			<column name="user_name" type="varchar(255)" />
+			<column name="client_id" type="varchar(255)" />
+			<column name="authentication" type="longvarbinary" />
+			<column name="refresh_token" type="varchar(255)" />
+		</createTable>
+
+		<createTable tableName="oauth_refresh_token">
+			<column name="token_id" type="varchar(255)" />
+			<column name="token" type="longvarbinary" />
+			<column name="authentication" type="longvarbinary" />
+		</createTable>
+
+		<createTable tableName="oauth_code">
+			<column name="code" type="varchar(255)" />
+			<column name="authentication" type="longvarbinary" />
+		</createTable>
+
+		<createTable tableName="oauth_approvals">
+			<column name="userId" type="varchar(255)" />
+			<column name="clientId" type="varchar(255)" />
+			<column name="scope" type="varchar(255)" />
+			<column name="status" type="varchar(255)" />
+			<column name="expiresAt" type="TIMESTAMP" />
+			<column name="lastModifiedAt" type="TIMESTAMP" />
+		</createTable>
+
+		<createTable tableName="todos">
+			<column name="id" autoIncrement="true" type="NUMERIC(20)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="title" type="varchar(255)" />
+			<column name="description" type="varchar(10000)" />
+			<column name="user_id" type="NUMERIC(20)" />
+		</createTable>
+
+		<!-- Sequences -->
+		<createSequence cycle="true" incrementBy="1"
+			maxValue="999999" minValue="1000" sequenceName="role_sequence"
+			startValue="1001" />
+		<createSequence cycle="true" incrementBy="1"
+			maxValue="999999" minValue="1000" sequenceName="users_sequence"
+			startValue="1001" />
+		<createSequence cycle="true" incrementBy="1"
+			maxValue="999999" minValue="1000" sequenceName="clients_sequence"
+			startValue="1001" />
+		<createSequence cycle="true" incrementBy="1"
+			maxValue="999999" minValue="1000" sequenceName="todo_sequence"
+			startValue="1001" />
+
+		<!-- Data Seeding Fiasco -->
+		<insert tableName="oauth_client_details">
+			<column name="id" value="1" />
+			<column name="client_id"
+				value='MqWiJvM6cmUaZtu9LM6yyg9JWuvbYJrV' />
+			<column name="client_secret"
+				value='JHpCfDKJtG3r8gTNW9ATAQa3ctqDsZPp2afmABoryEyuf2KFVNnFrQziGmAwzWWF' />
+			<column name="resource_ids" value="my_rest_api" />
+			<column name="scope" value="read,write,trust" />
+			<column name="authorized_grant_types"
+				value="password,authorization_code,refresh_token,implicit" />
+			<column name="access_token_validity" value="7200" />
+			<column name="refresh_token_validity" value="2592000" />
+			<column name="additional_information"
+				value='{"client": "default"}' />
+			<column name="autoapprove" value="true" />
+		</insert>
+		<customChange
+			class="com.backend.boiler.plate.database.DataLoaderTask">
+			<param name="userFileName" value="/db-migration/data/user.csv" />
+		</customChange>
+	</changeSet>
+</databaseChangeLog>

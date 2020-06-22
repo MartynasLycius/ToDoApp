@@ -1,0 +1,2 @@
+id,firstName,lastName,username,password,email,roles,enabled,change_password
+1L,admin,admin,admin,password,bitto.kazi@gmail.com,ROLE_ADMIN,1,1
