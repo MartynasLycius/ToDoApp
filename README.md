@@ -1,28 +1,37 @@
-# ToDoApp
+# sb-boiler-plate-backend
 
-This is the job interview task for software developer position
+health URL: http://localhost:8080/sb-boiler-plate-backend/actuator/health
 
-## What to do
-* Fork the repository
-* After work is done, make a pull request and notify me by email
+# Configure Database
 
-## Task description
-You need to make a Todo app with these requirements:
-1. Page for listing all the todo items
-2. Todo item add and edit forms (separate pages)
-3. Todo item consists of (date, item name and description)
-4. Pages must interact between each other logically. (You can go from list to new or edit and when saving go back to list)
+Please set below Environment Variables to run the application:
 
-All the other specific requirements are up to you
+```bash
+DB_HOSTNAME
+DB_NAME
+DB_USERNAME
+DB_PASSWORD
+```
 
-## Technical requirements
-* Use any frontend framework but Vaadin (https://vaadin.com/) is strongly recommended and would be a huge benefit
-* For backend use Java EE
-* Use any database (Postgres, Oracle, etc.)
-* Make a Maven project
+if you use eclipse/intellij you can add the environment variable from tomcat configuration page
 
-## Main points
-* Structure your code
-* Use best practises
-* Use naming conventions
-* Show understanding of software development concepts
+If you are unable to set environment variable please set the database configuration in application.yml file
+
+# Default admin login
+
+```bash
+username: admin
+password: password
+```
+
+# AngularBoilerPlateApp
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.1.
+
+## Development server
+
+Run `npm install` in project root folder
+
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+Also you can change `baseUrl: "http://localhost:8080/sb-boiler-plate-backend"` in `environment.ts` file if you are running backend somewhere else.
