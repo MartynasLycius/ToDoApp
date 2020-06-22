@@ -1,0 +1,2 @@
+id,firstName,lastName,password,email,roles,enabled,change_password
+1L,pidas,su,password,pidas@pidas.com,ROLE_SUPER_ADMIN,1,1

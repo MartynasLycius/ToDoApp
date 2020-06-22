@@ -1,0 +1,37 @@
+<div class="container" *ngIf="access == 'allow'">
+  <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarText"
+      aria-controls="navbarText"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <ng-container *ngFor="let menu of accessMenu; let i = index">
+          <li class="nav-item" *ngIf="menu.show">
+            <a class="nav-link" [routerLink]="[menu.path]">{{ menu.title }}</a>
+          </li>
+        </ng-container>
+        <li class="nav-item">
+          <a class="nav-link logout" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+      <span class="navbar-text"> Hello, {{ username }} </span>
+    </div>
+  </nav>
+  <ng-content></ng-content>
+</div>
+
+<div class="container" *ngIf="access == 'deny'">
+  <h6>Access Denied</h6>
+</div>
+
+<div class="container" *ngIf="access == 'requesting'">
+  <h6>Requesting Access...</h6>
+</div>
