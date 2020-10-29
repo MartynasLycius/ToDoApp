@@ -17,6 +17,18 @@ public class PropertyUtil {
     public static final String RESPONSE_MASSAGE_TRUE = "Records Found";
     public static final String RESPONSE_MASSAGE_FALSE = "No Records Found";
 
-    public static final String WELCOME = "Welcome !!!";
-    public static final String STARTING_MASSAGE = "Check API...";
+    public static final String WELCOME = "Welcome !!! Project Running : ";
+    public static final String URL = "http://localhost:9191/todo";
+
+    public static final String RECORD = "##### Record : ";
+    public static final String SAVED = "Saved";
+    public static final String NOT_SAVED = "Not Saved";
+    public static final String FOUND = "Found";
+    public static final String NOT_FOUND = "Not Found";
+    public static final String UPDETED = "Updeted";
+    public static final String NOT_UPDETED = "Not Updeted";
+
+    public static String Record(String massage) {
+        return RECORD + massage;
+    }
 }
