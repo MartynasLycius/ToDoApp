@@ -6,8 +6,8 @@
         <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
         <link th:href="@{/css/style.css}" rel="stylesheet">
 
-        <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
         <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
     </head>
     <body>
         <div class="wrapper fadeInDown">
@@ -18,9 +18,9 @@
 
                 <!-- Add Form -->
                 <form action="#" th:action="@{/saveTODO}" th:object="${todo}" method="POST">
-                    <input type="text" th:field="*{assignment}" placeholder="Assignment" class="fadeIn second">
-                    <input type="text" th:field="*{assignmentDetails}" placeholder="Assignment Details" class="fadeIn third">
-                    <input type="date" th:field="*{completedDate}" placeholder="Date" class="fadeIn fourth">
+                    <input type="text" th:field="*{task}" placeholder="Task" class="fadeIn second" required>
+                    <input type="text" th:field="*{taskDetails}" placeholder="Task Details" class="fadeIn third" required>
+                    <input type="date" th:field="*{completedDate}" placeholder="Date" class="fadeIn fourth" required>
 
                     <br><br><button type="submit" class="btn btn-info fadeIn fourth"> Save TODO</button><br><br>
                 </form>
