@@ -6,10 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 /**
- * @author   Md. Emran Hossain <emranhos1@gmail.com>
- * @version  1.0.00 EH
- * @since    1.0.00 EH
+ * @author Md. Emran Hossain <emranhos1@gmail.com>
+ * @version 1.0.00 EH
+ * @since 1.0.00 EH
  */
 @Entity
 @Table(name = "todo_table")
@@ -19,16 +20,16 @@ public class TODOModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "todo_table_id")
     private Long todoTableId;
-    @Column(name = "assignment")
-    private String assignment;
-    @Column(name = "assignment_details")
-    private String assignmentDetails;
+    @Column(name = "task")
+    private String task;
+    @Column(name = "task_details")
+    private String taskDetails;
     @Column(name = "create_date")
     private String createDate;
     @Column(name = "completed_date")
     private String completedDate;
-    @Column(name = "has_done")
-    private int hasDone;
+    @Column(name = "is_done")
+    private int isDone;
 
     public Long getTodoTableId() {
         return todoTableId;
@@ -38,20 +39,20 @@ public class TODOModel {
         this.todoTableId = todoTableId;
     }
 
-    public String getAssignment() {
-        return assignment;
+    public String getTask() {
+        return task;
     }
 
-    public void setAssignment(String assignment) {
-        this.assignment = assignment;
+    public void setTask(String task) {
+        this.task = task;
     }
 
-    public String getAssignmentDetails() {
-        return assignmentDetails;
+    public String getTaskDetails() {
+        return taskDetails;
     }
 
-    public void setAssignmentDetails(String assignmentDetails) {
-        this.assignmentDetails = assignmentDetails;
+    public void setTaskDetails(String taskDetails) {
+        this.taskDetails = taskDetails;
     }
 
     public String getCreateDate() {
@@ -70,11 +71,11 @@ public class TODOModel {
         this.completedDate = completedDate;
     }
 
-    public int getHasDone() {
-        return hasDone;
+    public int getIsDone() {
+        return isDone;
     }
 
-    public void setHasDone(int hasDone) {
-        this.hasDone = hasDone;
+    public void setIsDone(int isDone) {
+        this.isDone = isDone;
     }
 }
