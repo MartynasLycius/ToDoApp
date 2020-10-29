@@ -7,8 +7,8 @@
         <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
         <link th:href="@{/css/style.css}" rel="stylesheet">
 
-        <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
         <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
     </head>
     <body>
         <div class="wrapper fadeInDown">
@@ -17,12 +17,12 @@
                 <h2>Update TODO</h2>
                 <hr>
 
-                <!-- Add Form -->
+                <!-- Update Form -->
                 <form action="#" th:action="@{/saveTODO}" th:object="${todo}" method="POST">
                     <!-- Add hidden form field to handle update -->
                     <input type="hidden" th:field="*{todoTableId}" />
-                    <input type="text" th:field="*{assignment}" class="fadeIn second">
-                    <input type="text" th:field="*{assignmentDetails}" class="fadeIn third">
+                    <input type="text" th:field="*{task}" class="fadeIn second">
+                    <input type="text" th:field="*{taskDetails}" class="fadeIn third">
                     <input type="date" th:field="*{completedDate}" class="fadeIn fourth">
     
                     <br><br><button type="submit" class="btn btn-info fadeIn fourth"> Update TODO</button><br><br>
