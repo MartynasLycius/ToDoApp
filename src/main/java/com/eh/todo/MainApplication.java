@@ -16,11 +16,11 @@ import org.slf4j.LoggerFactory;
 @SpringBootApplication
 public class MainApplication {
 
-    @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(MainApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(MainApplication.class, args);
-        LOG.info("START UP MASSAGE :: {} {}", PropertyUtil.WELCOME, PropertyUtil.STARTING_MASSAGE);
+        LOG.info("START UP MASSAGE :: {}", PropertyUtil.WELCOME);
+        LOG.info("Check URL :: {}", PropertyUtil.URL);
     }
 }
