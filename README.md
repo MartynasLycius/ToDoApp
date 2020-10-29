@@ -1,4 +1,4 @@
-# READ This File For how To Run This TodoApp
+# READ This
 This is basically an application for writing down important tasks.
 
 # DB Confit
