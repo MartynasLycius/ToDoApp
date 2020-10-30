@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>TODO LIST</title>
+        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+        <link th:href="@{/css/style.css}" rel="stylesheet">
+
+        <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    </head>
+    <body>
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+                <!-- Tabs Titles -->
+                <h2>Save TODO</h2>
+                <hr>
+
+                <!-- Add Form -->
+                <form action="#" th:action="@{/saveTODO}" th:object="${todo}" method="POST">
+                    <input type="text" th:field="*{task}" placeholder="Task" class="fadeIn second" required>
+                    <input type="text" th:field="*{taskDetails}" placeholder="Task Details" class="fadeIn third" required>
+                    <input type="date" th:field="*{completedDate}" placeholder="Date" class="fadeIn fourth" required>
+
+                    <br><br><button type="submit" class="btn btn-info fadeIn fourth"> Save TODO</button><br><br>
+                </form>
+                
+                <!-- Back to List -->
+                <div id="formFooter">
+                  <a class="underlineHover" th:href="@{/}">Back to TODO List</a>
+                </div>
+            
+            </div>
+        </div>
+    </body>
+</html>

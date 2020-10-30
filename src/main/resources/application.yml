@@ -1,0 +1,20 @@
+server:
+  port: 9191
+  servlet:
+    contextPath: /todo
+
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+
+  servlet:
+    multipart:
+      file-size-threshold: 2KB
+      max-request-size: 215MB
+      max-file-size: 200MB
+      enabled: true

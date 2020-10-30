@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>TODO LIST</title>
+        <!-- css -->
+        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+        <link th:href="@{/css/style.css}" rel="stylesheet">
+
+        <!-- js -->
+        <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    </head>
+    <body>
+        <div class="wrapper fadeInDown">
+            <div id="tableContent">
+                <!-- Title -->
+                <h1>TODO List</h1>
+                <a th:href="@{/newTODOForm}" class="btn btn-primary btn-sm mb-3"> New TODO </a>
+
+                <table class="table table-striped table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>SL</th>
+                            <th>Task</th>
+                            <th>Task Details</th>
+                            <th>Created Date</th>
+                            <th>Need to Complete on</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="todo, ie : ${todoList}">
+                            <td th:attr="class=${todo.isDone != 1 ? 'tableRowUndone' : 'tableRowDone'}" th:text="${ie.index+1}"></td>
+                            <td th:attr="class=${todo.isDone != 1 ? 'tableRowUndone' : 'tableRowDone'}" th:text="${todo.task}"></td>
+                            <td th:attr="class=${todo.isDone != 1 ? 'tableRowUndone' : 'tableRowDone'}" th:text="${todo.taskDetails}"></td>
+                            <td th:attr="class=${todo.isDone != 1 ? 'tableRowUndone' : 'tableRowDone'}" th:text="${todo.createDate}"></td>
+                            <td th:attr="class=${todo.isDone != 1 ? 'tableRowUndone' : 'tableRowDone'}" th:text="${todo.completedDate}"></td>
+                            <td>
+                                <a th:href="@{/showFormForUpdate/{id}(id=${todo.todoTableId})}" class="btn btn-primary">Update</a>
+                                <a th:href="@{/doneTODO/{id}(id=${todo.todoTableId})}" class="btn btn-info"><span th:text="${todo.isDone != 1 ? 'Done' : 'Undone'}"></span></a>
+                                <a th:href="@{/deleteTODO/{id}(id=${todo.todoTableId})}" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
