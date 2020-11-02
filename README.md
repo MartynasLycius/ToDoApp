@@ -1,28 +1,20 @@
 # ToDoApp
+## Requirements
 
-This is the job interview task for software developer position
+For building and running the application you need:
+- Java Version 11
+- Maven 
+- Database: Postgres 
+## Setup Database Settings
+   - Create a database name: demodb
+   - username: demouser
+   - password: demoPass
+## Note: Database Credentials can be changed in application.properties file
+## Running the application locally
 
-## What to do
-* Fork the repository
-* After work is done, make a pull request and notify me by email
+There are several ways to run a Spring Boot application on your local machine. One way is to execute the `main` method in the `Application` class from your IDE.
 
-## Task description
-You need to make a Todo app with these requirements:
-1. Page for listing all the todo items
-2. Todo item add and edit forms (separate pages)
-3. Todo item consists of (date, item name and description)
-4. Pages must interact between each other logically. (You can go from list to new or edit and when saving go back to list)
+Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html) like so:
 
-All the other specific requirements are up to you
-
-## Technical requirements
-* Use any frontend framework but Vaadin (https://vaadin.com/) is strongly recommended and would be a huge benefit
-* For backend use Java EE
-* Use any database (Postgres, Oracle, etc.)
-* Make a Maven project
-
-## Main points
-* Structure your code
-* Use best practises
-* Use naming conventions
-* Show understanding of software development concepts
+```shell
+mvn spring-boot:run
