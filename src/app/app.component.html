@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav" routerLinkActive="active">
+        <li class="nav-item"><a class="nav-link" routerLink="home">Home</a></li>
+        <li *ngIf="!authority" class="nav-item">
+          <a class="nav-link" routerLink="auth/login">Login</a>
+        </li>
+        <li *ngIf="authority === 'user'" class="nav-item">
+          <a class="nav-link" routerLink="view-item">List</a>
+        </li>
+        <li *ngIf="authority === 'user'" class="nav-item">
+          <a class="nav-link" routerLink="add-item">Add Item</a>
+        </li>
+        <li *ngIf="authority === 'user'" class="nav-item">
+          <a class="nav-link" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
