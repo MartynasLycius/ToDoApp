@@ -26,3 +26,27 @@ All the other specific requirements are up to you
 * Use best practises
 * Use naming conventions
 * Show understanding of software development concepts
+
+# Project Run Instruction
+
+## Technologies Used
+* Java 8 Runtime
+* Spring Boot (v2.3.5.RELEASE)
+* Flyway (DB Migration)
+* Thymeleaf for front end
+
+## DB Migration
+* Create a postgres schema named **todo_app**
+
+    ```create schema todo_app;```
+    
+* Change the **application.properties** accordingly to connect your DB
+
+## Run Application 
+
+    mvn spring-boot:run
+
+* The application will start on `port:8080`. `/` will serve the list page. 
+  
+
+

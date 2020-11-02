@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layout/secure"
+      lang="en">
+
+<head>
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            var table = $("#t").DataTable({
+                ajax: {
+                    url: /*[[@{/rest/list}]]*/ null,
+                    dataSrc: ''
+                },
+                serverSide: false,
+                "lengthChange": false,
+                rowId: 'id',
+                columns: [
+                    {data: 'title'},
+                    {data: 'description'},
+                    {data: 'complete'},
+                    {data: 'date'}
+                ]
+            });
+
+            $('#t tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                } else {
+                    table.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+
+            $('#editBtn').on('click', function () {
+                var id = table.row('.selected').id();
+                if (!id) {
+                    alert('Select one from table');
+                    return;
+                }
+                var ctx = /*[[@{/edit/}]]*/ null;
+                window.location.replace(ctx + id);
+            });
+
+            $('#completeBtn').on('click', function () {
+                var id = table.row('.selected').id();
+                if (!id) {
+                    alert('Select one from table');
+                    return;
+                }
+                var ctx = /*[[@{/rest/mark-complete}]]*/ null;
+                console.log(ctx);
+                $.ajax({
+                    url: ctx,
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify({id: id}),
+                    success: function (xhr) {
+                        window.location.reload();
+                    },
+                    error: function (xhr) {
+                        alert("Error!!")
+                    }
+                });
+            });
+
+            $('#deleteBtn').on('click', function () {
+                var id = table.row('.selected').id();
+                if (!id) {
+                    alert('Select one from table');
+                    return;
+                }
+                var ctx = /*[[@{/rest/}]]*/ null;
+                $.ajax({
+                    url: ctx + id,
+                    type: 'delete',
+                    success: function (xhr) {
+                        window.location.reload();
+                    },
+                    error: function (xhr) {
+                        alert("Cannot Delete!!")
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div layout:fragment="page-content">
+    <div class="row est">
+        <div class="col-lg-12">
+            <h1>
+                List View
+            </h1>
+        </div>
+    </div>
+    <div class="separator esb">
+        <div class="est esb">
+            <a class="btn btn-primary" href="/create">Create A Todo</a>
+            <button id="editBtn" class="btn btn-primary">Edit</button>
+            <button id="deleteBtn" class="btn btn-primary">Delete</button>
+            <button id="completeBtn" class="btn btn-primary">Mark Complete</button>
+        </div>
+
+        <div>
+            <table id="t" class="display" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Create Time</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
