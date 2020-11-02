@@ -1,0 +1,26 @@
+<div>
+  <table class="mat-table  table-bordered">
+    <thead>
+    <tr class="mat-header-row">
+      <th class='mat-header-cell'>Id</th>
+      <th class='mat-header-cell'>Name</th>
+      <th class='mat-header-cell'>Description</th>
+      <th class='mat-header-cell'>Due Date</th>
+      <th class='mat-header-cell'>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="mat-row" *ngFor="let item of items">
+      <td class="mat-cell">{{item.id}}</td>
+      <td class="mat-cell">{{item.name}}</td>
+      <td class="mat-cell">{{item.description}}</td>
+      <td class="mat-cell">{{item.dueDate}}</td>
+      <td class="mat-cell"><button type="button" class="btn btn-primary pull-right" (click)="btnClick(item.id);"><i class="fa fa-plus"></i> Update</button>    </td>
+    </tr>
+    </tbody>
+  </table>
+  <mat-paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="10" [length]="totalElements"
+                 (page)="nextPage($event)">
+
+  </mat-paginator>
+</div>

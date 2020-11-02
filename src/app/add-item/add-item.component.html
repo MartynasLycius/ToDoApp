@@ -1,0 +1,31 @@
+<div class="col-md-12">
+  <form  class="text-center border border-light p-5 form-horizontal " (ngSubmit)="createItem(ItemForm)" #ItemForm="ngForm">
+    <p class="h2 mb-4">Add Items</p>
+    <div class="row justify-content-center">
+      <div class="form-group">
+        <input type="name" [(ngModel)]="item.name" required placeholder="Name" name="name" class="form-control align-middle" id="name"
+               #names="ngModel">
+        <span *ngIf="!names.valid && names.touched" class="badge badge-danger">{{'Please Enter Name' }}</span>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="form-group">
+        <textarea [(ngModel)]="item.description" placeholder="Description" name="description" class="form-control" id="description"></textarea>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="form-group">
+        <div class="input-group">
+          <input class="form-control" placeholder="Due Date"
+                 name="dp" [(ngModel)]="item.dueDate" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="submit" id="sumbit-btn" class="btn btn-success pull-right" [disabled]="!ItemForm.valid"><i class="fa fa-save"></i> Save</button>
+  </form>
+</div>
