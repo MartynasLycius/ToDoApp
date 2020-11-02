@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'update-item/:id', component: UpdateItemComponent },
   {
     path: '',
-    redirectTo: 'view-item',
+    redirectTo: 'home',
     pathMatch: 'full'
   }
 ];
