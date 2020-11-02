@@ -1,0 +1,23 @@
+POST http://localhost:8080/rest/create
+Content-Type: application/json
+
+{
+  "title" : "test title",
+  "description" : "test description",
+  "date" : "2020-11-01",
+  "complete": false
+}
+
+###
+
+PATCH http://localhost:8080/rest/edit
+Content-Type: application/json
+
+{
+  "id" : 1,
+  "title" : "test title edit",
+  "description" : "test description edit",
+  "date" : "2020-10-19",
+  "complete": false
+}
+###
