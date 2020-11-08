@@ -1,0 +1,19 @@
+#about-view {
+  display: block;
+  padding: var(--lumo-space-m) var(--lumo-space-l);
+}
+
+:host {
+  display: block;
+  padding: var(--lumo-space-m) var(--lumo-space-l);
+}
+
+.heading {
+	font-size: 25pt;
+	width: 100%;
+}
+
+.subHeading {
+	font-size: 20pt;
+	width: 100%;
+}
