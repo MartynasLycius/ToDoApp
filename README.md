@@ -1,28 +1,30 @@
-# ToDoApp
+# To Do App Installation Instruction
 
-This is the job interview task for software developer position
+Step 1: Go to the root folder of the project.
+Step 2: Launch command prompt.
+Step 3: Execute following command: 
 
-## What to do
-* Fork the repository
-* After work is done, make a pull request and notify me by email
+		mvn clean install
 
-## Task description
-You need to make a Todo app with these requirements:
-1. Page for listing all the todo items
-2. Todo item add and edit forms (separate pages)
-3. Todo item consists of (date, item name and description)
-4. Pages must interact between each other logically. (You can go from list to new or edit and when saving go back to list)
+Step 4: Wait for few seconds till the build finishes with 'BUILD SUCCESS' message.
 
-All the other specific requirements are up to you
+# RUN To Do App 
 
-## Technical requirements
-* Use any frontend framework but Vaadin (https://vaadin.com/) is strongly recommended and would be a huge benefit
-* For backend use Java EE
-* Use any database (Postgres, Oracle, etc.)
-* Make a Maven project
+Step 1: Launch command prompt same way mentioned in the installation process if not already open
+Step 2: Execute following command:
 
-## Main points
-* Structure your code
-* Use best practises
-* Use naming conventions
-* Show understanding of software development concepts
+		mvn spring-boot:run
+		
+Step 3: Application should be running in port 8989. Launch app by navigating to following path in the browser:
+
+		http://localhost:8989/todo-tracker-app/taskDashBoard
+		
+		
+# Declaration:
+
+Have used following tools and frameworks to build the app:
+
+Frontend: Vaading 14.4.2
+Backend: Spring-boot, JPA
+JDK Version: 1.8
+Database: derby (in memory database to maintain simplicity)

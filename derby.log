@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Sun Nov 08 12:00:38 BDT 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0175-a671-3465-0000132fcd70 
+on database directory memory:E:\Projects\ToDoApp\testdb with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
+Loaded from file:/C:/Users/ASUS/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_231-b11
+user.dir=E:\Projects\ToDoApp
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
