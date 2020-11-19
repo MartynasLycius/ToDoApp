@@ -1,0 +1,37 @@
+plugins {
+	id "com.github.ben-manes.versions" version "0.28.0"
+	id 'java'
+	id 'application'
+}
+
+group = 'org.graphqlize.java'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+applicationName = 'graphqlize-boot'
+
+application {
+	mainClassName = 'org.graphqlize.java.springboot.Application'
+}
+
+repositories {
+	mavenCentral()
+	maven { url "https://clojars.org/repo" }
+}
+
+dependencies {
+	implementation platform("org.springframework.boot:spring-boot-dependencies:2.2.6.RELEASE")
+
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.postgresql:postgresql:42.2.10'
+    implementation 'mysql:mysql-connector-java:8.0.19'
+    implementation 'org.graphqlize:graphqlize-java:0.1.0-alpha20'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}
+
+test {
+	useJUnitPlatform()
+}

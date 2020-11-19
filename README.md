@@ -1,28 +1,19 @@
-# ToDoApp
+# TODO App
 
-This is the job interview task for software developer position
+This simple TODO app demonstrates the use of **Spring boot (Java EE), GraphQL, TypeScript, React**. Its uses microservice architecture for the backend.
 
-## What to do
-* Fork the repository
-* After work is done, make a pull request and notify me by email
+For a live demo please check this link: @ **https://todo-app.demos.astronlab.com**
 
-## Task description
-You need to make a Todo app with these requirements:
-1. Page for listing all the todo items
-2. Todo item add and edit forms (separate pages)
-3. Todo item consists of (date, item name and description)
-4. Pages must interact between each other logically. (You can go from list to new or edit and when saving go back to list)
+## Backend:
+* Spring boot (Java EE)
+* GraphQL
+* PostgreSQL
+
+## Frontend:
+* ReactJs
+* Typescript
 
 All the other specific requirements are up to you
 
-## Technical requirements
-* Use any frontend framework but Vaadin (https://vaadin.com/) is strongly recommended and would be a huge benefit
-* For backend use Java EE
-* Use any database (Postgres, Oracle, etc.)
-* Make a Maven project
-
-## Main points
-* Structure your code
-* Use best practises
-* Use naming conventions
-* Show understanding of software development concepts
+## Next phase / TODOs:
+* Integrate more unit testing
