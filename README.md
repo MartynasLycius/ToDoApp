@@ -19,3 +19,4 @@ It has 3 views in total.
 
 ## Main points
 * Vaadin flow 14 is used
+* Implemented UI common layout system for differnt views
