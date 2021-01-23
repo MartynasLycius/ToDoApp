@@ -19,7 +19,10 @@ target/
 *.iml
 *.ipr
 
-### NetBeans ###
+### Back End ###
+logs
+
+### Front End ###
 /nbproject/private/
 /nbbuild/
 /dist/
