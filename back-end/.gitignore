@@ -20,7 +20,8 @@ target/
 *.ipr
 
 ### Back End ###
-logs
+logs/
+!/logs/spring-boot-logger.log
 
 ### Front End ###
 /nbproject/private/
@@ -34,3 +35,4 @@ build/
 
 ### VS Code ###
 .vscode/
+
