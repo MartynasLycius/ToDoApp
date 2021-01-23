@@ -1,3 +1,12 @@
+/**
+ * Created By: Md. Nazmus Salahin
+ * Created Date: 23-Jan-2021
+ * Time: 8:14 PM
+ * Modified By:
+ * Modified date:
+ * (C) CopyRight Salahin ltd.
+ */
+
 package com.salahin.todo.controller;
 
 import com.salahin.todo.core.ResponseObject;
@@ -10,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 //@CrossOrigin("*")
 @RestController
-@RequestMapping(value = "api/todo",
+@RequestMapping(value = "/api/todo",
 	consumes = MediaType.APPLICATION_JSON_VALUE,
 	produces = MediaType.APPLICATION_JSON_VALUE)
 public class TodoController {
@@ -29,10 +38,10 @@ public class TodoController {
         return responseObject;
     }
 	
-	@GetMapping("get")
-	public ResponseObject getTodoById(@RequestBody UUID uuid){
+	@GetMapping("get/{id}")
+	public ResponseObject getTodoById(@PathVariable UUID id){
 		ResponseObject responseObject;
-		responseObject = this.todoService.getTodoById(uuid);
+		responseObject = this.todoService.getTodoById(id);
 		return responseObject;
 	}
 	
