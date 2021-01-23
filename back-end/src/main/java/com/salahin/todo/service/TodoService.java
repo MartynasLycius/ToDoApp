@@ -5,8 +5,9 @@ import com.salahin.todo.model.TodoModel;
 
 import java.util.UUID;
 
-public interface ToDoService {
+public interface TodoService {
 	ResponseObject createTodo(TodoModel todoModel);
+	ResponseObject updateTodo(TodoModel todoModel);
 	ResponseObject getTodoById(UUID uuid);
 	ResponseObject getAllTodo();
 	ResponseObject deleteTodoById(UUID uuid);

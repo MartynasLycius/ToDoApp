@@ -24,7 +24,7 @@ import java.util.UUID;
 @Repository
 public interface TodoRepository extends JpaRepository<TodoEntity, UUID> {
 	
-	 Optional<TodoEntity> findById(UUID id);
+	Optional<TodoEntity> findById(UUID id);
 	
 	@Query("select e from TodoEntity e")
 	List<TodoEntity> findAllToDo();

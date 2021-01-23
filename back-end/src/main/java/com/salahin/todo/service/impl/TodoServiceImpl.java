@@ -14,7 +14,7 @@ import com.salahin.todo.core.ResponseObject;
 import com.salahin.todo.entities.TodoEntity;
 import com.salahin.todo.model.TodoModel;
 import com.salahin.todo.repository.TodoRepository;
-import com.salahin.todo.service.ToDoService;
+import com.salahin.todo.service.TodoService;
 import com.salahin.todo.utilities.UtilityMethods;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -29,7 +29,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class TodoServiceImpl implements ToDoService {
+public class TodoServiceImpl implements TodoService {
 	
 	private static final Logger log = LoggerFactory.getLogger(TodoServiceImpl.class);
 	private static final ModelMapper modelMapper = new ModelMapper();
@@ -47,13 +47,43 @@ public class TodoServiceImpl implements ToDoService {
 		try{
 			todoEntity = modelMapper.map(todoModel,TodoEntity.class);
 			todoEntity = this.todoRepository.save(todoEntity);
-			responseObject = UtilityMethods.buildResponseObject(todoEntity,
+			todoModel.setId(todoEntity.getId());
+			responseObject = UtilityMethods.buildResponseObject(todoModel,
 				MessageConstant.SUCCESSFULLY_TODO_CREATED,
 				HttpStatus.OK);
 		}catch (Exception ex){
 			log.error("createTodo method got exception ->", ex);
 			responseObject = UtilityMethods.buildResponseObject(null,
 				MessageConstant.FAILED_TO_CREATE,
+				HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return responseObject;
+	}
+	
+	@Override
+	public ResponseObject updateTodo(TodoModel todoModel) {
+		TodoEntity updatedTodoEntity;
+		Optional<TodoEntity> oldTodoEntity;
+		ResponseObject responseObject;
+		UUID uuid;
+		try{
+			uuid = todoModel.getId();
+			oldTodoEntity = this.todoRepository.findById(uuid);
+			if(oldTodoEntity.isPresent()){
+				updatedTodoEntity = modelMapper.map(todoModel ,TodoEntity.class);
+				updatedTodoEntity = this.todoRepository.save(updatedTodoEntity);
+				responseObject = UtilityMethods.buildResponseObject(updatedTodoEntity,
+					MessageConstant.SUCCESSFULLY_TODO_UPDATED,
+					HttpStatus.OK);
+			}else {
+				responseObject = UtilityMethods.buildResponseObject(todoModel,
+					MessageConstant.REQUESTED_TODO_DOES_NOT_EXIST_NOW,
+					HttpStatus.NO_CONTENT);
+			}
+		}catch (Exception ex){
+			log.error("updateTodo method got exception ->", ex);
+			responseObject = UtilityMethods.buildResponseObject(null,
+				MessageConstant.FAILED_TO_UPDATE_TODO,
 				HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return responseObject;
