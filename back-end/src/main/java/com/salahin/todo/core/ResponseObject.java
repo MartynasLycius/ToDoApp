@@ -10,7 +10,13 @@
 package com.salahin.todo.core;
 
 public class ResponseObject {
-    public Object data;
-    public Integer httpStatusCode;
-    public String message;
+    private Object data;
+    private Integer httpStatusCode;
+    private String message;
+	
+	public ResponseObject(Object data, Integer httpStatusCode, String message) {
+		this.data = data;
+		this.httpStatusCode = httpStatusCode;
+		this.message = message;
+	}
 }

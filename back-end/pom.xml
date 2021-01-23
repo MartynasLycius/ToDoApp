@@ -20,14 +20,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <!-- Logging -->
         <logback.version>1.2.3</logback.version>
-
-        <!-- javax.validation-->
         <javax.validator.version>2.0.0.Final</javax.validator.version>
-
-
-
+        <modelmapper.version>2.3.9</modelmapper.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -64,6 +59,11 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>${modelmapper.version}</version>
+        </dependency>
         <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

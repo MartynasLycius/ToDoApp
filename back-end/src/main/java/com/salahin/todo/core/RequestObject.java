@@ -9,7 +9,9 @@
 
 package com.salahin.todo.core;
 
+import java.util.UUID;
+
 public class RequestObject {
-    public String token;
+    public UUID uuid;
     public Object data;
 }

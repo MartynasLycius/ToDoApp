@@ -7,8 +7,7 @@
  * (C) CopyRight Salahin ltd.
  */
 
-
-package com.salahin.todo.Repository;
+package com.salahin.todo.repository;
 
 import com.salahin.todo.entities.TodoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,7 +24,7 @@ import java.util.UUID;
 @Repository
 public interface TodoRepository extends JpaRepository<TodoEntity, UUID> {
 	
-	Optional<TodoEntity> findById(UUID id);
+	 Optional<TodoEntity> findById(UUID id);
 	
 	@Query("select e from TodoEntity e")
 	List<TodoEntity> findAllToDo();
