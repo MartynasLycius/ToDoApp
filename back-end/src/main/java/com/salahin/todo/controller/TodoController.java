@@ -17,10 +17,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
-//@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/api/todo",
-	consumes = MediaType.APPLICATION_JSON_VALUE,
+	consumes= {"application/json", "text/plain", "*/*"},
 	produces = MediaType.APPLICATION_JSON_VALUE)
 public class TodoController {
 	
