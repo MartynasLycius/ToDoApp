@@ -9,10 +9,13 @@
 
 package com.salahin.todo.core;
 
+import lombok.Data;
+
+@Data
 public class ResponseObject {
     private Object data;
-    private Integer httpStatusCode;
-    private String message;
+	private Integer httpStatusCode;
+	private String message;
 	
 	public ResponseObject(Object data, Integer httpStatusCode, String message) {
 		this.data = data;
