@@ -19,7 +19,7 @@ import java.util.UUID;
 @Data
 public class TodoModel extends BaseModel {
 	private UUID id;
-	private String name;
+	private String itemName;
 	private String description;
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date date;

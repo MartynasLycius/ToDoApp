@@ -13,15 +13,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
 import java.util.Date;
 
 @Data
 @EqualsAndHashCode
-public abstract class BaseModel implements Serializable {
-	
-	@JsonIgnore
-	private static final long serialVersionUID = 1L;
+public abstract class BaseModel {
 	
 	@JsonIgnore
 	private String createdBy;

@@ -4,7 +4,7 @@
       <span v-if="this.pageInUpdateState==false" class="todo_form_title">Create Todo</span>
       <span v-if="this.pageInUpdateState==true" class="todo_form_title">Update Todo</span>
       <v-text-field
-          v-model="todo.name"
+          v-model="todo.itemName"
           label="Enter task name"
           outlined
           dense
@@ -87,7 +87,7 @@
         menu2: false,
         todo: {
           id: '',
-          name: '',
+          itemName: '',
           description:'',
           date: '',
         },
@@ -103,7 +103,7 @@
         this.resetForm();
       },
       resetForm() {
-        this.todo.name = '';
+        this.todo.itemName = '';
         this.todo.date = '';
         this.pageInUpdateState = false;
       },

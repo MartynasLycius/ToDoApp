@@ -49,23 +49,25 @@
       this.getTodoList();
     },
 
-    data: () => ({
-      numberOfTodo: 0,
-      headersForTodoTable: [
-        {
-          text: 'Item Name',
-          align: 'start',
-          sortable: false,
-          width: '20%',
-          value: 'name',
-          class: 'table-header-text'
-        },
-        {text: 'Description', value: 'description', width: '45%', class: 'table-header-text'},
-        {text: 'Date', value: 'date', width: '15%', class: 'table-header-text'},
-        {text: 'Action', value: 'action', width: '20%', class: 'table-header-text'}
-      ],
-      todoList: [ ],
-    }),
+    data(){
+      return {
+        numberOfTodo: 0,
+        headersForTodoTable: [
+          {
+            text: 'Item Name',
+            align: 'start',
+            sortable: false,
+            width: '20%',
+            value: 'itemName',
+            class: 'table-header-text'
+          },
+          {text: 'Description', value: 'description', width: '45%', class: 'table-header-text'},
+          {text: 'Date', value: 'date', width: '15%', class: 'table-header-text'},
+          {text: 'Action', value: 'action', width: '20%', class: 'table-header-text'}
+        ],
+        todoList: []
+      }
+    },
     methods: {
       editTodo(item) {
         console.log(item);

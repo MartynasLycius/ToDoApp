@@ -34,8 +34,8 @@ public class TodoEntity extends BaseEntity {
 	@Column(name = "id", nullable = false)
 	private UUID id;
 	
-	@Column(name="name")
-	private String name;
+	@Column(name="itemName")
+	private String itemName;
 	
 	@Column(name="description")
 	private String description;

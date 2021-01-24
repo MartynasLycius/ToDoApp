@@ -9,10 +9,15 @@
 
 package com.salahin.todo.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
 public class ResponseObject {
+	
+	@JsonIgnore
+	private static final long serialVersionUID = 1L;
+	
     private Object data;
 	private Integer httpStatusCode;
 	private String message;
