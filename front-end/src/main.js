@@ -1,14 +1,13 @@
 import Vue from 'vue'
-import VueFilterDateFormat from 'vue-filter-date-format';
 import App from './App.vue'
 import vuetify from './plugins/vuetify';
 import RestClient from './utilities/rest.client';
+import EventBus from './event.bus';
 
-const restClient = new RestClient(process.env.BASE_URL);
+const restClient = new RestClient(process.env.VUE_APP_BASE_URL);
 
-Vue.use(VueFilterDateFormat);
-Vue.config.productionTip = false;
 Vue.prototype.$restClient = restClient;
+Vue.prototype.$eventBus = EventBus;
 
 new Vue({
   vuetify,

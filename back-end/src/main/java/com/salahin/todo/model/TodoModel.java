@@ -10,6 +10,7 @@
 
 package com.salahin.todo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.salahin.todo.core.BaseModel;
 import lombok.Data;
 import java.util.Date;
@@ -20,5 +21,6 @@ public class TodoModel extends BaseModel {
 	private UUID id;
 	private String name;
 	private String description;
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date date;
 }

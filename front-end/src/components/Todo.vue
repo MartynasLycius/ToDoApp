@@ -6,30 +6,23 @@
         <h1 class="display-2 font-weight-bold mb-3">
           Todo Item
         </h1>
-        <v-btn
-            depressed
-            color="primary"
-        >
-          Add Item
-        </v-btn>
+        <create-todo></create-todo>
+
 
         <v-data-table
             :headers="headersForTodoTable"
+            :items-per-page=numberOfTodo
             :items="todoList"
             class="elevation-1"
             :hide-default-footer="true"
             no-data-text="Todo didn't create yet.."
         >
 
-          <template v-slot:item.date="{item}">
-            {{item.date | dateFormat('YYYY.MM.DD') }}
-          </template>
-
           <template v-slot:item.action="{item}">
             <div class="action-button-container">
               <v-chip outlined
                       @click="editTodo(item)"
-                      class="action-button">Edit
+                      class="primary">Edit
               </v-chip>
               <v-chip
                   outlined
@@ -46,43 +39,32 @@
 </template>
 
 <script>
+  import CreateTodo from '@/components/CreateTodo';
   export default {
     name: 'Todo',
+    components:{
+      CreateTodo
+    },
+    created() {
+      this.getTodoList();
+    },
 
     data: () => ({
-
+      numberOfTodo: 0,
       headersForTodoTable: [
         {
           text: 'Item Name',
           align: 'start',
           sortable: false,
           width: '20%',
-          value: 'itemName',
+          value: 'name',
           class: 'table-header-text'
         },
-        {text: 'Description', value: 'description ', width: '50%', class: 'table-header-text'},
-        {text: 'Date', value: 'date', width: '10%', class: 'table-header-text'},
+        {text: 'Description', value: 'description', width: '45%', class: 'table-header-text'},
+        {text: 'Date', value: 'date', width: '15%', class: 'table-header-text'},
         {text: 'Action', value: 'action', width: '20%', class: 'table-header-text'}
       ],
-
-      todoList: [
-        {
-          itemName: 'Tuli school',
-          description: 'Govement primary school',
-          date: new Date()
-        },
-        {
-          itemName: 'Remove TV',
-          description: 'Needed to clean house',
-          date: new Date()
-        },
-        {
-          itemName: 'Repair Car',
-          description: 'It is regular house keeping work',
-          date: new Date()
-        }
-      ],
-
+      todoList: [ ],
     }),
     methods: {
       editTodo(item) {
@@ -91,7 +73,18 @@
 
       deleteTodo(item) {
         console.log(item);
-      }
+      },
+      getTodoList() {
+        this.$restClient.get('list')
+           .then(({data}) => {
+             this.todoList = data.data;
+             this.numberOfTodo = parseInt(this.todoList.length);
+             console.log('response' + ': ' + JSON.stringify(data.data, null, 2));
+           })
+           .catch(({response}) => {
+             console.log(response);
+           });
+      },
     }
   }
 </script>

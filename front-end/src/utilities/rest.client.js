@@ -1,12 +1,10 @@
 import Axios from 'axios'
-
 export default class RestClient {
   constructor(baseUrl) {
-    this.baseUrl = baseUrl;
     this.axios = Axios.create({
       baseURL: baseUrl,
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       }
     })
   }
