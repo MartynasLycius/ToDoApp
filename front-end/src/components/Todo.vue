@@ -6,7 +6,12 @@
         <h1 class="display-2 font-weight-bold mb-3">
           Todo Item
         </h1>
-
+        <v-btn
+            depressed
+            color="primary"
+        >
+          Add Item
+        </v-btn>
 
         <v-data-table
             :headers="headersForTodoTable"
@@ -15,6 +20,10 @@
             :hide-default-footer="true"
             no-data-text="Todo didn't create yet.."
         >
+
+          <template v-slot:item.date="{item}">
+            {{item.date | dateFormat('YYYY.MM.DD') }}
+          </template>
 
           <template v-slot:item.action="{item}">
             <div class="action-button-container">
@@ -51,7 +60,7 @@
           value: 'itemName',
           class: 'table-header-text'
         },
-        {text: 'Description', value: 'description', width: '50%', class: 'table-header-text'},
+        {text: 'Description', value: 'description ', width: '50%', class: 'table-header-text'},
         {text: 'Date', value: 'date', width: '10%', class: 'table-header-text'},
         {text: 'Action', value: 'action', width: '20%', class: 'table-header-text'}
       ],
