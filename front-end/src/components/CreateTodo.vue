@@ -50,7 +50,7 @@
       }
     },
     mounted() {
-      this.$eventBus.$on('showTodoDialog', () => {
+      this.$eventBus.$on(this.$evenBusConstant.SHOW_TODO_FORM, () => {
         this.showTodoDialog();
       });
     }

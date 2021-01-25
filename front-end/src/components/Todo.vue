@@ -73,13 +73,18 @@
       }
     },
     methods: {
-      editTodo(item) {
-        console.log(item);
+      async editTodo(item) {
+        await new Promise(resolve => {
+          this.$eventBus.$emit(this.$evenBusConstant.SHOW_TODO_FORM);
+          resolve();
+        });
+        this.$eventBus.$emit(this.$evenBusConstant.PASS_TODO_ITEM_FOR_EDIT, item);
       },
 
       deleteTodo(item) {
         console.log(item);
       },
+
       getTodoList() {
         this.$restClient.get('list')
            .then(({data}) => {

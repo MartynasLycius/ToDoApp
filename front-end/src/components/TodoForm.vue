@@ -29,17 +29,17 @@
           offset-y
           min-width="auto"
       >
-        <template v-slot:activator="{ on, attrs }">
-          <v-text-field
-              v-model="todo.date"
-              prepend-icon="mdi-calendar"
-              label="Pick a date"
-              style="width: 80%; margin-top: -20px"
-              readonly
-              v-bind="attrs"
-              v-on="on"
-          ></v-text-field>
-        </template>
+      <template v-slot:activator="{ on, attrs }">
+        <v-text-field
+            v-model="todo.date"
+            prepend-icon="mdi-calendar"
+            label="Pick a date"
+            style="width: 80%; margin-top: -20px"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+        ></v-text-field>
+      </template>
         <v-date-picker
             v-model="todo.date"
             @input="menu2 = false"
@@ -47,25 +47,29 @@
       </v-menu>
 
 
-      <v-row style="margin-bottom: 60px;margin-top: 10px">
-        <v-btn style="margin-right: 10px"
-            depressed
-            color="error"
-            @click="getCancel"
-        >
-          Cancel
-        </v-btn>
+    <v-row style="margin-bottom: 60px;margin-top: 10px">
+      <v-btn style="margin-right: 10px"
+          depressed
+          color="error"
+          @click="getCancel"
+      >
+        Cancel
+      </v-btn>
 
-        <v-btn v-if="this.pageInUpdateState==false"
-               @click="createTodo"
-               color="#e2136e" class="primary" style="color: #FFFFFF" :disabled="!isValid">Create
-        </v-btn>
+      <v-btn v-if="this.pageInUpdateState==false"
+             @click="createTodo"
+             color="#e2136e"
+             class="primary"
+             style="color: #FFFFFF"
+             :disabled="!isValid">Create
+      </v-btn>
 
-
-
-        <v-btn v-if="this.pageInUpdateState==true"
-               color="#e2136e" style="color: #FFFFFF"  :disabled="!isValid">Update
-        </v-btn>
+      <v-btn v-if="this.pageInUpdateState==true"
+             @click="updateTodo"
+             color="#e2136e"
+             style="color: #FFFFFF"
+             :disabled="!isValid">Update
+      </v-btn>
 
       </v-row>
     </div>
@@ -73,8 +77,6 @@
 </template>
 
 <script>
-
-  import {isEmptyObject} from "@/utilities/validation";
 
   export default {
     name: 'TodoForm',
@@ -97,12 +99,12 @@
       };
     },
     methods: {
-      isEmptyObject,
       getCancel() {
         this.changeDialogStatus();
         this.resetForm();
       },
       resetForm() {
+        this.id = '';
         this.todo.itemName = '';
         this.todo.date = '';
         this.todo.description = '';
@@ -112,7 +114,7 @@
         this.$restClient.post('create', this.todo)
            .then(({data}) => {
              console.log(this.$httpStatusCode.OK);
-             if (data.httpStatusCode == this.$httpStatusCode.OK) {
+             if (data.httpStatusCode === this.$httpStatusCode.OK) {
                this.$feedback.showSuccessMessage(data.message);
                this.changeDialogStatus();
                this.resetForm();
@@ -124,9 +126,33 @@
              this.changeDialogStatus();
            });
       },
-
+      updateTodo() {
+        this.$feedback.showLoading();
+        this.$restClient.put('update', this.todo)
+           .then(({data}) => {
+             this.$feedback.hideLoading();
+             this.$feedback.showSuccessMessage(data.message);
+             this.changeDialogStatus();
+             this.resetForm();
+             this.$eventBus.$emit(this.$evenBusConstant.REFRESH_TODO_LIST);
+           })
+           .catch(() => {
+             this.$feedback.showFailed('Something went wrong. Please try again!');
+             this.changeDialogStatus();
+           });
+      },
     },
     mounted() {
+
+    },
+    updated() {
+      this.$eventBus.$on(this.$evenBusConstant.PASS_TODO_ITEM_FOR_EDIT, (payload) => {
+        let copyPayload = Object.assign({}, payload);
+        if (!this.$validation.isEmptyObject(copyPayload)) {
+          this.todo = copyPayload;
+          this.pageInUpdateState = true;
+        }
+      });
     },
     created() {
     },
