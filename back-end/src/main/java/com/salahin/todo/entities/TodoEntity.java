@@ -26,8 +26,6 @@ import java.util.UUID;
 @Table(name = "todo")
 public class TodoEntity extends BaseEntity {
 	
-	private static final long serialVersionUID = 1L;
-	
 	@Id
 	@GeneratedValue(generator = "uuid2")
 	@GenericGenerator(name = "uuid2", strategy = "uuid2")

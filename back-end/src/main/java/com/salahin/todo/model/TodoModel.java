@@ -7,7 +7,6 @@
  * (C) CopyRight Salahin ltd.
  */
 
-
 package com.salahin.todo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;

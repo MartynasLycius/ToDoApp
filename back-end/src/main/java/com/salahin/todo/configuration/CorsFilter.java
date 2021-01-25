@@ -1,7 +1,14 @@
+/**
+ * Created By: Md. Nazmus Salahin
+ * Created Date: 25-Jan-2021
+ * Time: 9:20 PM
+ * Modified By:
+ * Modified date:
+ * (C) CopyRight Salahin ltd.
+ */
+
 package com.salahin.todo.configuration;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.*;
@@ -11,9 +18,7 @@ import java.io.IOException;
 
 @Configuration
 public class CorsFilter implements Filter {
-
-    private final Logger log = LoggerFactory.getLogger(CorsFilter.class);
-
+	
     public CorsFilter() { }
 
     @Override

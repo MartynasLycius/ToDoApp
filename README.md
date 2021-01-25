@@ -1,28 +1,19 @@
 # ToDoApp
 
-This is the job interview task for software developer position
+##To run project execute the follow the below instructions:
+1. Open PgAdmin or any Datebase IDE 
+2. Create a Database name: EastNetic
+3. Then create todo schema under EastNetic database
 
-## What to do
-* Fork the repository
-* After work is done, make a pull request and notify me by email
+4. Open terminal and go to back-end folder of this project
+5. Now execute the following command: <br />
+&#8594; ./mvnw clean && ./mvnw install && ./mvnw spring-boot:run 
 
-## Task description
-You need to make a Todo app with these requirements:
-1. Page for listing all the todo items
-2. Todo item add and edit forms (separate pages)
-3. Todo item consists of (date, item name and description)
-4. Pages must interact between each other logically. (You can go from list to new or edit and when saving go back to list)
+6. Open terminal and go to front-end folder of this project
+7. Now execute the following command: <br />
+npm install <br />
+npm run serve <br />
 
-All the other specific requirements are up to you
 
-## Technical requirements
-* Use any frontend framework but Vaadin (https://vaadin.com/) is strongly recommended and would be a huge benefit
-* For backend use Java EE
-* Use any database (Postgres, Oracle, etc.)
-* Make a Maven project
-
-## Main points
-* Structure your code
-* Use best practises
-* Use naming conventions
-* Show understanding of software development concepts
+#####To explore front-end open the following link in browser
+http://localhost:8080/

@@ -13,6 +13,7 @@
             :items-per-page=numberOfTodo
             :items="todoList"
             class="elevation-1"
+            style="margin-top: 20px"
             :hide-default-footer="true"
             no-data-text="Todo didn't create yet..">
 
