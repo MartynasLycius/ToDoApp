@@ -18,7 +18,7 @@ export default class RestClient {
   async put(path,payload) {
     return this.axios.put(path,payload);
   }
-  async delete(path,payload) {
-    return this.axios.delete(path,payload);
+  async delete(path) {
+    return this.axios.delete(path);
   }
 }

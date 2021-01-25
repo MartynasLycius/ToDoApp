@@ -8,15 +8,13 @@
         </h1>
         <create-todo></create-todo>
 
-
         <v-data-table
             :headers="headersForTodoTable"
             :items-per-page=numberOfTodo
             :items="todoList"
             class="elevation-1"
             :hide-default-footer="true"
-            no-data-text="Todo didn't create yet.."
-        >
+            no-data-text="Todo didn't create yet..">
 
           <template v-slot:item.action="{item}">
             <div class="action-button-container">
@@ -27,12 +25,13 @@
               <v-chip
                   outlined
                   style="margin-left: 15px"
-                  @click="deleteTodo(item)"
-                  class="action-button">Delete
+                  @click="doneTodo(item)"
+                  class="action-button">Done
               </v-chip>
             </div>
           </template>
         </v-data-table>
+
       </v-col>
     </v-row>
   </v-container>
@@ -40,20 +39,21 @@
 
 <script>
   import CreateTodo from '@/components/CreateTodo';
+
   export default {
     name: 'Todo',
-    components:{
+    components: {
       CreateTodo
     },
     created() {
       this.getTodoList();
     },
-    updated(){
-      this.$eventBus.$on(this.$evenBusConstant.REFRESH_TODO_LIST, ()=>{
-       this.getTodoList();
+    updated() {
+      this.$eventBus.$on(this.$evenBusConstant.REFRESH_TODO_LIST, () => {
+        this.getTodoList();
       });
     },
-    data(){
+    data() {
       return {
         numberOfTodo: 0,
         headersForTodoTable: [
@@ -70,7 +70,7 @@
           {text: 'Action', value: 'action', width: '20%', class: 'table-header-text'}
         ],
         todoList: []
-      }
+      };
     },
     methods: {
       async editTodo(item) {
@@ -81,8 +81,20 @@
         this.$eventBus.$emit(this.$evenBusConstant.PASS_TODO_ITEM_FOR_EDIT, item);
       },
 
-      deleteTodo(item) {
-        console.log(item);
+      async doneTodo(item) {
+        let confirmed = await this.$feedback.getConfirmation();
+        if (!confirmed) return;
+
+        console.log('delete object:', JSON.stringify(item, null, 2));
+        this.$restClient.delete('delete/'+item.id)
+           .then(({data}) => {
+             if (data.httpStatusCode === this.$httpStatusCode.OK) {
+               this.$feedback.showSuccessMessage(data.message);
+               this.getTodoList();
+             }
+           }).catch(() => {
+              this.$feedback.showFailed('Something went wrong. Please try again!');
+        });
       },
 
       getTodoList() {
@@ -94,7 +106,7 @@
            .catch(({response}) => {
              console.log(response);
            });
-      },
+      }
     }
-  }
+  };
 </script>

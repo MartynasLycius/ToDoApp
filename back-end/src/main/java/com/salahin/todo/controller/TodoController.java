@@ -58,10 +58,10 @@ public class TodoController {
 		return responseObject;
 	}
 	
-	@DeleteMapping("delete")
-	public ResponseObject deleteTodo(@RequestBody UUID uuid){
+	@DeleteMapping("delete/{id}")
+	public ResponseObject deleteTodo(@PathVariable UUID id){
 		ResponseObject responseObject;
-		responseObject = this.todoService.deleteTodoById(uuid);
+		responseObject = this.todoService.deleteTodoById(id);
 		return responseObject;
 	}
 	

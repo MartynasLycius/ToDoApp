@@ -14,8 +14,8 @@ export default {
         return Swal.fire({
             icon: 'warning',
             iconColor: '#b3dc10',
-            titleText: "Are you sure!",
-            text: "Are you sure you want to do this?",
+            titleText: "Your Todo Item done !",
+            text: "You are about finished this task",
             reverseButtons: true,
             showDenyButton: true,
             showConfirmButton: true,
