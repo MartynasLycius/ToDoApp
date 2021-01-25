@@ -105,16 +105,22 @@
       resetForm() {
         this.todo.itemName = '';
         this.todo.date = '';
+        this.todo.description = '';
         this.pageInUpdateState = false;
       },
       createTodo() {
         this.$restClient.post('create', this.todo)
-           .then(() => {
-             this.changeDialogStatus();
-             this.resetForm();
+           .then(({data}) => {
+             console.log(this.$httpStatusCode.OK);
+             if (data.httpStatusCode == this.$httpStatusCode.OK) {
+               this.$feedback.showSuccessMessage(data.message);
+               this.changeDialogStatus();
+               this.resetForm();
+               this.$eventBus.$emit(this.$evenBusConstant.REFRESH_TODO_LIST);
+             }
            })
-           .catch(({response}) => {
-             console.log(response.data);
+           .catch(() => {
+             this.$feedback.showFailed('Something went wrong. Please try again!');
              this.changeDialogStatus();
            });
       },

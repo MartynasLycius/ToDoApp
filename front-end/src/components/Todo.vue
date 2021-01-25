@@ -48,7 +48,11 @@
     created() {
       this.getTodoList();
     },
-
+    updated(){
+      this.$eventBus.$on(this.$evenBusConstant.REFRESH_TODO_LIST, ()=>{
+       this.getTodoList();
+      });
+    },
     data(){
       return {
         numberOfTodo: 0,
@@ -81,7 +85,6 @@
            .then(({data}) => {
              this.todoList = data.data;
              this.numberOfTodo = parseInt(this.todoList.length);
-             console.log('response' + ': ' + JSON.stringify(data.data, null, 2));
            })
            .catch(({response}) => {
              console.log(response);
