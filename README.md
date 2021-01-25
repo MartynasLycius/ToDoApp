@@ -1,7 +1,11 @@
 # ToDoApp
+## Required Environmet to run this project 
+&#8594; OS must have installed java 8 or higher <br />
+&#8594; OS must have installed Postgres Date base <br />
+&#8594; OS must have installed Nodejs
 
 ##To run project execute the follow the below instructions:
-1. Open PgAdmin or any Datebase IDE 
+1. Open PgAdmin or any Database IDE 
 2. Create a Database name: EastNetic
 3. Then create todo schema under EastNetic database
 
