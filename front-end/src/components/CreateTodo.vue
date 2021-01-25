@@ -3,15 +3,14 @@
     <v-dialog
         v-model="dialog"
         width="535"
-        @click:outside="outSideCloseOfTodoForm"
-    >
+        @click:outside="outSideCloseOfTodoForm">
+
       <template v-slot:activator="{ on, attrs }">
         <v-btn
             color="primary"
             dark
             v-bind="attrs"
-            v-on="on"
-        >
+            v-on="on">
           Add Todo
         </v-btn>
       </template>

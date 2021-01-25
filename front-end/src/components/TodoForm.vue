@@ -9,17 +9,16 @@
           outlined
           dense
           required
-          style="width: 80%"
-      ></v-text-field>
-
+          style="width: 80%">
+      </v-text-field>
 
       <v-textarea
           outlined
           v-model="todo.description"
           style="width: 80%"
           label="Enter description"
-          value=""
-      ></v-textarea>
+          value="">
+      </v-textarea>
 
       <v-menu
           v-model="menu2"
@@ -27,8 +26,7 @@
           :nudge-right="40"
           transition="scale-transition"
           offset-y
-          min-width="auto"
-      >
+          min-width="auto">
       <template v-slot:activator="{ on, attrs }">
         <v-text-field
             v-model="todo.date"
@@ -42,35 +40,32 @@
       </template>
         <v-date-picker
             v-model="todo.date"
-            @input="menu2 = false"
-        ></v-date-picker>
+            @input="menu2 = false">
+        </v-date-picker>
       </v-menu>
 
+      <v-row style="margin-bottom: 60px;margin-top: 10px">
+        <v-btn style="margin-right: 10px"
+            depressed
+            color="error"
+            @click="getCancel">
+          Cancel
+        </v-btn>
 
-    <v-row style="margin-bottom: 60px;margin-top: 10px">
-      <v-btn style="margin-right: 10px"
-          depressed
-          color="error"
-          @click="getCancel"
-      >
-        Cancel
-      </v-btn>
+        <v-btn v-if="this.pageInUpdateState==false"
+               @click="createTodo"
+               color="#e2136e"
+               class="primary"
+               style="color: #FFFFFF"
+               :disabled="!isValid">Create
+        </v-btn>
 
-      <v-btn v-if="this.pageInUpdateState==false"
-             @click="createTodo"
-             color="#e2136e"
-             class="primary"
-             style="color: #FFFFFF"
-             :disabled="!isValid">Create
-      </v-btn>
-
-      <v-btn v-if="this.pageInUpdateState==true"
-             @click="updateTodo"
-             color="#e2136e"
-             style="color: #FFFFFF"
-             :disabled="!isValid">Update
-      </v-btn>
-
+        <v-btn v-if="this.pageInUpdateState==true"
+               @click="updateTodo"
+               color="#e2136e"
+               style="color: #FFFFFF"
+               :disabled="!isValid">Update
+        </v-btn>
       </v-row>
     </div>
   </v-form>
@@ -85,7 +80,6 @@
     },
     data() {
       return {
-        //date: new Date().toISOString().substr(0, 10),
         menu2: false,
         todo: {
           id: '',
@@ -104,7 +98,7 @@
         this.resetForm();
       },
       resetForm() {
-        this.id = '';
+        this.todo.id = '';
         this.todo.itemName = '';
         this.todo.date = '';
         this.todo.description = '';
@@ -115,11 +109,11 @@
            .then(({data}) => {
              console.log(this.$httpStatusCode.OK);
              if (data.httpStatusCode === this.$httpStatusCode.OK) {
-               this.$feedback.showSuccessMessage(data.message);
                this.changeDialogStatus();
                this.resetForm();
                this.$eventBus.$emit(this.$evenBusConstant.REFRESH_TODO_LIST);
              }
+             this.$feedback.showSuccessMessage(data.message);
            })
            .catch(() => {
              this.$feedback.showFailed('Something went wrong. Please try again!');
@@ -130,11 +124,12 @@
         this.$feedback.showLoading();
         this.$restClient.put('update', this.todo)
            .then(({data}) => {
-             this.$feedback.hideLoading();
+             if (data.httpStatusCode === this.$httpStatusCode.OK) {
+               this.changeDialogStatus();
+               this.resetForm();
+               this.$eventBus.$emit(this.$evenBusConstant.REFRESH_TODO_LIST);
+             }
              this.$feedback.showSuccessMessage(data.message);
-             this.changeDialogStatus();
-             this.resetForm();
-             this.$eventBus.$emit(this.$evenBusConstant.REFRESH_TODO_LIST);
            })
            .catch(() => {
              this.$feedback.showFailed('Something went wrong. Please try again!');
@@ -142,19 +137,15 @@
            });
       },
     },
-    mounted() {
-
-    },
     updated() {
+      let copyPayload;
       this.$eventBus.$on(this.$evenBusConstant.PASS_TODO_ITEM_FOR_EDIT, (payload) => {
-        let copyPayload = Object.assign({}, payload);
+        copyPayload = Object.assign({}, payload);
         if (!this.$validation.isEmptyObject(copyPayload)) {
           this.todo = copyPayload;
           this.pageInUpdateState = true;
         }
       });
-    },
-    created() {
     },
   };
 </script>

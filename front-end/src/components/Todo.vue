@@ -20,13 +20,13 @@
             <div class="action-button-container">
               <v-chip outlined
                       @click="editTodo(item)"
-                      class="primary">Edit
+                      color="info">Edit
               </v-chip>
               <v-chip
                   outlined
+                  color="success"
                   style="margin-left: 15px"
-                  @click="doneTodo(item)"
-                  class="action-button">Done
+                  @click="doneTodo(item)">Done
               </v-chip>
             </div>
           </template>
@@ -85,16 +85,15 @@
         let confirmed = await this.$feedback.getConfirmation();
         if (!confirmed) return;
 
-        console.log('delete object:', JSON.stringify(item, null, 2));
         this.$restClient.delete('delete/'+item.id)
            .then(({data}) => {
              if (data.httpStatusCode === this.$httpStatusCode.OK) {
-               this.$feedback.showSuccessMessage(data.message);
                this.getTodoList();
              }
+             this.$feedback.showSuccessMessage(data.message);
            }).catch(() => {
               this.$feedback.showFailed('Something went wrong. Please try again!');
-        });
+           });
       },
 
       getTodoList() {
@@ -103,8 +102,8 @@
              this.todoList = data.data;
              this.numberOfTodo = parseInt(this.todoList.length);
            })
-           .catch(({response}) => {
-             console.log(response);
+           .catch(() => {
+             this.$feedback.showFailed('Something went wrong. Please try again!');
            });
       }
     }
