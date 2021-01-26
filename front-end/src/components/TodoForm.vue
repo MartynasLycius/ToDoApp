@@ -6,6 +6,7 @@
       <v-text-field
           v-model="todo.itemName"
           label="Enter task name"
+          :rules="itemNameRules"
           outlined
           dense
           required
@@ -34,6 +35,7 @@
             label="Pick a date"
             style="width: 80%; margin-top: -20px"
             readonly
+            :rules="dateSelectionRules"
             v-bind="attrs"
             v-on="on"
         ></v-text-field>
@@ -63,6 +65,7 @@
         <v-btn v-if="this.pageInUpdateState==true"
                @click="updateTodo"
                color="#e2136e"
+               class="primary"
                style="color: #FFFFFF"
                :disabled="!isValid">Update
         </v-btn>
@@ -90,6 +93,12 @@
         dialog: false,
         isValid: false,
         pageInUpdateState: false,
+        itemNameRules: [
+          (v) => !!v || 'Todo Item Name is required'
+        ],
+        dateSelectionRules: [
+          (v) => !!v || "Date is required"
+        ],
       };
     },
     methods: {
@@ -115,8 +124,8 @@
              }
              this.$feedback.showSuccessMessage(data.message);
            })
-           .catch(() => {
-             this.$feedback.showFailed('Something went wrong. Please try again!');
+           .catch(({data}) => {
+             this.$feedback.showFailed(data.message);
              this.changeDialogStatus();
            });
       },
@@ -131,8 +140,8 @@
              }
              this.$feedback.showSuccessMessage(data.message);
            })
-           .catch(() => {
-             this.$feedback.showFailed('Something went wrong. Please try again!');
+           .catch(({data}) => {
+             this.$feedback.showFailed(data.message);
              this.changeDialogStatus();
            });
       },
