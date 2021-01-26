@@ -92,8 +92,8 @@
                this.getTodoList();
              }
              this.$feedback.showSuccessMessage(data.message);
-           }).catch(() => {
-              this.$feedback.showFailed('Something went wrong. Please try again!');
+           }).catch(({data}) => {
+              this.$feedback.showFailed(data.message);
            });
       },
 
@@ -103,8 +103,8 @@
              this.todoList = data.data;
              this.numberOfTodo = parseInt(this.todoList.length);
            })
-           .catch(() => {
-             this.$feedback.showFailed('Something went wrong. Please try again!');
+           .catch(({data}) => {
+             this.$feedback.showFailed(data.message);
            });
       }
     }
