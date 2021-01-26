@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 @RestController
 @RequestMapping(value = "/api/todo",
@@ -31,7 +32,7 @@ public class TodoController {
 	}
 	
 	@PostMapping("create")
-    public ResponseObject createTodo(@RequestBody TodoModel todoModel){
+    public ResponseObject createTodo(@Valid @RequestBody TodoModel todoModel){
         ResponseObject responseObject;
 		responseObject = this.todoService.createTodo(todoModel);
         return responseObject;
@@ -52,7 +53,7 @@ public class TodoController {
 	}
  
 	@PutMapping("update")
-	public ResponseObject updateTodo(@RequestBody TodoModel todoModel){
+	public ResponseObject updateTodo(@Valid @RequestBody TodoModel todoModel){
 		ResponseObject responseObject;
 		responseObject = this.todoService.updateTodo(todoModel);
 		return responseObject;
