@@ -1,4 +1,4 @@
-package com.ovi.todo;
+package com.ovi.todo.data.utils;
 
 import java.util.Random;
 

@@ -1,6 +1,6 @@
 package com.ovi.todo.data.service.impl;
 
-import com.ovi.todo.TodoUtils;
+import com.ovi.todo.data.utils.TodoUtils;
 import com.ovi.todo.data.dto.request.TodoRequest;
 import com.ovi.todo.data.dto.response.TodoResponse;
 import com.ovi.todo.data.entity.Todo;
