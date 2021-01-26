@@ -26,3 +26,23 @@ All the other specific requirements are up to you
 * Use best practises
 * Use naming conventions
 * Show understanding of software development concepts
+
+## Dev end Ground
+* java 8
+* Spring boot with Maven
+* MySQL
+* Vaadin 14
+* Latest Node.js
+
+## Project Starting Precess
+1. Please make sure MySQL is running.
+2. Create a Database **tododb** or you can have a look in application.properties
+   (No pre data is initializing here as it was a simple task)
+
+## Disclaimer 
+Here the vaadin pro "Confirm Dialog" is used. Need to go through the project before the subscriptions is ended.
+(https://vaadin.com/components/vaadin-confirm-dialog)
+
+
+Till then, Achoo :) 
+
