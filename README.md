@@ -4,6 +4,10 @@
 &#8594; OS must have installed Postgres Date base <br />
 &#8594; OS must have installed Nodejs
 
+## Framework use to complete this task:
+* Spring-boot to develop back end
+* VueJs to develop front end
+
 ##To run this project follow the below instructions:
 1. Open PgAdmin or any Database IDE 
 2. Create a Database name: EastNetic

@@ -16,22 +16,20 @@ import com.salahin.todo.model.TodoModel;
 import com.salahin.todo.repository.TodoRepository;
 import com.salahin.todo.service.TodoService;
 import com.salahin.todo.utilities.UtilityMethods;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class TodoServiceImpl implements TodoService {
 	
-	private static final Logger log = LoggerFactory.getLogger(TodoServiceImpl.class);
 	private static final ModelMapper modelMapper = new ModelMapper();
 	private final TodoRepository todoRepository;
 	

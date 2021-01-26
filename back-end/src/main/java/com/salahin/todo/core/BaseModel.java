@@ -11,12 +11,9 @@ package com.salahin.todo.core;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import java.util.Date;
 
 @Data
-@EqualsAndHashCode
 public abstract class BaseModel {
 	
 	@JsonIgnore
