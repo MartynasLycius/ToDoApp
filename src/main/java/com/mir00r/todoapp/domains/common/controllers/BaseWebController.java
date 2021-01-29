@@ -12,7 +12,7 @@ public interface BaseWebController<T extends BaseDto> {
 
     String search(String query, int page, int size, Model model);
 
-    String find(Long id) throws NotFoundException;
+    String find(Long id, Model model) throws NotFoundException;
 
     String createPage(Model model);
 

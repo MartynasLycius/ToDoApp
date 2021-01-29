@@ -48,10 +48,12 @@ public class ToDoWebController implements BaseWebController<ToDoItemDto> {
     }
 
     @Override
-//    @GetMapping(Router.UPDATE_TODO_ITEM)
-    public String find(@PathVariable("id") Long id) throws NotFoundException {
+    @GetMapping(Router.UPDATE_TODO_ITEM)
+    public String find(@PathVariable("id") Long id, Model model) throws NotFoundException {
         ToDoItem item = this.todoItemService.find(id).orElseThrow(NotFoundException::new);
-        return Constants.GET_SINGLE_TODO_ITEMS_PAGE_URL;
+        model.addAttribute("item", this.todoItemMapper.map(item));
+        model.addAttribute("actionUrl", "/todos/" + item.getId());
+        return Constants.GET_CREATE_UPDATE_TODO_ITEMS_PAGE_URL;
     }
 
     @Override
@@ -70,7 +72,7 @@ public class ToDoWebController implements BaseWebController<ToDoItemDto> {
     }
 
     @Override
-    @PostMapping(Router.UPDATE_TODO_ITEM_PAGE)
+    @GetMapping(Router.UPDATE_TODO_ITEM_PAGE)
     public String updatePage(@PathVariable("id") Long id, Model model) throws NotFoundException {
         ToDoItem item = this.todoItemService.find(id).orElseThrow(NotFoundException::new);
         model.addAttribute("item", this.todoItemMapper.map(item));
