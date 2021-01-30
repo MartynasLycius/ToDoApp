@@ -1,0 +1,62 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+	<title>Edit</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="card">
+		  <div class="card-header bg-primary text-white">
+		    <h4>Edit ToDo Item</h4>
+		  </div>
+		  <div class="card-body">
+		  	<div th:if="${message != null}" class="alert alert-dismissable alert-styled-left" th:classappend="${error} ? 'alert-danger' : 'alert-success'" id="idMessagePanel">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<div th:text="${message}"></div>
+			</div>
+			<form th:action="@{/updateToDO}" method="POST" th:object="${todo}">
+				<div class="row">
+					<div class="col-sm-12">
+		    			<div class="form-group">
+							<label for="itemName">Name of Task (<span class="text-danger">required</span>)</label> 
+							<input type="text" class="form-control" th:field="*{itemName}" placeholder="Name of Task" required/> 
+							<p class="text-danger" th:each="error: ${#fields.errors('itemName')}" th:text="${error}"></p>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label for="itemDescription">Description of Task (<span class="text-danger">required</span>)</label>
+							<textarea th:field="*{itemDescription}" placeholder="Description of Task"
+								class="form-control" rows="2" cols="30" required>
+							</textarea>
+							<p class="text-danger" th:each="error: ${#fields.errors('itemDescription')}" th:text="${error}"></p>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="date" class="val-required">Date</label>
+							<input type='text' class="form-control" th:field="*{date}" autocomplete="false" />
+							<p class="text-danger" th:each="error: ${#fields.errors('date')}" th:text="${error}"></p>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<div class="custom-control custom-switch mt-4">
+								<input type="checkbox" class="custom-control-input" id="isDone" th:field="*{isDone}">
+								<label class="custom-control-label" for="isDone">Task Completed</label>
+							</div>
+						</div>
+					</div>
+					<input type="hidden" th:field="*{id}">
+				</div>
+				<div class="text-right">
+					<a th:href="@{/}" style='margin-right:16px' class="btn btn-sm btn-info"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to List</a>
+					<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-paper-plane" aria-hidden="true"></i> Update</button>
+				</div>
+			</form>
+		 </div>
+		</div>
+	</div>
+</body>
+</html>

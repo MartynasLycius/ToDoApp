@@ -1,0 +1,66 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+	<title>List</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="card">
+		  <div class="card-header">
+		    <h4>ToDo - List of Task</h4>
+		  </div>
+		  <div class="card-body">
+				<div th:if="${message != null}" class="alert alert-dismissable alert-styled-left alert-success" id="idMessagePanel">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<div th:text="${message}"></div>
+				</div>
+				<div class="text-right mb-2">
+		          <a class="btn btn-info btn-sm" th:href="@{/createToDO}"><i class="fa fa-plus" aria-hidden="true"></i> Add ToDo</a>
+		        </div>
+		        <div class="table-responsive-lg">
+					<table class="table table-striped table-bordered table-sm">
+						<thead class="bg-primary text-white">
+							<tr class="text-center">
+								<th>Name of Task Item</th>
+								<th>Description of Task</th>
+								<th>Date</th>
+								<th>Status</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="st,iter : ${toDoList}">
+								<td>
+									<del th:if="${#strings.toString(st.isDone) == 'true'}"><span th:text="${st.itemName}"></span></del>
+									<span th:if="${#strings.toString(st.isDone) == 'false'}" th:text="${st.itemName}"></span>
+								</td>
+								<td th:text="${#strings.abbreviate(st.itemDescription,150)}"></td>
+								<td th:text="${#dates.format(st.date, 'dd-MM-yyyy')}">Date</td>
+								<td>
+									<span
+										th:class="${#strings.toString(st.isDone) == 'true'? 'text-success' : 'text-default'}"
+										th:text="${#strings.toString(st.isDone) == 'true'? 'Completed' : 'Incomplete'}">
+									</span>
+								</td>
+								<td>
+									<a href="#" class="btn btn-sm btn-default btn-edit"
+										th:href="@{/editToDO(id=${st.id})}"
+										title="Edit ToDo">
+										<span class="fa fa-edit text-info"></span> Edit
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="row align-items-center d-flex justify-content-center">
+						<div th:if="${toDoList.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
+						    <a class="btn btn-default btn-sm shadow" th:href="@{/(size=${toDoList.size}, page=${pageNumber})}" th:text="${pageNumber}" th:appendclass="${pageNumber==toDoList.number + 1} ? active"></a>&nbsp;
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
