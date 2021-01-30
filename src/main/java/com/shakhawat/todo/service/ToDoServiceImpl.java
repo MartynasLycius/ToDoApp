@@ -51,6 +51,8 @@ public class ToDoServiceImpl implements ToDoService {
 			Optional<ToDo> optional = toDoRepository.findById(toDo.getId());
 			if (optional.isPresent()) {
 				toDo.setCreatedAt(optional.get().getCreatedAt());
+			} else {
+				throw new RuntimeException(" ToDo not found for the ID: " + toDo.getId());
 			}
 		}
 		toDo.setUpdatedAt(new Date());
