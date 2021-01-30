@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/css/todo-custom.css}" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+	<link th:href="@{/css/bootstrap-datepicker.min.css}" rel="stylesheet">
+	<title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">ToDo</title>
+</head>
+<body>
+	<header class="main-header">
+		<div th:replace="/fragments/header"></div>
+	</header>
+	<!-- Main content -->	
+	<section>
+		<div layout:fragment="content" class="d-flex justify-content-center align-items-center mt-5"></div>
+	</section>
+	<!-- /.content -->
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<!-- Include Bootstrap Datepicker -->
+	<script th:src="@{/js/bootstrap-datepicker.min.js}"></script>
+	<script type='text/javascript'>
+		$('#date').datepicker({
+			format : "dd-mm-yyyy",
+			todayBtn : "linked",
+			todayHighlight : true,
+			autoclose : true,
+			forceParse : false,
+			pickDate : true
+		});
+		$(document).ready(
+			function() {
+				setTimeout(
+					function() {
+						var msgPanel = document.getElementById('idMessagePanel');
+						if(msgPanel != null){
+							msgPanel.style.display = 'none';
+						}
+					}, 5000);
+			}
+		);
+	</script>
+</body>
+</html>
