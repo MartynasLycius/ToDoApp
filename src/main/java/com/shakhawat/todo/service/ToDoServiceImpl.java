@@ -39,20 +39,19 @@ public class ToDoServiceImpl implements ToDoService {
 		if (optional.isPresent()) {
 			toDo = optional.get();
 		} else {
-			throw new RuntimeException(" ToDo not found for the ID: " + id);
+			throw new RuntimeException("ToDo not found for the ID: " + id);
 		}
 		return toDo;
 	}
 
 	@Override
 	public void updateToDo(ToDo toDo) {
-		
 		if(null != toDo.getId()) {
 			Optional<ToDo> optional = toDoRepository.findById(toDo.getId());
 			if (optional.isPresent()) {
 				toDo.setCreatedAt(optional.get().getCreatedAt());
 			} else {
-				throw new RuntimeException(" ToDo not found for the ID: " + toDo.getId());
+				throw new RuntimeException("ToDo not found for the ID: " + toDo.getId());
 			}
 		}
 		toDo.setUpdatedAt(new Date());
@@ -75,10 +74,8 @@ public class ToDoServiceImpl implements ToDoService {
             int toIndex = Math.min(startItem + pageSize, toDos.size());
             list = toDos.subList(startItem, toIndex);
         }
-
         Page<ToDo> toDokPage = new PageImpl<ToDo>(list, PageRequest.of(currentPage, pageSize), toDos.size());
 
         return toDokPage;
 	}
-
 }

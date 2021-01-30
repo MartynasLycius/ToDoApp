@@ -39,8 +39,6 @@ public class ToDoController {
 	public ModelAndView allToDos(@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("todo/todo_list");
-		
 		int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
 
@@ -55,12 +53,14 @@ public class ToDoController {
                 .collect(Collectors.toList());
             mav.addObject("pageNumbers", pageNumbers);
         }
+        mav.setViewName("todo/todo_list");
+        
 		return mav;
 	}
 	
 	// Create ToDo
-	@GetMapping("/createToDO")
-	public ModelAndView createToDOForm() {
+	@GetMapping("/createToDo")
+	public ModelAndView createToDoForm() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("todo", new ToDo());
 		mav.setViewName("todo/todo_add");
@@ -69,8 +69,8 @@ public class ToDoController {
 	
 	// Save ToDo
 	@Transactional
-	@PostMapping("/saveToDO")
-	public String saveToDO(@ModelAttribute("todo") @Validated ToDo todo, BindingResult bindingResult, SessionStatus sessionStatus, RedirectAttributes redirectAttributes, Model model) {
+	@PostMapping("/saveToDo")
+	public String saveToDo(@ModelAttribute("todo") @Validated ToDo todo, BindingResult bindingResult, SessionStatus sessionStatus, RedirectAttributes redirectAttributes, Model model) {
 		
 		toDoValidator.validate(todo, bindingResult);
 		
@@ -87,8 +87,8 @@ public class ToDoController {
 	}
 	
 	// Edit ToDo
-	@GetMapping("/editToDO")
-	public ModelAndView editToDO(@ModelAttribute("id") String id, BindingResult bindingResult) {
+	@GetMapping("/editToDo")
+	public ModelAndView editToDo(@ModelAttribute("id") String id, BindingResult bindingResult) {
 		ModelAndView mav = new ModelAndView();
 		
 		ToDo todo = new ToDo();
@@ -108,8 +108,8 @@ public class ToDoController {
 	
 	// Update ToDo
 	@Transactional
-	@PostMapping("/updateToDO")
-	public String updateToDO(@ModelAttribute("todo") @Validated ToDo todo, BindingResult bindingResult, SessionStatus sessionStatus, RedirectAttributes redirectAttributes, Model model) {
+	@PostMapping("/updateToDo")
+	public String updateToDo(@ModelAttribute("todo") @Validated ToDo todo, BindingResult bindingResult, SessionStatus sessionStatus, RedirectAttributes redirectAttributes, Model model) {
 		
 		toDoValidator.validate(todo, bindingResult);
 		
@@ -129,8 +129,8 @@ public class ToDoController {
 		
 		toDoService.updateToDo(todo);
 		sessionStatus.setComplete();
-		redirectAttributes.addFlashAttribute("message", "Data updated successfully!");
 		
+		redirectAttributes.addFlashAttribute("message", "Data updated successfully!");
 		return "redirect:/";
 	}
 

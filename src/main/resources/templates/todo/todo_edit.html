@@ -15,7 +15,7 @@
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<div th:text="${message}"></div>
 			</div>
-			<form th:action="@{/updateToDO}" method="POST" th:object="${todo}">
+			<form th:action="@{/updateToDo}" method="POST" th:object="${todo}">
 				<div class="row">
 					<div class="col-sm-12">
 		    			<div class="form-group">
