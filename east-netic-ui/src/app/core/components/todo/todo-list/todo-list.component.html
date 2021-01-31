@@ -1,0 +1,39 @@
+<main class="main d-flex align-items-center bg">
+  <div class="container">
+    <div class="row">
+      <div class="offset-8 col-md-2">
+        <div class="col-md-12 custom-button">
+          <button routerLink="/login" (click)="add()">{{'Add Todo'}}</button>
+        </div></div>
+    </div>
+    <div class="card" style="margin-top: 30px">
+      <div class="card-header">
+        <h4><div class="row offset-3" *ngIf="todos.length === 0"> There have no todos. Please add to see</div></h4>
+      </div>
+      <div class="card-body">
+        <div class="row custom-row" style="margin: 30px 0px" *ngFor="let todo of todos">
+      <div class="col-md-8 mx-auto">
+        <div class="card-group">
+          <div class="card p-4 custom-card">
+            <div class="card-body">
+              <span>
+              <i class="fa fa-user" aria-hidden="true"></i>
+              <span><strong> {{todo.user.fullName}}</strong></span>
+              </span>
+              <p>
+                <button [disabled]="todo.userId !== currentUserId" (click)="onClickUpdate(todo.id)">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                {{todo.description}}
+              </p>
+              <br/>
+              <span><strong>  {{todo.date.toString() | date}}</strong></span>
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+  </div>
+</main>

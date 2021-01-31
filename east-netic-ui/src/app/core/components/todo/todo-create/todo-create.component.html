@@ -1,0 +1,38 @@
+<div class="app-body" >
+  <main class="main d-flex align-items-center bg" >
+    <div class="container" >
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card-group">
+            <div class="card p-4">
+              <div class="card-body">
+                <form (keyup.enter)="save()">
+                  <h3>{{ 'Todo a status' }}</h3>
+                  <div class="input-group mb-3">
+                    <input [(ngModel)]="todo.title" type="text" name="title" required/>
+                  </div>
+                  <div class="input-group mb-3">
+                    <textarea class="form-control" name="description"
+                              [(ngModel)]="todo.description" required>
+                    </textarea>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input [ngModel]="todo.date"
+                           type="datetime-local"
+                           (ngModelChange)="todo.date = $event"
+                           name="date" required/>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <button type="button" class="btn btn-primary px-4" (click)="save()">{{ 'Add' }}</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
