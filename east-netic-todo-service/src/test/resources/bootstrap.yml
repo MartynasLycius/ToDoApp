@@ -1,0 +1,4 @@
+service:
+  feign:
+    client:
+      auth-service: localhost:8081/

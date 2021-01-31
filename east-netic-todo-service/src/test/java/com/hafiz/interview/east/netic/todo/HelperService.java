@@ -1,0 +1,8 @@
+package com.hafiz.interview.east.netic.todo;
+
+public class HelperService {
+
+  public static String getToken() {
+    return "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiYXBpIl0sInVzZXJfbmFtZSI6ImhhZml6Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTYxMjA2OTQ5OCwiYXV0aG9yaXRpZXMiOlsidXNlciJdLCJqdGkiOiIxYjdmNWMwYS0yYWM3LTRmZTUtYjAxYS1iOWYyZWRkNGVlZWUiLCJjbGllbnRfaWQiOiJlYXN0LW5ldGljIn0.AxvJ7LPY1mvTXSqym2QYSGxpd0QMqwu3kSltQHQcR6A";
+  }
+}
