@@ -1,0 +1,14 @@
+eureka:
+  client:
+    enabled: false
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    healthcheck:
+      enabled: true
+  instance:
+    appname: todo-service
+
+service:
+  feign:
+    client:
+      auth-service: localhost:8081/

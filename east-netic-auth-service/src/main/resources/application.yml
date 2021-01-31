@@ -1,0 +1,23 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: auth-service
+  jpa:
+    show-sql: true
+    hibernate.ddl-auto: validate
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        default_schema: user_management
+  datasource:
+    url: jdbc:postgresql://localhost:5432/interview
+    username: postgres
+    password: 12345
+  resources:
+    add-mappings: false
+  jackson:
+    date-format: dd-MM-yyyy

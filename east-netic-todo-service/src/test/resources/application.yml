@@ -1,0 +1,31 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: todo-service
+  jpa:
+    show-sql: true
+    hibernate.ddl-auto: validate
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        default_schema: todo
+  datasource:
+    url: jdbc:postgresql://localhost:5432/interview-test
+    username: postgres
+    password: 12345
+  resources:
+    add-mappings: false
+  jackson:
+    date-format: dd-MM-yyyy
+logging:
+  level:
+    org.springframework: ERROR
+    com.hafiz.interview.east.netic.todo: INFO
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+    file: "%d %p %c{1.} [%t] %m%n"
+  file: app-test.log
