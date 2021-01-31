@@ -1,0 +1,17 @@
+
+
+<nav role="navigation" class="navbar navbar-inverse">
+	<div class="">
+		<a href="https://www.linkedin.com/in/ayakuth-pathan/" class="navbar-brand">Ayakuth Pathan</a>
+	</div>
+	<div class="navbar-collapse">
+		<ul class="nav navbar-nav">
+			<li><a href="/">Home</a></li>
+			<li><a href="/list-todos">Todos</a></li>
+			<li><a href="/add-todo">New Todo</a></li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li><a class="navbar-brand" href="/logout">Logout</a></li>
+		</ul>
+	</div>
+</nav>
