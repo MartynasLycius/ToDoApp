@@ -7,7 +7,7 @@ This is the job interview task for software developer position
 2. create a MySQL Database named with todo or update the application.properties file with your MySQL DB name and user/password
 
 ## Used Technologies
-JSP with JSTL and Bootstrap as a frontend framework
-For backend used Java EE (Spring boot)
-Used MySQL database
-A Maven project
+1. JSP with JSTL and Bootstrap as a frontend framework
+2. For backend used Java EE (Spring boot)
+3. Used MySQL database
+4. A Maven project
