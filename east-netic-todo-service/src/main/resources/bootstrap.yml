@@ -6,7 +6,7 @@ eureka:
     healthcheck:
       enabled: true
   instance:
-    appname: post-service
+    appname: todo-service
 
 service:
   feign:

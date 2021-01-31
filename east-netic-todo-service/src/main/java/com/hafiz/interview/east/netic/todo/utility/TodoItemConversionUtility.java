@@ -58,17 +58,17 @@ public class TodoItemConversionUtility extends ConversionUtility<TodoItem, TodoI
                   .collect(Collectors.toMap(UserDto::getId, user -> user));
     }
 
-    private Set<UUID> getUserIds(List<TodoItemDTO> posts) {
-        return posts
+    private Set<UUID> getUserIds(List<TodoItemDTO> todoItems) {
+        return todoItems
                   .stream()
                   .map(TodoItemDTO::getUserId)
                   .collect(Collectors.toSet());
     }
 
     private void setUserDto(Map<UUID, UserDto> users, List<TodoItemDTO> todoItems){
-        todoItems.forEach(post -> {
-            UserDto user = users.get(post.getUserId());
-            if(user != null) post.setUser(user);
+        todoItems.forEach(todo -> {
+            UserDto user = users.get(todo.getUserId());
+            if(user != null) todo.setUser(user);
         });
     }
 }
