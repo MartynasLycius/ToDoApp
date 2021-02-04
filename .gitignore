@@ -33,3 +33,6 @@ build/
 .vscode/
 
 .DS_Store
+
+/src/main/webapp/frontend-es*/
+node_modules
