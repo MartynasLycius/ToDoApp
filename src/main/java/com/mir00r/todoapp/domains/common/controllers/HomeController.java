@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author mir00r on 29/1/21
  * @project IntelliJ IDEA
  */
-@Controller
+//@Controller
 public class HomeController {
 
     @GetMapping("")

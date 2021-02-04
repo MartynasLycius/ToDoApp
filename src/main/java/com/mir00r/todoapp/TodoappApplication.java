@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author mir00r on 29/1/21
  * @project IntelliJ IDEA
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackageClasses = { MainView.class})
 public class TodoappApplication {
     public static void main(String[] args) {
         SpringApplication.run(TodoappApplication.class, args);

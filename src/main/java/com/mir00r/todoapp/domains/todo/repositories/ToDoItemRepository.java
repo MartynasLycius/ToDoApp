@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -22,4 +23,7 @@ public interface ToDoItemRepository extends JpaRepository<ToDoItem, Long> {
 
     @Query("SELECT tdi FROM ToDoItem tdi WHERE tdi.id=:id AND tdi.deleted=false")
     Optional<ToDoItem> find(@Param("id") Long id);
+
+    @Query("SELECT tdi FROM ToDoItem tdi WHERE (:q IS NULL OR tdi.name LIKE %:q%) AND tdi.deleted=false")
+    List<ToDoItem> search(@Param("q") String query);
 }

@@ -23,6 +23,14 @@ public class ToDoItem extends BaseEntity {
     @Column(nullable = false)
     private Date date;
 
+    public ToDoItem() {
+    }
+
+    public ToDoItem(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public String getName() {
         return name;
     }
