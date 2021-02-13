@@ -12,8 +12,10 @@ package com.salahin.todo.core;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class ResponseObject {
+public class ResponseObject implements Serializable {
 	
 	@JsonIgnore
 	private static final long serialVersionUID = 1L;
