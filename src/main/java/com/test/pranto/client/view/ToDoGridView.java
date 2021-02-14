@@ -118,7 +118,7 @@ public class ToDoGridView extends GridExplorerView<ToDo> implements Callback {
 	public void updateView() {
 		String searchName = tfNameField.getValue();
 		if (searchName != null) {
-			searchName.trim();
+			searchName = searchName.trim();
 		}
 		List<ToDo> findAll = ToDoDAO.getInstance().findToDos(searchName);
 		grid.setItems(findAll);
