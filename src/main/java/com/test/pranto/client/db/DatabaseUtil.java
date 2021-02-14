@@ -15,7 +15,7 @@
  * * All Rights Reserved.
  * ************************************************************************
  */
-package com.test.pranto.servlet;
+package com.test.pranto.client.db;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;

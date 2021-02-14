@@ -23,7 +23,7 @@
   </context-param>
   <context-param>
     <param-name>jdbc.database_name</param-name>
-    <param-value>tododb</param-value>
+    <param-value>webtododb</param-value>
   </context-param>
   <context-param>
     <param-name>jdbc.database_user</param-name>

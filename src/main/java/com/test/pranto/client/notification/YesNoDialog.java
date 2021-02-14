@@ -1,4 +1,4 @@
-package com.test.pranto.client.ui;
+package com.test.pranto.client.notification;
 
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -22,13 +22,6 @@ public class YesNoDialog extends Window implements ClickListener {
 		yes.setCaption(caption);
 	}
 
-	public void setYesButtonCaption(String caption, String style) {
-		setYesButtonCaption(caption);
-		if (style != null) {
-			yes.setStyleName(style);
-		}
-	}
-
 	public void setNoButtonCaption(String caption) {
 		no.setCaption(caption);
 	}
@@ -50,23 +43,27 @@ public class YesNoDialog extends Window implements ClickListener {
 		setHeight("200px"); //$NON-NLS-1$
 
 		VerticalLayout mainContent = new VerticalLayout();
+		mainContent.setMargin(true);
+		mainContent.setSpacing(true);
 		mainContent.setSizeFull();
 
 		Panel mainPanel = new Panel();
 		mainPanel.addStyleName(ValoTheme.PANEL_BORDERLESS);
+		mainPanel.addStyleName("border-top");
 		mainPanel.setHeight("100%"); //$NON-NLS-1$
 
 		if (question != null) {
 			Label lblQuestion = new Label(question);
 			lblQuestion.setWidth("80%"); //$NON-NLS-1$
-			lblQuestion.addStyleName("custom-heading"); //$NON-NLS-1$
 			mainPanel.setContent(lblQuestion);
 		}
 
 		HorizontalLayout buttonPanel = new HorizontalLayout();
 		buttonPanel.setWidth("100%"); //$NON-NLS-1$
 		buttonPanel.setSpacing(true);
-		buttonPanel.addStyleName("custom-button-margin"); //$NON-NLS-1$
+
+		yes.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		no.addStyleName(ValoTheme.BUTTON_DANGER);
 
 		yes.setSizeFull();
 		no.setSizeFull();

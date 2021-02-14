@@ -3,7 +3,6 @@ package com.test.pranto.model;
 import com.test.pranto.model.base.BaseToDo;
 
 
-
 public class ToDo extends BaseToDo {
 	private static final long serialVersionUID = 1L;
 

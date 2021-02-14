@@ -17,12 +17,12 @@ public abstract class BaseToDo  implements Comparable, Serializable {
 
 	public static String REF = "ToDo";
 	public static String PROP_LAST_UPDATE_TIME = "lastUpdateTime";
-	public static String PROP_DESCRIPTION = "DESCRIPTION";
+	public static String PROP_DESCRIPTION = "description";
 	public static String PROP_TO_DO_DATE = "toDoDate";
 	public static String PROP_DELETED = "deleted";
 	public static String PROP_ID = "id";
 	public static String PROP_CREATE_DATE = "createDate";
-	public static String PROP_ITEM_NAME = "ITEM_NAME";
+	public static String PROP_ITEM_NAME = "itemName";
 
 
 	// constructors
@@ -54,8 +54,8 @@ public abstract class BaseToDo  implements Comparable, Serializable {
 	private java.util.Date lastUpdateTime;
 	private java.lang.Boolean deleted;
 	private java.util.Date toDoDate;
-	private java.lang.String iTEM_NAME;
-	private java.lang.String dESCRIPTION;
+	private java.lang.String itemName;
+	private java.lang.String description;
 
 
 
@@ -172,42 +172,6 @@ public abstract class BaseToDo  implements Comparable, Serializable {
 
 
 
-	/**
-	 * Return the value associated with the column: itemName
-	 */
-	public java.lang.String getITEM_NAME () {
-		return iTEM_NAME;
-	}
-
-	/**
-	 * Set the value related to the column: itemName
-	 * @param iTEM_NAME the itemName value
-	 */
-	public void setITEM_NAME (java.lang.String iTEM_NAME) {
-		this.iTEM_NAME = iTEM_NAME;
-	}
-
-
-
-	/**
-	 * Return the value associated with the column: description
-	 */
-	public java.lang.String getDESCRIPTION () {
-		return dESCRIPTION;
-	}
-
-	/**
-	 * Set the value related to the column: description
-	 * @param dESCRIPTION the description value
-	 */
-	public void setDESCRIPTION (java.lang.String dESCRIPTION) {
-		this.dESCRIPTION = dESCRIPTION;
-	}
-
-
-
-
-
 	public boolean equals (Object obj) {
 		if (null == obj) return false;
 		if (!(obj instanceof com.test.pranto.model.ToDo)) return false;
@@ -237,6 +201,22 @@ public abstract class BaseToDo  implements Comparable, Serializable {
 
 	public String toString () {
 		return super.toString();
+	}
+
+	public java.lang.String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(java.lang.String itemName) {
+		this.itemName = itemName;
+	}
+
+	public java.lang.String getDescription() {
+		return description;
+	}
+
+	public void setDescription(java.lang.String description) {
+		this.description = description;
 	}
 
 

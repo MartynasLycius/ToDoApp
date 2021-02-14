@@ -25,6 +25,14 @@ $v-css-layout-margin: 5px;
         }
     }
     
+    .border-bottom {
+     	border-bottom: 1px solid #CDCFDB;
+     }
+     
+     .border-top {
+     	border-top: 1px solid #CDCFDB;
+     }
+    
     .custom-grid-cell-focus {
        .v-grid-cell-focused:before {
             display: none !important;

@@ -1,4 +1,4 @@
-package com.test.pranto.servlet;
+package com.test.pranto.client.db;
 
 import java.util.HashMap;
 import java.util.Map;

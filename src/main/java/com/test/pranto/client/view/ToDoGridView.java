@@ -7,8 +7,9 @@ import com.test.pranto.client.GridExplorerView;
 import com.test.pranto.client.form.ToDoform;
 import com.test.pranto.client.grid.ToDoGrid;
 import com.test.pranto.client.notification.NotificationUtill;
-import com.test.pranto.client.ui.YesNoDialog.Callback;
+import com.test.pranto.client.notification.YesNoDialog.Callback;
 import com.test.pranto.model.ToDo;
+import com.test.pranto.model.dao.ToDoDAO;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
 import com.vaadin.navigator.Navigator;
@@ -31,6 +32,7 @@ public class ToDoGridView extends GridExplorerView<ToDo> implements Callback {
 
 	public static final String VIEW_NAME = "Todo";
 	private TextField tfNameField;
+	private ToDo todo;
 
 	public ToDoGridView() {
 	}
@@ -60,24 +62,26 @@ public class ToDoGridView extends GridExplorerView<ToDo> implements Callback {
 	}
 
 	@Override
-	protected void doEditItem(ToDo item) {
-		if (item == null) {
+	protected void doEditItem(ToDo todo) {
+		if (todo == null) {
 			NotificationUtill.showErrorMessage("Please select a todo!");
 			return;
 		}
 
 		Navigator navigator = UI.getCurrent().getNavigator();
-		ToDoform view = new ToDoform(this, item, "Edit " + item.getITEM_NAME());
+		ToDoform view = new ToDoform(this, todo, "Edit " + todo.getItemName());
 		navigator.addView(ToDoform.VIEW_NAME, view);
 		navigator.navigateTo(ToDoform.VIEW_NAME);
 	}
 
 	@Override
-	protected void doDeleteItem(ToDo toDo) {
-		if (toDo == null) {
+	protected void doDeleteItem(ToDo todo) {
+		if (todo == null) {
 			NotificationUtill.showErrorMessage("Please select a todo!");
 			return;
 		}
+		this.todo = todo;
+
 		NotificationUtill.showYesNoDialog("Delete ", "Are you sure?", this); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
@@ -89,16 +93,14 @@ public class ToDoGridView extends GridExplorerView<ToDo> implements Callback {
 	}
 
 	public void onApprove() {
-		// try {
-		// perform delete
-		// }
-		// catch (PosException e) {
-		// CloudNotification.showMessageDetailsDialog(e.getMessage(), e);
-		// }
-		// catch (Exception e) {
-		// CloudNotification.showErrorMessageDialog(e.getMessage(), e);
-		// return;
-		// }
+		try {
+			ToDoDAO.getInstance().delete(todo);
+			grid.remove(todo);
+		} catch (Exception e) {
+			NotificationUtill.showErrorMessage(e.getMessage());
+			return;
+		}
+		NotificationUtill.showMessage("Delete Successfilly!");
 	}
 
 	@Override
@@ -115,7 +117,10 @@ public class ToDoGridView extends GridExplorerView<ToDo> implements Callback {
 	@Override
 	public void updateView() {
 		String searchName = tfNameField.getValue();
-		List<ToDo> findAll = com.test.pranto.model.dao.ToDoDAO.getInstance().findAll();
+		if (searchName != null) {
+			searchName.trim();
+		}
+		List<ToDo> findAll = ToDoDAO.getInstance().findToDos(searchName);
 		grid.setItems(findAll);
 	}
 

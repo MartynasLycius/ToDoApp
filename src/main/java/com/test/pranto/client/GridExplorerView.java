@@ -36,9 +36,6 @@ public abstract class GridExplorerView<T> extends CssLayout implements View {
 
 	public void initUI() {
 		setSizeFull();
-		 //addStyleName("crud-view default-background custom-csslayout-margin");
-		// //$NON-NLS-1$
-		//addStyleName("custom-csslayout-margin");
 		VerticalLayout topLayout = createTopBar();
 		if (!showHeader) {
 			topLayout.setVisible(false);

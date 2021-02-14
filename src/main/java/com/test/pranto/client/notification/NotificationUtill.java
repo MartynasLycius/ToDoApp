@@ -1,7 +1,6 @@
 package com.test.pranto.client.notification;
 
-import com.test.pranto.client.ui.YesNoDialog;
-import com.test.pranto.client.ui.YesNoDialog.Callback;
+import com.test.pranto.client.notification.YesNoDialog.Callback;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.Notification;
