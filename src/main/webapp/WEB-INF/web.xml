@@ -34,6 +34,6 @@
     <param-value>postgres</param-value>
   </context-param>
   <listener>
-    <listener-class>com.test.pranto.servlet.CloudContext</listener-class>
+    <listener-class>com.test.pranto.client.db.CloudContext</listener-class>
   </listener>
 </web-app>

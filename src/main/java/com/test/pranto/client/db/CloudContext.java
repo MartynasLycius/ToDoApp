@@ -44,8 +44,8 @@ public class CloudContext implements ServletContextListener {
 			properties.put("hibernate.show_sql", "true");
 
 			properties.put(AvailableSettings.MULTI_TENANT, MultiTenancyStrategy.SCHEMA.name());
-			properties.put(AvailableSettings.MULTI_TENANT_CONNECTION_PROVIDER, "com.test.pranto.servlet.OroMultitenantConnectionProvider"); //$NON-NLS-1$
-			properties.put(AvailableSettings.MULTI_TENANT_IDENTIFIER_RESOLVER, "com.test.pranto.servlet.SchemaResolver"); //$NON-NLS-1$
+			properties.put(AvailableSettings.MULTI_TENANT_CONNECTION_PROVIDER, "com.test.pranto.client.db.OroMultitenantConnectionProvider"); //$NON-NLS-1$
+			properties.put(AvailableSettings.MULTI_TENANT_IDENTIFIER_RESOLVER, "com.test.pranto.client.db.SchemaResolver"); //$NON-NLS-1$
 
 			//hibernate-search-orm
 			properties.put("hibernate.search.default.locking_strategy", "none"); //$NON-NLS-1$ //$NON-NLS-2$
