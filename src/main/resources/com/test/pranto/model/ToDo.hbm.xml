@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.test.pranto.model">
+	<class lazy="false" name="ToDo" table="TODO">
+		<id column="ID" name="id" type="java.lang.String" length="128"/>
+		<version name="version" column="VERSION_NO" type="long" />
+		<property name="createDate" column="CREATE_DATE" type="java.util.Date" />
+		<property name="lastUpdateTime" column="LAST_UPDATE_TIME" type="java.util.Date" />
+		<property name="deleted" column="DELETED" type="java.lang.Boolean">
+			<meta attribute="defaultValue">false</meta>
+		</property>
+		
+		<property name="toDoDate" column="TODO_DATE" type="java.util.Date" />
+		<property name="itemName" column="ITEM_NAME" type="string" />
+		<property name="description" column="DESCRIPTION" length="255" type="string" />
+		
+	</class>
+</hibernate-mapping>

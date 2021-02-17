@@ -1,28 +1,52 @@
-# ToDoApp
+todoapp
+==============
 
-This is the job interview task for software developer position
+Template for a simple Vaadin application that only requires a Servlet 3.0 container to run.
 
-## What to do
-* Fork the repository
-* After work is done, make a pull request and notify me by email
 
-## Task description
-You need to make a Todo app with these requirements:
-1. Page for listing all the todo items
-2. Todo item add and edit forms (separate pages)
-3. Todo item consists of (date, item name and description)
-4. Pages must interact between each other logically. (You can go from list to new or edit and when saving go back to list)
+Workflow
+========
 
-All the other specific requirements are up to you
+To compile the entire project, run "mvn install".
 
-## Technical requirements
-* Use any frontend framework but Vaadin (https://vaadin.com/) is strongly recommended and would be a huge benefit
-* For backend use Java EE
-* Use any database (Postgres, Oracle, etc.)
-* Make a Maven project
+To run the application, run "mvn jetty:run" and open http://localhost:8080/ .
 
-## Main points
-* Structure your code
-* Use best practises
-* Use naming conventions
-* Show understanding of software development concepts
+To produce a deployable production mode WAR:
+- change productionMode to true in the servlet class configuration (nested in the UI class)
+- run "mvn clean package"
+- test the war file with "mvn jetty:run-war"
+
+Client-Side compilation
+-------------------------
+
+The generated maven project is using an automatically generated widgetset by default. 
+When you add a dependency that needs client-side compilation, the maven plugin will 
+automatically generate it for you. Your own client-side customisations can be added into
+package "client".
+
+Debugging client side code
+  - run "mvn vaadin:run-codeserver" on a separate console while the application is running
+  - activate Super Dev Mode in the debug window of the application
+
+Developing a theme using the runtime compiler
+-------------------------
+
+When developing the theme, Vaadin can be configured to compile the SASS based
+theme at runtime in the server. This way you can just modify the scss files in
+your IDE and reload the browser to see changes.
+
+To use the runtime compilation, open pom.xml and comment out the compile-theme 
+goal from vaadin-maven-plugin configuration. To remove a possibly existing 
+pre-compiled theme, run "mvn clean package" once.
+
+When using the runtime compiler, running the application in the "run" mode 
+(rather than in "debug" mode) can speed up consecutive theme compilations
+significantly.
+
+It is highly recommended to disable runtime compilation for production WAR files.
+
+Using Vaadin pre-releases
+-------------------------
+
+If Vaadin pre-releases are not enabled by default, use the Maven parameter
+"-P vaadin-prerelease" or change the activation default value of the profile in pom.xml .
