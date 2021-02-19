@@ -2,6 +2,7 @@ node_modules
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
+node_modules/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
