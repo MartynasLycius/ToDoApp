@@ -2,7 +2,7 @@ package todo.proit.persistence.spec;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
-import todo.proit.common.enums.StatusEnum;
+import todo.proit.common.enums.TaskStatus;
 import todo.proit.common.enums.YesNoEnum;
 import todo.proit.common.model.request.task.TaskSearchRequest;
 import todo.proit.persistence.entity.Task;
@@ -47,7 +47,7 @@ public abstract class TaskSpecification {
             if(StringUtils.isNotBlank(request.getDescription()))
                 predicates.add(criteriaBuilder.like(root.get(FIELD_DESC), "%"+request.getName()+"%"));
 
-            if(StatusEnum.isValid(request.getStatus()) && StatusEnum.isNoAll(request.getStatus()))
+            if(TaskStatus.isValid(request.getStatus()) && TaskStatus.isNoAll(request.getStatus()))
                 predicates.add(criteriaBuilder.equal(root.get(FIELD_STATUS), request.getStatus()));
 
             predicates.add(criteriaBuilder.equal(root.get(FIELD_IS_ACTIVE), YesNoEnum.YES.getCode()));

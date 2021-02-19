@@ -1,7 +1,7 @@
 package todo.proit.persistence.mapper;
 
 import org.springframework.stereotype.Component;
-import todo.proit.common.enums.StatusEnum;
+import todo.proit.common.enums.TaskStatus;
 import todo.proit.common.enums.YesNoEnum;
 import todo.proit.common.model.request.task.TaskRequest;
 import todo.proit.persistence.entity.Task;
@@ -19,7 +19,7 @@ public class TaskEntityMapper {
         Task task = new Task();
         task.setName(request.getName());
         task.setDescription(request.getDescription());
-        task.setStatus(StatusEnum.PENDING.getCode());
+        task.setStatus(TaskStatus.PENDING.getCode());
         task.setCreatedDate(new Date());
         task.setIsActive(YesNoEnum.YES.getCode());
         return task;
@@ -31,7 +31,7 @@ public class TaskEntityMapper {
         return task;
     }
 
-    public Task mapToUpdatedTask(Task task, StatusEnum status) {
+    public Task mapToUpdatedTask(Task task, TaskStatus status) {
         task.setStatus(status.getCode());
         return task;
     }

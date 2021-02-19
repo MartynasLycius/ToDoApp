@@ -2,7 +2,7 @@ package todo.proit.persistence.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
-import todo.proit.common.enums.StatusEnum;
+import todo.proit.common.enums.TaskStatus;
 import todo.proit.common.exception.RecordNotFoundException;
 import todo.proit.common.model.request.task.TaskRequest;
 import todo.proit.common.model.request.task.TaskSearchRequest;
@@ -21,14 +21,16 @@ public interface TaskEntityService {
     @Transactional(readOnly = true)
     Page<Task> getAllPaginated() throws RecordNotFoundException;
     @Transactional(readOnly = true)
-    Page<Task> searchAllPaginated(TaskSearchRequest request) throws RecordNotFoundException;
-    @Transactional(readOnly = true)
     List<Task> getAll() throws RecordNotFoundException;
+    @Transactional(readOnly = true)
+    Page<Task> searchPaginated(TaskSearchRequest request) throws RecordNotFoundException;
+    @Transactional(readOnly = true)
+    List<Task> search(TaskSearchRequest request) throws RecordNotFoundException;
 
     @Transactional
     Task create(TaskRequest request);
     @Transactional
     Task update(TaskUpdateRequest request) throws RecordNotFoundException;
     @Transactional
-    Task updateStatus(long id, StatusEnum status) throws RecordNotFoundException;
+    Task updateStatus(long id, TaskStatus status) throws RecordNotFoundException;
 }

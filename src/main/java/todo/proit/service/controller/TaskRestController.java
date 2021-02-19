@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import todo.proit.common.enums.StatusEnum;
+import todo.proit.common.enums.TaskStatus;
 import todo.proit.common.exception.BadRequestException;
 import todo.proit.common.mapper.TaskDtoMapper;
 import todo.proit.common.model.dto.TaskDetailDto;
@@ -43,7 +43,7 @@ public class TaskRestController {
         if(result.hasErrors())
             throw new BadRequestException(result);
         Task task = taskEntityService.create(request);
-        TaskDetailDto taskDto = mapper.mapToTaskDetailDto(task);
+        TaskDetailDto taskDto = mapper.taskToTaskDetailDto(task);
         return ResponseEntity.ok(taskDto);
     }
 
@@ -52,42 +52,42 @@ public class TaskRestController {
         if(result.hasErrors())
             throw new BadRequestException(result);
         Task task = taskEntityService.update(request);
-        TaskDetailDto taskDto = mapper.mapToTaskDetailDto(task);
+        TaskDetailDto taskDto = mapper.taskToTaskDetailDto(task);
         return ResponseEntity.ok(taskDto);
     }
 
     @GetMapping("/mark-as-done/{id}")
     public ResponseEntity<?> markAsDone(@PathVariable long id){
-        Task task = taskEntityService.updateStatus(id, StatusEnum.DONE);
-        TaskDetailDto taskDto = mapper.mapToTaskDetailDto(task);
+        Task task = taskEntityService.updateStatus(id, TaskStatus.DONE);
+        TaskDetailDto taskDto = mapper.taskToTaskDetailDto(task);
         return ResponseEntity.ok(taskDto);
     }
 
     @GetMapping("/mark-as-pending/{id}")
     public ResponseEntity<?> markAsPending(@PathVariable long id){
-        Task task = taskEntityService.updateStatus(id, StatusEnum.PENDING);
-        TaskDetailDto taskDto = mapper.mapToTaskDetailDto(task);
+        Task task = taskEntityService.updateStatus(id, TaskStatus.PENDING);
+        TaskDetailDto taskDto = mapper.taskToTaskDetailDto(task);
         return ResponseEntity.ok(taskDto);
     }
 
     @GetMapping("/get-by-id/{id}")
     public ResponseEntity<?> getById(@PathVariable long id){
         Task task = taskEntityService.getById(id);
-        TaskDetailDto taskDto = mapper.mapToTaskDetailDto(task);
+        TaskDetailDto taskDto = mapper.taskToTaskDetailDto(task);
         return ResponseEntity.ok(taskDto);
     }
 
     @GetMapping("/get-all")
     public ResponseEntity<?> getAll(){
         List<Task> taskPageModel = taskEntityService.getAll();
-        List<TaskDto> taskDtos = mapper.mapToTaskDtoList(taskPageModel);
+        List<TaskDto> taskDtos = mapper.taskToTaskDto(taskPageModel);
         return ResponseEntity.ok(taskDtos);
     }
 
     @GetMapping("/get-all/page")
     public ResponseEntity<?> getAllPaginated(){
         Page<Task> taskPageModel = taskEntityService.getAllPaginated();
-        Page<TaskDto> taskDtos = taskPageModel.map(mapper::mapToTaskDto);
+        Page<TaskDto> taskDtos = taskPageModel.map(mapper::taskToTaskDto);
         return ResponseEntity.ok(taskDtos);
     }
 
@@ -96,8 +96,8 @@ public class TaskRestController {
         if(result.hasErrors())
             throw new BadRequestException(result);
 
-        Page<Task> taskPageModel = taskEntityService.searchAllPaginated(request);
-        Page<TaskDto> taskDtos = taskPageModel.map(mapper::mapToTaskDto);
+        Page<Task> taskPageModel = taskEntityService.searchPaginated(request);
+        Page<TaskDto> taskDtos = taskPageModel.map(mapper::taskToTaskDto);
         return ResponseEntity.ok(taskDtos);
     }
 }

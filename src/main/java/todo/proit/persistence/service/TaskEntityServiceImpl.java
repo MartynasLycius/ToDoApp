@@ -6,7 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import todo.proit.common.config.PageConfig;
-import todo.proit.common.enums.StatusEnum;
+import todo.proit.common.enums.TaskStatus;
 import todo.proit.common.exception.RecordNotFoundException;
 import todo.proit.common.model.request.task.TaskRequest;
 import todo.proit.common.model.request.task.TaskSearchRequest;
@@ -46,13 +46,19 @@ public class TaskEntityServiceImpl implements TaskEntityService {
     }
 
     @Override
-    public Page<Task> searchAllPaginated(TaskSearchRequest request) throws RecordNotFoundException {
+    public Page<Task> searchPaginated(TaskSearchRequest request) throws RecordNotFoundException {
         Specification<Task> taskSpecification = TaskSpecification.getSearchSpecification(request);
         PageRequest pageRequest = PageConfig.getPageRequest(
                 request.getPaginationRequest().getPageNumber(),
                 request.getPaginationRequest().getPageSize()
         );
         return taskRepository.findAll(taskSpecification, pageRequest);
+    }
+
+    @Override
+    public List<Task> search(TaskSearchRequest request) throws RecordNotFoundException {
+        Specification<Task> taskSpecification = TaskSpecification.getSearchSpecification(request);
+        return taskRepository.findAll(taskSpecification);
     }
 
     @Override
@@ -75,7 +81,7 @@ public class TaskEntityServiceImpl implements TaskEntityService {
     }
 
     @Override
-    public Task updateStatus(long id, StatusEnum status) throws RecordNotFoundException {
+    public Task updateStatus(long id, TaskStatus status) throws RecordNotFoundException {
         Task task = this.getById(id);
         Task taskToUpdate = mapper.mapToUpdatedTask(task, status);
         return taskRepository.save(taskToUpdate);
