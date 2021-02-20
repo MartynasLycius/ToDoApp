@@ -12,7 +12,7 @@
 1. Open PgAdmin or any Database IDE 
 2. Create a Database name: EastNetic
 3. Then create todo schema under EastNetic database
-4. Change database credential at application.properties file according to your environment 
+4. Change database credential in application.properties file according to your environment 
 5. Make sure 3000 port not occupied by any other application.
 
 6. Open terminal and go to back-end folder of this project
