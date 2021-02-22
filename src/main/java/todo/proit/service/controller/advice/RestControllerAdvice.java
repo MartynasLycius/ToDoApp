@@ -1,6 +1,5 @@
 package todo.proit.service.controller.advice;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;

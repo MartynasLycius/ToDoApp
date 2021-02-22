@@ -11,8 +11,10 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
+import org.apache.commons.lang3.StringUtils;
 import todo.proit.common.model.dto.TaskDetailDto;
 import todo.proit.common.model.request.task.TaskUpdateRequest;
+import todo.proit.common.validation.utils.BeanValidator;
 import todo.proit.ui.service.TaskViewService;
 
 /**
@@ -79,11 +81,22 @@ public class EditTaskView extends BaseView implements HasUrlParameter<Long> {
                     .setName(this.nameTextField.getValue())
                     .setDescription(this.descriptionTextField.getValue());
 
+            submitRequest(request);
+
+        });
+    }
+
+    private void submitRequest(TaskUpdateRequest request){
+        String errorMessage = BeanValidator.validateBeanAndGetMessage(request);
+        if(StringUtils.isBlank(errorMessage)){
             this.taskService.update(request);
             super.showNotification("Task updated successfully!");
             UI.getCurrent().navigate("");
-        });
+        }else{
+            super.showNotification(errorMessage);
+        }
     }
+
 
     private void configureNavBtn(){
         this.homeNavBtn.setText("Go Home");
@@ -99,4 +112,5 @@ public class EditTaskView extends BaseView implements HasUrlParameter<Long> {
         layout.setAlignItems(Alignment.CENTER);
         return layout;
     }
+
 }

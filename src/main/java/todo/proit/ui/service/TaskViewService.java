@@ -1,15 +1,12 @@
 package todo.proit.ui.service;
 
 import org.springframework.data.domain.Page;
-import org.springframework.transaction.annotation.Transactional;
 import todo.proit.common.enums.TaskStatus;
 import todo.proit.common.exception.RecordNotFoundException;
 import todo.proit.common.model.dto.TaskDetailDto;
-import todo.proit.common.model.dto.TaskDto;
 import todo.proit.common.model.request.task.TaskRequest;
 import todo.proit.common.model.request.task.TaskSearchRequest;
 import todo.proit.common.model.request.task.TaskUpdateRequest;
-import todo.proit.persistence.entity.Task;
 
 import java.util.List;
 

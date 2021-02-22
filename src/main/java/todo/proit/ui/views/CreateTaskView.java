@@ -9,7 +9,10 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import org.apache.commons.lang3.StringUtils;
 import todo.proit.common.model.request.task.TaskRequest;
+import todo.proit.common.validation.group.UserAction;
+import todo.proit.common.validation.utils.BeanValidator;
 import todo.proit.ui.service.TaskViewService;
 
 /**
@@ -60,13 +63,22 @@ public class CreateTaskView extends BaseView {
             request.setName(this.nameTextField.getValue())
                     .setDescription(this.descriptionTextField.getValue());
 
-            this.taskService.create(request);
+            submitRequest(request);
 
-            super.showNotification("Task created successfully!");
-
-            UI.getCurrent().navigate("");
         });
     }
+
+    private void submitRequest(TaskRequest request){
+        String errorMessage = BeanValidator.validateBeanAndGetMessage(request, UserAction.CREATE.class);
+        if(StringUtils.isBlank(errorMessage)){
+            this.taskService.create(request);
+            super.showNotification("Task created successfully!");
+            UI.getCurrent().navigate("");
+        }else{
+            showNotification(errorMessage);
+        }
+    }
+
 
     private void configureNavBtn(){
         this.homeNavBtn.setText("Go Home");
