@@ -4,6 +4,7 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
@@ -19,6 +20,8 @@ import todo.proit.ui.service.TaskViewService;
  * @since 2/20/2021
  */
 @Route("edit-task")
+@CssImport("./styles/shared-styles.css")
+@CssImport(value = "./styles/vaadin-text-field-styles.css", themeFor = "vaadin-text-field")
 public class EditTaskView extends BaseView implements HasUrlParameter<Long> {
 
     private final TaskViewService taskService;
@@ -59,7 +62,7 @@ public class EditTaskView extends BaseView implements HasUrlParameter<Long> {
 
     private void configureFormComponents(){
         this.nameTextField.setPlaceholder("Name");
-        super.configureTextField(nameTextField);
+        super.configureTextField(nameTextField, "Name field is required");
         this.descriptionTextField.setPlaceholder("Description");
         super.configureTextArea(descriptionTextField);
         this.configureSubmitButton();
@@ -77,7 +80,7 @@ public class EditTaskView extends BaseView implements HasUrlParameter<Long> {
                     .setDescription(this.descriptionTextField.getValue());
 
             this.taskService.update(request);
-
+            super.showNotification("Task updated successfully!");
             UI.getCurrent().navigate("");
         });
     }

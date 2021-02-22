@@ -9,8 +9,8 @@ import todo.proit.common.enums.DirectionEnum;
  * @since 2/18/2021
  */
 public final class PageConfig {
-    public final static int DEFAULT_MIN_PAGE_SIZE = 10;
-    public final static int DEFAULT_MAX_PAGE_SIZE = 50;
+    public final static int DEFAULT_MIN_PAGE_SIZE = 5;
+    public final static int DEFAULT_MAX_PAGE_SIZE = 10;
     public final static int DEFAULT_PAGE_NO = 0;
     public final static DirectionEnum DEFAULT_SORT_DIRECTION = DirectionEnum.ASC;
     public final static String DEFAULT_SORT_BY = "id";

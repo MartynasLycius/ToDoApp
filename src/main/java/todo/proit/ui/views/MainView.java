@@ -3,10 +3,13 @@ package todo.proit.ui.views;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
+import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.PWA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.klaudeta.PaginatedGrid;
 import todo.proit.common.config.PageConfig;
@@ -25,13 +28,19 @@ import java.util.stream.Collectors;
  */
 
 @Route("")
+@PWA(name = "Todo App",
+        shortName = "proIT Todo App",
+        description = "Todo Application for proIT",
+        enableInstallPrompt = false)
+@CssImport("./styles/shared-styles.css")
+@CssImport(value = "./styles/vaadin-text-field-styles.css", themeFor = "vaadin-text-field")
 public class MainView extends BaseView {
 
     private final TaskViewService taskService;
 
     private PaginatedGrid<TaskDetailDto> taskGrid = new PaginatedGrid<>(TaskDetailDto.class);
     private TextField searchByNameField = new TextField();
-    private RadioButtonGroup<String> searchByStateBtn = new RadioButtonGroup<>();
+    private RadioButtonGroup<String> taskStatusRadioBtn = new RadioButtonGroup<>();
     private TaskSearchRequest taskSearchForm = new TaskSearchRequest();
     private Button createNewTaskNavBtn = new Button();
     private List<TaskDetailDto> tasks = new ArrayList<>();
@@ -49,20 +58,21 @@ public class MainView extends BaseView {
         super.setSizeFull();
         super.add(this.createNewTaskNavBtn,
                 this.searchByNameField,
-                this.searchByStateBtn,
+                this.taskStatusRadioBtn,
                 this.taskGrid);
     }
 
     private void configureSearchFields(){
 
-        this.searchByStateBtn.setItems(TaskStatus.getAllValueAsArray());
-        this.searchByStateBtn.setValue(TaskStatus.ALL.getValue());
+        this.taskStatusRadioBtn.setItems(TaskStatus.getAllValueAsArray());
+        this.taskStatusRadioBtn.setValue(TaskStatus.ALL.getValue());
 
         this.searchByNameField.setPlaceholder("Search by Name... ");
         this.searchByNameField.setClearButtonVisible(true);
         this.searchByNameField.setValueChangeMode(ValueChangeMode.LAZY);
+        this.searchByNameField.setWidthFull();
 
-        this.searchByStateBtn.addValueChangeListener(cl-> this.fetchTaskByState(TaskStatus.getCodeByValue(cl.getValue())));
+        this.taskStatusRadioBtn.addValueChangeListener(cl-> this.fetchTaskByState(TaskStatus.getCodeByValue(cl.getValue())));
         this.searchByNameField.addValueChangeListener(e-> this.fetchTaskByName(e.getValue()));
 
     }
@@ -74,7 +84,7 @@ public class MainView extends BaseView {
         taskGrid.setPaginatorSize(3);
 
         this.taskGrid.addComponentColumn(task->{
-            Button editBtn =  new Button("Edit");
+            Button editBtn =  new Button("Edit", VaadinIcon.EDIT.create());
             editBtn.addClickListener(e-> UI.getCurrent()
                     .navigate("edit-task/"+task.getId())
             );
@@ -91,6 +101,7 @@ public class MainView extends BaseView {
                         TaskStatus newStatus = isChecked ?  TaskStatus.DONE : TaskStatus.PENDING;
 
                         TaskDetailDto updatedTask = this.taskService.updateStatus(task.getId(), newStatus);
+                        showNotification(String.format("Task marked as %s", updatedTask.getStatus()));
                         this.refreshGrid(updatedTask);
                     }
             );
@@ -120,8 +131,9 @@ public class MainView extends BaseView {
     }
 
     private void configureNavBtn(){
-        this.createNewTaskNavBtn.setText("Create task");
-
+        this.createNewTaskNavBtn.setText("Add Task");
+        this.createNewTaskNavBtn.setWidthFull();
+        this.createNewTaskNavBtn.setIcon(VaadinIcon.PLUS.create());
         this.createNewTaskNavBtn.addClickListener(e-> UI.getCurrent()
                 .navigate("create-task")
         );
