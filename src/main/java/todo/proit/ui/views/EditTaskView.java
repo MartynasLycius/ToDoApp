@@ -1,20 +1,21 @@
 package todo.proit.ui.views;
 
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.BeanValidationBinder;
+import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
-import org.apache.commons.lang3.StringUtils;
 import todo.proit.common.model.dto.TaskDetailDto;
+import todo.proit.common.model.request.task.TaskRequest;
 import todo.proit.common.model.request.task.TaskUpdateRequest;
-import todo.proit.common.validation.utils.BeanValidator;
 import todo.proit.ui.service.TaskViewService;
 
 /**
@@ -29,22 +30,24 @@ public class EditTaskView extends BaseView implements HasUrlParameter<Long> {
     private final TaskViewService taskService;
 
     private TextField nameTextField = new TextField("Task Name");
-    private TextArea descriptionTextField = new TextArea("Description");
-    private Button submitBtn = new Button();
-    private Button homeNavBtn = new Button();
+    private TextArea descriptionTextArea = new TextArea("Description");
+    private Button submitButton = new Button();
+    private Button homeButton = new Button();
     private long taskId;
+
+    private Binder<TaskUpdateRequest> binder = new BeanValidationBinder<>(TaskUpdateRequest.class);
 
     public EditTaskView(TaskViewService taskService) {
         this.taskService = taskService;
 
         this.configureFormComponents();
-        this.configureNavBtn();
+        super.configureNavBtn(homeButton);
 
         super.addClassName("list-view");
         super.setSizeFull();
         super.add(
                 nameTextField,
-                descriptionTextField,
+                descriptionTextArea,
                 createButtonLayout()
         );
     }
@@ -59,58 +62,56 @@ public class EditTaskView extends BaseView implements HasUrlParameter<Long> {
 
         TaskDetailDto task = this.taskService.getById(id);
         this.nameTextField.setValue(task.getName());
-        this.descriptionTextField.setValue(task.getDescription());
+        this.descriptionTextArea.setValue(task.getDescription());
     }
 
     private void configureFormComponents(){
         this.nameTextField.setPlaceholder("Name");
-        super.configureTextField(nameTextField, "Name field is required");
-        this.descriptionTextField.setPlaceholder("Description");
-        super.configureTextArea(descriptionTextField);
+        super.configureTextField(nameTextField);
+        this.descriptionTextArea.setPlaceholder("Description");
+        super.configureTextArea(descriptionTextArea);
+
+        this.bindFields();
+
         this.configureSubmitButton();
     }
 
+    private void bindFields(){
+        binder.forField(nameTextField)
+                .asRequired(ERR_NAME_REQUIRED)
+                .bind(TaskRequest::getName, TaskRequest::setName);
+
+        binder.forField(descriptionTextArea).asRequired(ERR_DESC_REQUIRED)
+                .bind(TaskRequest::getDescription, TaskRequest::setDescription);
+
+        binder.setBean(new TaskUpdateRequest());
+    }
+
     private void configureSubmitButton(){
-        submitBtn.setText("Update");
-        submitBtn.setWidthFull();
-//        submitBtn.addClickShortcut(Key.ENTER, KeyModifier.CONTROL);
-
-        this.submitBtn.addClickListener(e->{
-            TaskUpdateRequest request = new TaskUpdateRequest();
-            request.setId(this.taskId)
-                    .setName(this.nameTextField.getValue())
-                    .setDescription(this.descriptionTextField.getValue());
-
-            submitRequest(request);
-
-        });
+        super.configureSubmitButton(submitButton);
+        this.submitButton.addClickListener(e-> submitRequest());
     }
 
-    private void submitRequest(TaskUpdateRequest request){
-        String errorMessage = BeanValidator.validateBeanAndGetMessage(request);
-        if(StringUtils.isBlank(errorMessage)){
-            this.taskService.update(request);
-            super.showNotification("Task updated successfully!");
-            UI.getCurrent().navigate("");
-        }else{
-            super.showNotification(errorMessage);
+    private void submitRequest(){
+        TaskUpdateRequest request = new TaskUpdateRequest();
+        request.setId(this.taskId)
+                .setName(this.nameTextField.getValue())
+                .setDescription(this.descriptionTextArea.getValue());
+
+        if(!binder.isValid()){
+            binder.validate();
+            return;
         }
-    }
 
-
-    private void configureNavBtn(){
-        this.homeNavBtn.setText("Go Home");
-        homeNavBtn.setWidthFull();
-        homeNavBtn.addClickShortcut(Key.ESCAPE);
-        this.homeNavBtn.addClickListener(e-> UI.getCurrent().navigate("")
-        );
+        this.taskService.update(request);
+        super.showNotification("Task updated successfully!");
+        UI.getCurrent().navigate("");
     }
 
     private Component createButtonLayout(){
-        HorizontalLayout layout = new HorizontalLayout(submitBtn, homeNavBtn);
+        HorizontalLayout layout = new HorizontalLayout(submitButton, homeButton);
         layout.setSizeFull();
-        layout.setAlignItems(Alignment.CENTER);
+        layout.setAlignItems(FlexComponent.Alignment.CENTER);
         return layout;
     }
-
 }

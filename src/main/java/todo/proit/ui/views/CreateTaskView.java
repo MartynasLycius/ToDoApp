@@ -1,18 +1,16 @@
 package todo.proit.ui.views;
 
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.BeanValidationBinder;
+import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.Route;
-import org.apache.commons.lang3.StringUtils;
 import todo.proit.common.model.request.task.TaskRequest;
-import todo.proit.common.validation.group.UserAction;
-import todo.proit.common.validation.utils.BeanValidator;
 import todo.proit.ui.service.TaskViewService;
 
 /**
@@ -27,65 +25,56 @@ public class CreateTaskView extends BaseView {
     private final TaskViewService taskService;
 
     private TextField nameTextField = new TextField("Task Name");
-    private TextArea descriptionTextField = new TextArea("Description");
+    private TextArea descriptionTextArea = new TextArea("Description");
     private Button submitBtn = new Button();
     private Button homeNavBtn = new Button();
+
+    private Binder<TaskRequest> binder = new BeanValidationBinder<>(TaskRequest.class);
 
     public CreateTaskView(TaskViewService taskService) {
         this.taskService = taskService;
 
         this.configureFormComponents();
-        this.configureNavBtn();
+        super.configureNavBtn(homeNavBtn);
 
         super.addClassName("list-view");
         super.setSizeFull();
         super.add(
                 nameTextField,
-                descriptionTextField,
+                descriptionTextArea,
                 createButtonLayout()
         );
     }
 
     private void configureFormComponents(){
         this.nameTextField.setPlaceholder("Name");
-        super.configureTextField(nameTextField, "Name field is required");
-        this.descriptionTextField.setPlaceholder("Description");
-        super.configureTextArea(descriptionTextField);
+        super.configureTextField(nameTextField);
+        this.descriptionTextArea.setPlaceholder("Description");
+        super.configureTextArea(descriptionTextArea);
+
+        this.bindFields();
+
         this.configureSubmitButton();
     }
 
     private void configureSubmitButton(){
-        submitBtn.setText("Create");
-        submitBtn.setWidthFull();
-
-        this.submitBtn.addClickListener(e->{
-            TaskRequest request = new TaskRequest();
-            request.setName(this.nameTextField.getValue())
-                    .setDescription(this.descriptionTextField.getValue());
-
-            submitRequest(request);
-
-        });
+        super.configureSubmitButton(submitBtn);
+        submitBtn.addClickListener(event -> submitRequest());
     }
 
-    private void submitRequest(TaskRequest request){
-        String errorMessage = BeanValidator.validateBeanAndGetMessage(request, UserAction.CREATE.class);
-        if(StringUtils.isBlank(errorMessage)){
-            this.taskService.create(request);
-            super.showNotification("Task created successfully!");
-            UI.getCurrent().navigate("");
-        }else{
-            showNotification(errorMessage);
+    private void submitRequest(){
+        TaskRequest request = new TaskRequest();
+        request.setName(this.nameTextField.getValue())
+                .setDescription(this.descriptionTextArea.getValue());
+
+        if(!binder.isValid()){
+            binder.validate();
+            return;
         }
-    }
 
-
-    private void configureNavBtn(){
-        this.homeNavBtn.setText("Go Home");
-        homeNavBtn.setWidthFull();
-        homeNavBtn.addClickShortcut(Key.ESCAPE);
-        this.homeNavBtn.addClickListener(e-> UI.getCurrent().navigate("")
-        );
+        this.taskService.create(request);
+        super.showNotification("Task created successfully!");
+        UI.getCurrent().navigate("");
     }
 
     private Component createButtonLayout(){
@@ -93,5 +82,16 @@ public class CreateTaskView extends BaseView {
         layout.setSizeFull();
         layout.setAlignItems(Alignment.CENTER);
         return layout;
+    }
+
+    private void bindFields(){
+        binder.forField(nameTextField)
+                .asRequired(ERR_NAME_REQUIRED)
+                .bind(TaskRequest::getName, TaskRequest::setName);
+
+        binder.forField(descriptionTextArea).asRequired(ERR_DESC_REQUIRED)
+                .bind(TaskRequest::getDescription, TaskRequest::setDescription);
+
+        binder.setBean(new TaskRequest());
     }
 }

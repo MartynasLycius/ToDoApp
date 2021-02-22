@@ -1,7 +1,6 @@
 package todo.proit.common.model.request.task;
 
 import lombok.Getter;
-import todo.proit.common.validation.group.UserAction;
 
 import javax.validation.constraints.NotBlank;
 
@@ -11,9 +10,9 @@ import javax.validation.constraints.NotBlank;
  */
 @Getter
 public class TaskRequest {
-    @NotBlank(message = "name cannot be empty", groups = {UserAction.CREATE.class})
+    @NotBlank(message = "name cannot be empty")
     private String name;
-    @NotBlank(message = "description cannot be empty", groups = {UserAction.CREATE.class})
+    @NotBlank(message = "description cannot be empty")
     private String description;
 
     public TaskRequest setName(String name) {

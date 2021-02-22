@@ -10,7 +10,6 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.klaudeta.PaginatedGrid;
 import todo.proit.common.config.PageConfig;
 import todo.proit.common.enums.TaskStatus;
@@ -35,17 +34,17 @@ import java.util.stream.Collectors;
 @CssImport("./styles/shared-styles.css")
 @CssImport(value = "./styles/vaadin-text-field-styles.css", themeFor = "vaadin-text-field")
 public class MainView extends BaseView {
-
     private final TaskViewService taskService;
 
     private PaginatedGrid<TaskDetailDto> taskGrid = new PaginatedGrid<>(TaskDetailDto.class);
     private TextField searchByNameField = new TextField();
     private RadioButtonGroup<String> taskStatusRadioBtn = new RadioButtonGroup<>();
-    private TaskSearchRequest taskSearchForm = new TaskSearchRequest();
+    private TaskSearchRequest searchRequest = new TaskSearchRequest();
     private Button createNewTaskNavBtn = new Button();
     private List<TaskDetailDto> tasks = new ArrayList<>();
+    private int selectedStatusCode = TaskStatus.ALL.getCode();
 
-    public MainView(@Autowired TaskViewService taskService) {
+    public MainView(TaskViewService taskService) {
         this.taskService = taskService;
 
         this.configureSearchFields();
@@ -72,53 +71,59 @@ public class MainView extends BaseView {
         this.searchByNameField.setValueChangeMode(ValueChangeMode.LAZY);
         this.searchByNameField.setWidthFull();
 
-        this.taskStatusRadioBtn.addValueChangeListener(cl-> this.fetchTaskByState(TaskStatus.getCodeByValue(cl.getValue())));
+        this.taskStatusRadioBtn.addValueChangeListener(changeEvent -> {
+            selectedStatusCode = TaskStatus.getCodeByValue(changeEvent.getValue());
+            fetchTaskByState(selectedStatusCode);
+        });
         this.searchByNameField.addValueChangeListener(e-> this.fetchTaskByName(e.getValue()));
 
     }
 
     private void configureGrid(){
-        this.setClassName("task-grid");
-        this.taskGrid.setColumns("name","status","createdAt");
-        this.taskGrid.setPageSize(PageConfig.DEFAULT_MIN_PAGE_SIZE);
+        super.setClassName("task-grid");
+        taskGrid.setColumns("name","status","createdAt");
+        taskGrid.setPageSize(PageConfig.DEFAULT_MIN_PAGE_SIZE);
         taskGrid.setPaginatorSize(3);
 
-        this.taskGrid.addComponentColumn(task->{
+        taskGrid.addComponentColumn(task->{
             Button editBtn =  new Button("Edit", VaadinIcon.EDIT.create());
-            editBtn.addClickListener(e-> UI.getCurrent()
-                    .navigate("edit-task/"+task.getId())
+            editBtn.addClickListener(event ->
+                    UI.getCurrent()
+                            .navigate("edit-task/"+task.getId())
             );
-
             return editBtn;
         }).setHeader("Action");
 
-        this.taskGrid.addComponentColumn(task -> {
+        taskGrid.addComponentColumn(task -> {
             Checkbox changeStateBtn =  new Checkbox();
             changeStateBtn.setValue(TaskStatus.isDone(task.getStatus()));
-
-            changeStateBtn.addClickListener(e -> {
-                        boolean isChecked = changeStateBtn.getValue();
-                        TaskStatus newStatus = isChecked ?  TaskStatus.DONE : TaskStatus.PENDING;
-
-                        TaskDetailDto updatedTask = this.taskService.updateStatus(task.getId(), newStatus);
-                        showNotification(String.format("Task marked as %s", updatedTask.getStatus()));
-                        this.refreshGrid(updatedTask);
-                    }
+            changeStateBtn.addClickListener(
+                    event -> handleStatusChangeClickEvent(changeStateBtn.getValue(), task)
             );
             return changeStateBtn;
 
         }).setHeader("Check");
 
+        taskGrid.getColumns().forEach(col -> col.setAutoWidth(true));
+    }
+
+    private void handleStatusChangeClickEvent(boolean isChecked, TaskDetailDto taskDto){
+        TaskStatus newStatus = isChecked ?  TaskStatus.DONE : TaskStatus.PENDING;
+        TaskDetailDto updatedTask = taskService.updateStatus(taskDto.getId(), newStatus);
+
+        showNotification(String.format("Task marked as %s", updatedTask.getStatus()));
+        /** Refresh Data Grid */
+        this.refreshGrid(updatedTask);
     }
 
     private void fetchTaskByState(int status){
-        this.taskSearchForm.setStatus(status);
-        this.tasks = this.taskService.search(taskSearchForm);
+        searchRequest.setStatus(status);
+        this.tasks = this.taskService.search(searchRequest);
         this.taskGrid.setItems(tasks);
     }
     private void fetchTaskByName(String name){
-        this.taskSearchForm.setName(name);
-        this.tasks = this.taskService.search(taskSearchForm);
+        this.searchRequest.setName(name);
+        this.tasks = this.taskService.search(searchRequest);
         this.taskGrid.setItems(tasks);
     }
 

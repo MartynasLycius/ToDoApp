@@ -1,12 +1,17 @@
 package todo.proit.ui.views;
 
+import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.KeyModifier;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.binder.ErrorLevel;
-import org.apache.commons.lang3.StringUtils;
+import todo.proit.common.model.request.task.TaskRequest;
 
 /**
  * @author dipanjal
@@ -14,20 +19,21 @@ import org.apache.commons.lang3.StringUtils;
  */
 public abstract class BaseView extends VerticalLayout {
 
-    protected final String THEME_FOR_TEXT_FIELD = "bordered";
-    private final Binder binder = new Binder();
+    private final String THEME_FOR_TEXT_FIELD = "bordered";
 
-    protected void configureTextField(TextField textField, String errorMessage){
+    /** @Todo Need to reade from property file */
+    protected final String SUBMIT_BUTTON_VALUE = "Save";
+    protected final String NAV_BUTTON_VALUE = "Back";
+
+    protected final String ERR_NAME_REQUIRED = "Name cannot be empty";
+    protected final String ERR_DESC_REQUIRED = "Description cannot be empty";
+
+
+    protected void configureTextField(TextField textField){
         textField.setSizeFull();
         textField.setClearButtonVisible(true);
         textField.setThemeName(THEME_FOR_TEXT_FIELD);
         textField.setRequired(true);
-        binder.forField(textField)
-                .withValidator(
-                        v -> StringUtils.isNotBlank(textField.getValue()),
-                        errorMessage,
-                        ErrorLevel.ERROR
-                );
     }
 
     protected void configureTextArea(TextArea textArea){
@@ -37,11 +43,31 @@ public abstract class BaseView extends VerticalLayout {
         textArea.setRequired(true);
     }
 
-    protected Notification showNotification(String text) {
+
+    protected Notification showNotification(String message) {
         int duration = 5000;
-        Notification notification = new Notification(text, duration, Notification.Position.BOTTOM_CENTER);
+        Notification notification = new Notification(message, duration, Notification.Position.BOTTOM_START);
         notification.open();
+        notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
         return notification;
+    }
+
+    protected void configureNavBtn(Button button){
+        button.setText(NAV_BUTTON_VALUE);
+        button.setWidthFull();
+        button.setIcon(VaadinIcon.ARROW_BACKWARD.create());
+        button.addClickShortcut(Key.ESCAPE);
+        button.addClickListener(event ->
+                UI.getCurrent()
+                        .navigate("")
+        );
+    }
+
+    protected void configureSubmitButton(Button button){
+        button.setText(SUBMIT_BUTTON_VALUE);
+        button.setWidthFull();
+        button.setIcon(VaadinIcon.CHECK_CIRCLE_O.create());
+        button.addClickShortcut(Key.ENTER, KeyModifier.CONTROL);
     }
 
 
