@@ -5,7 +5,7 @@
 
 	<parent>
 		<groupId>com.opt.bus</groupId>
-		<artifactId>todo</artifactId>
+		<artifactId>ToDoApp</artifactId>
 		<version>1.0</version>
 	</parent>
 
