@@ -42,29 +42,51 @@
  ============================data source config for wildfy===========================
  
 <subsystem xmlns="urn:jboss:domain:datasources:6.0">
+
 <datasources>
+
 <datasource jndi-name="java:jboss/datasource/TodoDS" pool-name="todo_ds" enabled="true" spy="true">
+
 <connection-url>jdbc:postgresql://localhost:5432/crms</connection-url>
+
 <driver>postgres</driver>
+
 <pool>
+
  <min-pool-size>5</min-pool-size>
+ 
  <initial-pool-size>10</initial-pool-size>
+ 
  <max-pool-size>20</max-pool-size>
+ 
  <prefill>true</prefill>
+ 
 </pool>
+
 <security>
+
  <user-name>postgres</user-name>
+ 
  <password>root</password>
+ 
 </security>
+
 <validation>
+
  <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/>
+ 
  <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"/>
-</validation>
+ 
 </datasource>
+
 <drivers>
 
 <driver name="postgres" module="org.postgres">
+
  <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+ 
 </driver>
+
 </drivers>
+
 </datasources>
