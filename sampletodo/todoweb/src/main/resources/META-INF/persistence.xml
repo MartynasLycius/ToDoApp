@@ -7,7 +7,7 @@
 	<persistence-unit name="todoPU" transaction-type="JTA">
 
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<jta-data-source>java:jboss/datasources/TekirDS</jta-data-source>
+		<jta-data-source>java:jboss/datasource/TodoDS</jta-data-source>
 		<jar-file>lib/todo-api-1.0.jar</jar-file>
         <shared-cache-mode>DISABLE_SELECTIVE</shared-cache-mode>
 		
@@ -24,9 +24,7 @@
             <!-- Hibernate: Use new id generator -->
             <property name="hibernate.id.new_generator_mappings" value="true" />
             
-            <!-- https://vcfvct.wordpress.com/2016/04/23/jpa-sequencegenerator-with-allocationsize-1-performance-tuning/
-			 -->
-
+            
 		</properties>
 	</persistence-unit>
 </persistence>

@@ -2,27 +2,58 @@
 
 This is the job interview task for software developer position
 
-## What to do
-* Fork the repository
-* After work is done, make a pull request and notify me by email
+-----------------------------------------------------------------
 
-## Task description
-You need to make a Todo app with these requirements:
-1. Page for listing all the todo items
-2. Todo item add and edit forms (separate pages)
-3. Todo item consists of (date, item name and description)
-4. Pages must interact between each other logically. (You can go from list to new or edit and when saving go back to list)
+ Technology used for this app:
+ Vaadin    : 13.0.6
+ Java      : 1.8
+ AppServer : wildfly-20.0.0.Final
+ Java EE   :jakartaee -8 
+ Bean Valiation : 2.0
+ CDI       : 2.0
+ EJB       : 3.2
+ JPA       : 2.2
+ Hibernate : 5
+ Database  : Mysql 5/8, Postgresql
+ IDE       : Eclipse 
+ Maven     : 3.6
+----------------------------------
 
-All the other specific requirements are up to you
+ Project structure 
+ 1. Monolithic multimodule project structure  using maven 
 
-## Technical requirements
-* Use any frontend framework but Vaadin (https://vaadin.com/) is strongly recommended and would be a huge benefit
-* For backend use Java EE
-* Use any database (Postgres, Oracle, etc.)
-* Make a Maven project
-
-## Main points
-* Structure your code
-* Use best practises
-* Use naming conventions
-* Show understanding of software development concepts
+  
+ Todo App build : mvn clean install
+ 
+  
+ Todo App url :    http://localhost:8080/todoweb-1.0/
+ 
+ ============================data source config for wildfy===========================
+ 
+ <subsystem xmlns="urn:jboss:domain:datasources:6.0">
+             <datasources>
+                 <datasource jndi-name="java:jboss/datasource/TodoDS" pool-name="todo_ds" enabled="true" spy="true">
+                 <connection-url>jdbc:postgresql://localhost:5432/crms</connection-url>
+                     <driver>postgres</driver>
+                     <pool>
+                         <min-pool-size>5</min-pool-size>
+                         <initial-pool-size>10</initial-pool-size>
+                         <max-pool-size>20</max-pool-size>
+                         <prefill>true</prefill>
+                     </pool>
+                     <security>
+                         <user-name>postgres</user-name>
+                         <password>root</password>
+                     </security>
+                     <validation>
+                         <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/>
+                         <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"/>
+                     </validation>
+                 </datasource>
+                 <drivers>
+                     
+                     <driver name="postgres" module="org.postgres">
+                         <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+                     </driver>
+                 </drivers>
+            </datasources>
