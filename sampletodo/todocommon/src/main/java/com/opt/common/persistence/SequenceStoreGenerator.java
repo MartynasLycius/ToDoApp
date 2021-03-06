@@ -1,3 +1,10 @@
+/*****************************************************************************************************************
+ *
+ *	 File			 : SequenceStoreGenerator.java
+ *
+  *****************************************************************************************************************/
+
+
 package com.opt.common.persistence;
 
 import javax.persistence.EntityManager;
@@ -7,6 +14,11 @@ import javax.persistence.Table;
 
 import com.opt.common.annotation.PrimaryKey;
 
+
+/*
+ * This class is  SequenceStoreGenerator class   which is used for
+ *  Primary key generation  into  db
+ */
 public abstract class SequenceStoreGenerator {
 
     private static final String PRIMARY_KEY = "SELECT STRINGKEY FROM DBO.SEQUENCESTORE WHERE TABLENAME = :TABLENAME";

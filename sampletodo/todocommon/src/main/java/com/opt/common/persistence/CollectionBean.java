@@ -1,3 +1,10 @@
+/*****************************************************************************************************************
+ *
+ *	 File			 : CollectionBean.java
+ *
+  *****************************************************************************************************************/
+
+
 package com.opt.common.persistence;
 
 import java.util.List;
@@ -21,6 +28,11 @@ import javax.transaction.Transactional.TxType;
 import com.opt.common.enumeration.OrderType;
 import com.opt.exception.NoDataException;
 
+
+/*
+ * This class is  CollectionBean class   which is used for
+ *  retrieve data from  db
+ */
 @ApplicationScoped
 @Transactional(value = TxType.SUPPORTS)
 public class CollectionBean extends CollectionQuery {

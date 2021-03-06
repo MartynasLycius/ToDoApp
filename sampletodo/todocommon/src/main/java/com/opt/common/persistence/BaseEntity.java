@@ -1,3 +1,9 @@
+/*****************************************************************************************************************
+ *
+ *	 File			 : BaseEntity.java
+ *
+  *****************************************************************************************************************/
+
 package com.opt.common.persistence;
 
 import java.io.Serializable;
@@ -8,6 +14,10 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+/*
+ * This class is  base class   which is used for
+ *  handling Common  data in db
+ */
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
 

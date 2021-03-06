@@ -1,3 +1,11 @@
+/*****************************************************************************************************************
+ *
+ *	 File			 : AuditEntity.java
+ *
+  *****************************************************************************************************************/
+
+
+
 package com.opt.common.persistence;
 
 import java.io.Serializable;
@@ -14,6 +22,10 @@ import org.hibernate.envers.RevisionEntity;
 import org.hibernate.envers.RevisionNumber;
 import org.hibernate.envers.RevisionTimestamp;
 
+/*
+ * This class is Aduit base class   which is used for
+ *  handling aduit data in db
+ */
 @Entity
 @RevisionEntity
 @Table(schema = "AUD", name = "AUDITINFO")

@@ -1,3 +1,10 @@
+/*****************************************************************************************************************
+ *
+ *	 File			 : PersistenceBean.java
+ *
+  *****************************************************************************************************************/
+
+
 package com.opt.common.persistence;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -9,7 +16,10 @@ import javax.transaction.Transactional.TxType;
 import com.opt.exception.BusinessException;
 
 
-
+/*
+ * This class is  PersistenceBean class   which is used for
+ *  manipulate data into  db
+ */
 @ApplicationScoped
 @Transactional(value = TxType.MANDATORY, rollbackOn = BusinessException.class)
 public class PersistenceBean extends SequenceStoreGenerator {

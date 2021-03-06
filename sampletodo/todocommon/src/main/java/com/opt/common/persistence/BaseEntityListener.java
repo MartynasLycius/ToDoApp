@@ -1,3 +1,9 @@
+/*****************************************************************************************************************
+ *
+ *	 File			 : BaseEntityListener.java
+ *
+  *****************************************************************************************************************/
+
 package com.opt.common.persistence;
 
 import java.util.Date;
@@ -6,6 +12,11 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 
+
+/*
+ * This class is  BaseEntityListener class   which is used for
+ *  handling Base entity  data in db
+ */
 public class BaseEntityListener {
 
     @PrePersist

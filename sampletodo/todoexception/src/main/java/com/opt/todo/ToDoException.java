@@ -1,8 +1,20 @@
+/*****************************************************************************************************************
+ *
+ *	 File			 : ToDoException.java
+ *
+  *****************************************************************************************************************/
+
+
+
 package com.opt.todo;
 
 import com.opt.exception.BusinessException;
 import com.opt.exception.ErrorCode;
 
+/*
+ * This class is  ToDoErrorCode enum   which is used 
+ *  for  TODO  related all business exception . 
+ */
 public class ToDoException extends BusinessException {
 
 	private static final long serialVersionUID = 8905786432118667486L;

@@ -1,5 +1,9 @@
 package com.opt.bus.entity;
 
+
+import com.opt.common.persistence.BaseEntity;
+import com.opt.common.persistence.BaseEntityListener;
+
 import java.time.LocalDate;
 
 import javax.persistence.Basic;
@@ -11,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,12 +26,11 @@ import org.hibernate.envers.NotAudited;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.opt.common.persistence.BaseEntity;
-import com.opt.common.persistence.BaseEntityListener;
 
-@Entity(name = "toDo")
+
+@Entity(name = "ToDo")
 @EntityListeners(BaseEntityListener.class)
-@Table(schema = "crms", name = "ToDo")
+@Table(schema = "crms", name = "TODO")
 @Audited
 @AuditOverride(forClass = BaseEntity.class)
 @AuditTable(schema = "crms", value = "ToDo_AUD")
@@ -49,21 +51,21 @@ public class ToDo extends BaseEntity {
 	@NotBlank
 	@Size(max = 50)
 	@Basic(optional = false)
-	@Column(name = "NAME", length = 50, nullable = false)
-	private String name;
+	@Column(name = "ITEMNAME", length = 50, nullable = false) // unique = true
+	private String itemName;
 
 	@NotNull
 	@NotEmpty
 	@NotBlank
 	@Size(max = 100)
 	@Basic(optional = false)
-	@Column(name = "DESCRIPTION", length = 50, nullable = false)
-	private String description;
+	@Column(name = "ITEMDESCRIPTION", length = 50, nullable = false)
+	private String itemDescription;
 
 	@NotNull
     @Basic(optional = false)
-    @Column(name = "DATE", nullable = false) // unique = true
-   	private LocalDate date;	
+    @Column(name = "PRODUCTIONDATE", nullable = false) 
+   	private LocalDate productionDate;	
 
 	@NotNull
 	@NotEmpty
@@ -79,12 +81,7 @@ public class ToDo extends BaseEntity {
 	@Column(name = "VERSION")
 	private Long version;
 
-	@Transient
-	private String edit;
-
-	@Transient
-	private String delete;
-
+	
 	public ToDo() {
 
 	}
@@ -105,28 +102,30 @@ public class ToDo extends BaseEntity {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	
+
+	public String getItemName() {
+		return itemName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getItemDescription() {
+		return itemDescription;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setItemDescription(String itemDescription) {
+		this.itemDescription = itemDescription;
 	}
 
-	public LocalDate getDate() {
-		return date;
+	public LocalDate getProductionDate() {
+		return productionDate;
 	}
 
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setProductionDate(LocalDate productionDate) {
+		this.productionDate = productionDate;
 	}
 
 	public Long getVersion() {
@@ -137,20 +136,6 @@ public class ToDo extends BaseEntity {
 		this.version = version;
 	}
 
-	public String getEdit() {
-		return edit;
-	}
 
-	public void setEdit(String edit) {
-		this.edit = edit;
-	}
-
-	public String getDelete() {
-		return delete;
-	}
-
-	public void setDelete(String delete) {
-		this.delete = delete;
-	}
 
 }

@@ -1,4 +1,14 @@
+/*****************************************************************************************************************
+ *
+ *	 File			 : ToDoEdit.java
+ *
+  *****************************************************************************************************************/
+
+
 package com.opt.bus.todo.web;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -9,76 +19,69 @@ import com.opt.exception.BusinessException;
 import com.opt.exception.NoDataException;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.datepicker.DatePicker;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.BeanValidationBinder;
-import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 
-
-
-@Route
-public class ToDoEdit extends Div implements HasUrlParameter<String> {
-
+/*
+ * This class is  ToDoEdit class   which is  used for update TODO.
+ * 
+ */
+@Route(value = "toDoEdit")
+public class ToDoEdit extends TodoBaseForm implements HasUrlParameter<Long> {
 	private static final long serialVersionUID = -5435018840644491116L;
 
 	@Inject
 	private IToDoService iToDoService;
 
-	private TextField name = new TextField("Name");
-	private TextField description = new TextField("Description");
-	private DatePicker date=new DatePicker("date");
-
-	private Binder<ToDo> binder = new BeanValidationBinder<>(ToDo.class);
-
-	private ToDo toDo;
-	Button editButton = new Button("save");
+	private ToDo editToDo;
+	
+	private static final Logger lOGGER = Logger.getLogger(ToDoEdit.class.getName());
 
 	@Override
-	public void setParameter(BeforeEvent event, String parameter) {
-		//setText(String.format("Hello,----------CustomerEdit----------------------- %s!", parameter));
+	public void setParameter(BeforeEvent event, Long parameter) {
 
 		try {
-			toDo = iToDoService.getToDo(Long.valueOf(parameter));
+			editToDo = iToDoService.getToDo(Long.valueOf(parameter));
+			lOGGER.log(Level.INFO, "toDo retrieve."+editToDo.getId());
 		} catch (NumberFormatException | NoDataException e) {
-			
+			lOGGER.log(Level.SEVERE, "No toDo found.", e.getMessage());
 		}
-		name.setValue(toDo.getName());
-		description.setValue(toDo.getDescription());
-		date.setValue(toDo.getDate());
-		
-		add(name, description,date,editButton);
+
+		txtItemName.setValue(editToDo.getItemName());
+		txaItemDescription.setValue(editToDo.getItemDescription());
+		dateProduction.setValue(editToDo.getProductionDate());
 
 	}
 
 	@PostConstruct
-	public void inits() {
-	
-		editButton.addClickListener(e -> {
+	public void init() {
 
+		setWidth("720px");
+		setClassName("auto-margin");
+		Button editBtn = new Button("save");
+	
+		editBtn.addClickListener(e -> {
 			
-			toDo.setName(binder.getBean().getName());
-			toDo.setDescription(binder.getBean().getDescription());
-			toDo.setDate(binder.getBean().getDate());
-			
+			editToDo.setId(editToDo.getId());
+			editToDo.setItemName(txtItemName.getValue());
+			editToDo.setItemDescription(txaItemDescription.getValue());
+			editToDo.setProductionDate(dateProduction.getValue());
+
 			try {
-				iToDoService.save(toDo);
-			} catch (BusinessException e1) {
-				// TODO Auto-generated catch block
+				iToDoService.save(editToDo);
+				lOGGER.log(Level.INFO, "toDo modified."+editToDo.getId());
+			} catch (BusinessException be) {
 				
+				lOGGER.log(Level.SEVERE, "Error occurd in edit.", be.getMessage());
+
 			}
-			UI.getCurrent().navigate(ToDoList.class);
-			binder.setBean(new ToDo());
+			UI.getCurrent().navigate("toDoItemList");
 
 		});
 
-		//editButton.addClickShortcut(Key.ENTER);
-		binder.bindInstanceFields(this);
-		//binder.addStatusChangeListener(e -> editButton.setEnabled(binder.isValid()));
-		binder.setBean(new ToDo());
+		add(txtItemName, txaItemDescription, dateProduction, editBtn);
+
 	}
 
 }

@@ -1,3 +1,12 @@
+
+/*****************************************************************************************************************
+ *
+ *	 File			 : BusinessException.java
+ *
+  *****************************************************************************************************************/
+
+
+
 package com.opt.exception;
 
 import java.util.ArrayList;
@@ -6,7 +15,10 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javax.ejb.ApplicationException;
-
+/*
+ * This class is  BusinessException Base class   which is used for throwing exception during 
+ *  manipulate data into  db by rollback.
+ */
 @ApplicationException(rollback = true)
 public abstract class BusinessException extends Exception {
 

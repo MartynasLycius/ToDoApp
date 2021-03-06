@@ -1,3 +1,10 @@
+/*****************************************************************************************************************
+ *
+ *	 File			 : CollectionQuery.java
+ *
+  *****************************************************************************************************************/
+
+
 package com.opt.common.persistence;
 
 import java.util.List;
@@ -13,7 +20,10 @@ import javax.persistence.TypedQuery;
 
 import com.opt.exception.NoDataException;
 
-
+/*
+ * This class is  CollectionBean Base class   which is used for
+ *  retrieve data from  db
+ */
 public abstract class CollectionQuery {
 
     protected abstract EntityManager getEntityManager();

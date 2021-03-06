@@ -12,11 +12,11 @@ public class ToDoDto {
 	@Id
 	private Long id;
 
-	private String name;
+	private String itemName;
 
-	private String description;
+	private String itemDescription;
 
-	private LocalDate date;
+	private LocalDate productionDate;
 
 	@Transient
 	private String edit;
@@ -36,28 +36,30 @@ public class ToDoDto {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	
+
+	public String getItemName() {
+		return itemName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getItemDescription() {
+		return itemDescription;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setItemDescription(String itemDescription) {
+		this.itemDescription = itemDescription;
 	}
 
-	public LocalDate getDate() {
-		return date;
+	public LocalDate getProductionDate() {
+		return productionDate;
 	}
 
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setProductionDate(LocalDate productionDate) {
+		this.productionDate = productionDate;
 	}
 
 	public String getEdit() {

@@ -1,3 +1,10 @@
+/*****************************************************************************************************************
+ *
+ *	 File			 : ToDoService.java
+ *
+  *****************************************************************************************************************/
+
+
 package com.opt.bus.todo;
 
 import java.util.HashMap;
@@ -22,6 +29,11 @@ import com.opt.common.persistence.PersistenceBean;
 import com.opt.exception.BusinessException;
 import com.opt.exception.NoDataException;
 
+
+/*
+ * This class is  ToDoService class    which is used 
+ *  for handling TODO business related operation
+ */
 @Stateless
 @TransactionAttribute(TransactionAttributeType.SUPPORTS)
 public class ToDoService implements IToDoService {

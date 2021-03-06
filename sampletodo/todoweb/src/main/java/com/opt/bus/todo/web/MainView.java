@@ -1,3 +1,11 @@
+/*****************************************************************************************************************
+ *
+ *	 File			 : MainView.java
+ *
+  *****************************************************************************************************************/
+
+
+
 package com.opt.bus.todo.web;
 
 import javax.annotation.PostConstruct;
@@ -8,6 +16,10 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
+/*
+ * This class is used for starting page.  
+ *  
+ */
 @Route
 public class MainView extends VerticalLayout {
 	
@@ -22,8 +34,8 @@ public class MainView extends VerticalLayout {
 	    void init() {
 	   
 	       
-	        Button addCustomerBtn = new Button("ToDO list");
-	        addCustomerBtn.addClickListener(e -> {
+	        Button gotoToDoitemBtn = new Button("ToDO list");
+	        gotoToDoitemBtn.addClickListener(e -> {
 	          
 	         
 	            
@@ -31,7 +43,7 @@ public class MainView extends VerticalLayout {
 	        });
 	       
 	        
-	        HorizontalLayout toolbar = new HorizontalLayout(addCustomerBtn);
+	        HorizontalLayout toolbar = new HorizontalLayout(gotoToDoitemBtn);
 	               
 	    
 	        add(toolbar);
