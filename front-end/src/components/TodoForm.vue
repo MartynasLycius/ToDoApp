@@ -45,6 +45,23 @@
             @input="menu2 = false">
         </v-date-picker>
       </v-menu>
+      <div @click="fireFileUploadEvent">
+        <v-file-input
+            id="uploadFile"
+            style="width: 100%; margin-top: 10px;width: 100%;margin-top: 10px; margin-right: 100px;"
+            @change="handleImageUpload"
+            @click:clear="handleFileClear"
+            accept="image/png, image/jpeg, image/jpg"
+            label="Upload Your Logo"
+            prepend-icon="mdi-paperclip"
+            small-chips
+            show-size
+            required
+            :rules="generalRules"
+            dense
+            outlined>
+        </v-file-input>
+      </div>
 
       <v-row style="margin-bottom: 60px;margin-top: 10px">
         <v-btn style="margin-right: 10px"
@@ -99,6 +116,9 @@
         dateSelectionRules: [
           (v) => !!v || "Date is required"
         ],
+        generalRules: [
+          v => !!v || 'Input is required',
+        ]
       };
     },
     methods: {
@@ -145,6 +165,32 @@
              this.changeDialogStatus();
            });
       },
+      fireFileUploadEvent() {
+        //document.getElementById('uploadFile').click();
+      },
+      handleImageUpload(file) {
+        if (window.event.type !== 'change') return;
+        if (!file) return;
+
+        let extension = file.type.split('/')[1];
+        console.log(extension);
+
+        //this.persistLogoFile(file);
+
+        let reader = new FileReader();
+
+        reader.readAsDataURL(file)
+        reader.onload = () => {
+          let base64Image = reader.result;
+          base64Image = base64Image.split(',')[1]
+          console.log(base64Image);
+          // this.$store.commit('setPageInfoProperty', {key: 'logo', value: base64Image});
+        };
+      },
+      handleFileClear() {
+        // this.$store.commit('setPageInfoProperty', {key: 'logo', value: ''});
+        // this.$store.commit('setLogoFile', {})
+      },
     },
     updated() {
       let copyPayload;
@@ -180,5 +226,14 @@
     margin-top: 50px;
     margin-bottom: 30px;
   }
+  .banner-image-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    border: solid 1px #f3f3f3;
+    background-color: #f3f3f3;
+  }
+
 
 </style>
