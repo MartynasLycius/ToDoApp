@@ -14,7 +14,10 @@ import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.sql.Blob;
 import java.util.Date;
 import java.util.UUID;
 
@@ -23,7 +26,7 @@ import java.util.UUID;
 @DynamicInsert
 @DynamicUpdate
 @Table(name = "todo")
-public class TodoEntity extends BaseEntity {
+public class TodoEntity extends BaseEntity implements Serializable {
 	
 	@Id
 	@GeneratedValue(generator = "uuid2")
@@ -39,4 +42,7 @@ public class TodoEntity extends BaseEntity {
 	
 	@Column(name = "date")
 	private Date date;
+
+	@Column(name = "noteImage")
+	private Blob noteImage;
 }

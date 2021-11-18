@@ -106,6 +106,7 @@
           itemName: '',
           description:'',
           date: '',
+          noteImage: '',
         },
         dialog: false,
         isValid: false,
@@ -183,7 +184,8 @@
         reader.onload = () => {
           let base64Image = reader.result;
           base64Image = base64Image.split(',')[1]
-          console.log(base64Image);
+          this.todo.noteImage = base64Image;
+          console.log(this.todo.noteImage);
           // this.$store.commit('setPageInfoProperty', {key: 'logo', value: base64Image});
         };
       },

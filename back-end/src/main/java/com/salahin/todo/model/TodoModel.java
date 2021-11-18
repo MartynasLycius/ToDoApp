@@ -32,4 +32,6 @@ public class TodoModel extends BaseModel {
 	@NotNull(message = "Date is mandatory")
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date date;
+
+	private String noteImage;
 }
