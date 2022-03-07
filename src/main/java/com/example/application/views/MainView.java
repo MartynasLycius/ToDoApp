@@ -12,12 +12,12 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLink;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
 
-
-@Route("")
+@Route("/")
 public class MainView extends VerticalLayout {
     private final TaskRepository repository;
 
@@ -65,18 +65,19 @@ public class MainView extends VerticalLayout {
     }
 
     private void addListItem(Task task, VerticalLayout todosList) {
-        todosList.add(new HorizontalLayout(
-                        new Label(task.getDate().toString()),
-                        new Label(task.getName()),
-                        new Label(task.getDescription())),
-                new HtmlComponent("br"));
+        HorizontalLayout note = new HorizontalLayout(
+                new Label(task.getDate().toString()),
+                new Label(task.getName()),
+                new Label(task.getDescription()),
+                new RouterLink("Edit", EditTaskView.class, task.getId()));
+        todosList.add(note, new HtmlComponent("br"));
     }
 
     private void onClick(VerticalLayout todosList, DatePicker datePicker, TextField itemName, TextField itemDescription) {
         if (StringUtils.isNotEmpty(itemName.getValue()) && StringUtils.isNotEmpty(itemDescription.getValue()) && datePicker.getValue() != null) {
             Task task = new Task(datePicker.getValue(), itemName.getValue(), itemDescription.getValue());
+            task = this.repository.save(task);
             addListItem(task, todosList);
-            this.repository.save(task);
         }
     }
 
