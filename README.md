@@ -29,12 +29,9 @@
 ----------------------------------
 
  Project structure 
- 1. Monolithic multimodule project structure  using maven 
-
-  
+ 1. Monolithic multimodule project structure  using maven   
  Todo App build : mvn clean install
- 
-  
+   
  Todo App url :    http://localhost:8080/todoweb-1.0/
  
  
