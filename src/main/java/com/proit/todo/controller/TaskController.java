@@ -1,3 +1,6 @@
+// Please ignore this. Was created for rest endpoint. later opt vaadin as frontend.
+
+
 package com.proit.todo.controller;
 
 import com.proit.todo.model.Task;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+/*
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
@@ -48,3 +52,4 @@ public class TaskController {
         taskService.delete(id);
     }
 }
+*/

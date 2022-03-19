@@ -1,42 +1,21 @@
 package com.proit.todo.view;
 
-import com.proit.todo.model.Task;
-import com.proit.todo.repository.TaskRepository;
-import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.proit.todo.view.task.ListTaskView;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.dependency.StyleSheet;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
-import org.springframework.data.domain.Pageable;
+import com.vaadin.flow.router.RouterLayout;
 
-@Route
-public class MainView extends VerticalLayout {
+@Route("")
+@StyleSheet("css/styles.css")
+@StyleSheet("css/tailwind.min.css")
+public class MainView extends VerticalLayout implements RouterLayout {
 
-    private final TaskRepository repository;
-    final Grid<Task> grid;
-    TextField filter;
-
-    public MainView(TaskRepository repository) {
-        this.repository = repository;
-        this.grid = new Grid<>(Task.class);
-        this.filter = new TextField();
-
-        HorizontalLayout actions = new HorizontalLayout(filter);
-        filter.setPlaceholder("Filter by task name");
-        filter.setValueChangeMode(ValueChangeMode.EAGER);
-        filter.addValueChangeListener(e -> listAllTask(e.getValue()));
-
-        add(actions, grid);
-
-        listAllTask();
+    public MainView() {
+        add(new H1("To Do App"));
+        UI.getCurrent().navigate(ListTaskView.class);
     }
 
-    private void listAllTask() {
-        grid.setItems(repository.findAll());
-    }
-
-    private void listAllTask(String filterTxt) {
-        grid.setItems(repository.findAllByNameContainingIgnoreCase(filterTxt, Pageable.unpaged()).getContent());
-    }
 }
