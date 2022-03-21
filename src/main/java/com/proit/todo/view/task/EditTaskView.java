@@ -6,7 +6,6 @@ import com.proit.todo.view.MainView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -23,15 +22,12 @@ public class EditTaskView extends MainView implements HasUrlParameter<String>, B
     private final TaskService taskService;
 
     String parameter;
-    Label label;
     Binder<Task> binder;
-
     Task task;
 
 
     public EditTaskView(TaskService taskService) {
         this.taskService = taskService;
-        this.label = new Label();
         this.binder = new Binder<>();
 
         TextField nameField = new TextField();
@@ -48,10 +44,11 @@ public class EditTaskView extends MainView implements HasUrlParameter<String>, B
 
         HorizontalLayout actions = new HorizontalLayout();
         Button cancelBtn = new Button("Cancel");
-        cancelBtn.setClassName("bg-red-200");
-        cancelBtn.addClickListener(e -> UI.getCurrent().navigate("../"));
+        cancelBtn.setClassName("bg-red-200 text-gray-700");
+        cancelBtn.addClickListener(e -> UI.getCurrent().navigate(ListTaskView.class));
         actions.add(cancelBtn);
         Button updateBtn = new Button("Update");
+        updateBtn.setClassName("bg-green-500 text-white");
         updateBtn.addClickListener(e -> {
             try {
                 binder.writeBean(task);
@@ -64,14 +61,13 @@ public class EditTaskView extends MainView implements HasUrlParameter<String>, B
             }
         });
         actions.add(updateBtn);
-        add(label, nameField, descriptionField, datePicker, actions);
+        add(nameField, descriptionField, datePicker, actions);
     }
 
     @Override
     public void setParameter(BeforeEvent beforeEvent, String parameter) {
         this.parameter = parameter;
         this.task = taskService.find(Long.parseLong(parameter));
-        this.label.setText("Id: " + this.parameter);
         this.binder.readBean(task);
     }
 

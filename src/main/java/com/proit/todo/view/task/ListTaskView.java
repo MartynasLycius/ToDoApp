@@ -26,24 +26,37 @@ public class ListTaskView extends VerticalLayout {
         this.grid = new Grid<>();
         this.filter = new TextField();
 
-        grid.setClassName("w-1/2");
         grid.addColumn(Task::getId).setHeader("Id");
         grid.addColumn(Task::getName).setHeader("Name");
         grid.addColumn(Task::getDate).setHeader("Date");
 
-        grid.addComponentColumn( task -> {
+        grid.addComponentColumn(task -> {
             Button editBtn =  new Button("Edit");
-            editBtn.addClickListener(e-> UI.getCurrent()
-                    .navigate(EditTaskView.class, task.getId().toString())
-            );
+            editBtn.setClassName("bg-yellow-500 text-white");
+            editBtn.addClickListener(e-> UI.getCurrent().navigate(EditTaskView.class, task.getId().toString()));
             return editBtn;
+        });
+        grid.addComponentColumn(task -> {
+            Button deleteBtn =  new Button("Delete");
+            deleteBtn.setClassName("bg-red-500 text-white");
+            deleteBtn.addClickListener(e-> {
+                this.taskService.delete(task.getId());
+                listAllTask();
+            });
+            return deleteBtn;
         });
 
         filter.setPlaceholder("Filter by task name");
         filter.setValueChangeMode(ValueChangeMode.EAGER);
         filter.addValueChangeListener(e -> listAllTask(e.getValue()));
 
-        add(filter, grid);
+        HorizontalLayout horizontalLayout = new HorizontalLayout();
+        Button addNewBtn = new Button("Add New");
+        addNewBtn.setClassName("bg-green-500 text-white");
+        addNewBtn.addClickListener(e -> UI.getCurrent().navigate(CreateTaskView.class));
+        horizontalLayout.add(filter, addNewBtn);
+
+        add(horizontalLayout, grid);
         listAllTask();
     }
 
