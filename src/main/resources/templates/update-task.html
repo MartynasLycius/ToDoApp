@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Your todo list</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<body>
+<head th:substituteby="header :: copy"></head>
+<div class="container">
+
+    <h5 class="card-header">Update your task</h5>
+    <div class="card-body">
+    <form action="#" th:action="@{/update/{id}(id=${task.id})}" th:object="${task}" method="post">
+
+        <table class="table">
+            <tr>
+                <td>Title:</td>
+                <td><input type="text" th:field="*{title}"/></td>
+                <td th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Name Error</td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td><textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                              th:field="*{description}"></textarea></td>
+                <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description error</td>
+            </tr>
+
+            <tr>
+                <td>Status:</td>
+                <td>
+                    <select th:field="*{status}">
+                        <option th:value="'Todo'" th:text="Todo"></option>
+                        <option th:value="'Inprogress'" th:text="Inprogress"></option>
+                        <option th:value="'Done'" th:text="Done"></option>
+                    </select>
+                </td>
+
+                <td th:if="${#fields.hasErrors('status')}" th:errors="*{status}">Status Error</td>
+            </tr>
+            <tr>
+                <td>Date:</td>
+                <td><input type="date" th:field="*{date}"/></td>
+                <td th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit">Submit</button>
+                </td>
+            </tr>
+        </table>
+
+    </form>
+
+    </div>
+</div>
+<div th:substituteby="footer :: copy"></div>
+</body>
+</html>

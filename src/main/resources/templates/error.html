@@ -1,0 +1,67 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:substituteby="header :: copy"></head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+                <hr/>
+                <h1>Oops!</h1>
+                <h2><p class="alert alert-warning">We are sorry for the inconvenience. We will get back to you soon.</p>
+                </h2>
+                <div class="error-actions">
+                    <a href="/app/dashboard" class="btn btn-primary btn-lg"><span
+                            class="glyphicon glyphicon-home"></span>
+                        Take Me Home </a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="mailto:support@todoapp.com">Contact Support &nbsp;</a><span
+                        class="glyphicon glyphicon-envelope gi-5x"></span> </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<p th:if="${url}">
+    <b>Page:</b> <span th:text="${url}">Page URL</span>
+</p>
+
+<p th:if="${timestamp}" id='created'>
+    <b>Occurred:</b> <span th:text="${timestamp}">Timestamp</span>
+</p>
+
+<p th:if="${status}">
+    <b>Response Status:</b> <span th:text="${status}">status-code</span> <span
+        th:if="${error}" th:text="'('+${error}+')'">error ...</span>
+</p>
+
+<!--/* ${ex} is set by ourSimpleMappingExceptionResolver,
+       ${exception} or ${message} are set internally by Spring Boot. */-->
+<div
+        th:if="${ex} or ${exception} or (${message} and ${message.length() != 0})">
+    <b>Cause:</b> <span th:if="${ex}" th:text="${ex}">exception ...</span>
+    <span th:if="${exception}" th:text="${exception}">exception ...</span>
+    <span th:if="${message} and ${message.length() != 0}"
+          th:text="${message}">message ...</span>
+    <blockquote>
+        <i>Note: Common error page</i>
+    </blockquote>
+</div>
+
+<p
+        th:unless="${ex} or ${exception} or (${message} and ${message.length() != 0})">
+    Cause unknown (no exception details available)</p>
+
+<p class="filler"></p>  <!--  force space before details -->
+
+<hr/>
+
+<div th:substituteby="footer :: copy"></div>
+
+</body>
+</html>
