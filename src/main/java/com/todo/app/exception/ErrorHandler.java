@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ErrorHandler {
-
     @ExceptionHandler(Exception.class)
     public ModelAndView handleError(HttpServletRequest req, Exception ex) {
         ModelAndView mav = new ModelAndView();

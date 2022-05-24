@@ -3,12 +3,14 @@ package com.todo.app.rest;
 import com.todo.app.core.entity.TodoItem;
 import com.todo.app.core.service.TodoItemService;
 import com.todo.app.exception.ErrorHandler;
+import com.todo.app.util.MessageConstantes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -35,11 +37,14 @@ class TodoItemResources {
     }
 
     @PostMapping("/addtask")
-    String addTask(@Valid TodoItem todoItem, BindingResult result, Model model) {
+    String addTask(@Valid TodoItem todoItem, BindingResult result,
+                   Model model, RedirectAttributes attributes) {
         if (result.hasErrors()) {
             return "newtask";
         }
         service.add(todoItem);
+        attributes.addFlashAttribute(MessageConstantes.REDIRECT_ATTRIBUTE_KEY,
+                MessageConstantes.TASK_ADD_SUCCESSFUL);
         return "redirect:/task/all";
     }
 
@@ -53,11 +58,13 @@ class TodoItemResources {
 
     @PostMapping("/update/{id}")
     public String updateTask(@PathVariable("id") long id, @Valid TodoItem todoItem,
-                             BindingResult result, Model model) {
+                             BindingResult result, Model model, RedirectAttributes attributes) {
         if (result.hasErrors()) {
             return "update-task";
         }
         service.update(todoItem);
+        attributes.addFlashAttribute(MessageConstantes.REDIRECT_ATTRIBUTE_KEY,
+                MessageConstantes.TASK_EDIT_SUCCESSFUL);
         return "redirect:/task/all";
     }
 
