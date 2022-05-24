@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<head th:substituteby="header :: copy"></head>
+<head th:substituteby="/fragments/header :: copy"></head>
 
 <h5 class="card-header">Your task list</h5>
 <div class="card-body">
@@ -24,9 +24,10 @@
 
         <tr th:each="item : ${task}">
             <td><a th:href="@{/edit/{id}(id=${item.id})}"> <span th:text="${item.title}"> Title </span></a></td>
-            <td><a th:href="@{/edit/{id}(id=${item.id})}"><span th:text="${item.description}"> Description </span></a>
+            <td><a th:href="@{/edit/{id}(id=${item.id})}">
+                <span style="white-space: pre-wrap" th:text="${item.description}"> Description </span>
+            </a>
             </td>
-
 
             <td>
                 <div th:switch="${item.status}">
@@ -54,6 +55,6 @@
 </div>
 
 
-<div th:substituteby="footer :: copy"></div>
+<div th:substituteby="/fragments/footer :: copy"></div>
 </body>
 </html>
