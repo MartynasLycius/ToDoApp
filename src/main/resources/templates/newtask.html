@@ -6,14 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <head th:substituteby="/fragments/header :: copy"></head>
 <body>
 <div class="container">
-    <h5 class="card-header">New task in mind! Add it now.</h5>
+    <h3 class="card-header">
+        <p>
+        <span class="btn btn-info btn-lg">
+            <span class="glyphicon glyphicon-th-list"></span> Add a new Todo
+              </span>
+        </p>
+    </h3>
     <div class="card-body">
     <form action="#" th:action="@{/addtask}" th:object="${todoItem}" method="post">
-        <table class="table">
+        <table class="table table-bordered">
             <tr>
                 <td>Title:</td>
                 <td><input type="text" th:field="*{title}"/></td>

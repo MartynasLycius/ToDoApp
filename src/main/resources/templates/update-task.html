@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Your todo list</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
 
@@ -11,11 +12,17 @@
 <head th:substituteby="/fragments/header :: copy"></head>
 <div class="container">
 
-    <h5 class="card-header">Update your task</h5>
+    <h3 class="card-header">
+        <p>
+        <span class="btn btn-info btn-lg">
+            <span class="glyphicon glyphicon-th-list"></span> Update your todo's
+              </span>
+        </p>
+    </h3>
     <div class="card-body">
     <form action="#" th:action="@{/update/{id}(id=${task.id})}" th:object="${task}" method="post">
 
-        <table class="table">
+        <table class="table table-bordered">
             <tr>
                 <td>Title:</td>
                 <td><input type="text" th:field="*{title}"/></td>
