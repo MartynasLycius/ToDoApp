@@ -9,7 +9,6 @@ public class WebResourceRegister implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/app").setViewName("dashboard");
         registry.addViewController("/").setViewName("dashboard");
-        registry.addViewController("/hello").setViewName("hello");
         registry.addViewController("/login").setViewName("login");
     }
 }

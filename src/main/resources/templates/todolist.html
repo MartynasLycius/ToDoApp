@@ -1,30 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Your todo list</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
 <head th:substituteby="/fragments/header :: copy"></head>
 
-<h5 class="card-header">Your task list</h5>
+<h5 class="card-header">
+    <p>
+        <span class="btn btn-info btn-lg">
+            <span class="glyphicon glyphicon-th-list"></span> Your task list:
+              </span>
+    </p>
+</h5>
 <div class="card-body">
     <div th:insert="/fragments/message"></div>
-    <table class="table">
-        <thead>
-        <tr>
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+        <tr class="text-center">
+            <th scope="row"> #</th>
             <th scope="row"> Title</th>
             <th scope="row"> Description</th>
             <th scope="row"> Status</th>
             <th scope="row"> Date</th>
+            <th scope="row"> Action</th>
         </tr>
         </thead>
         <tbody>
 
-        <tr th:each="item : ${task}">
-            <td><a th:href="@{/edit/{id}(id=${item.id})}"> <span th:text="${item.title}"> Title </span></a></td>
-            <td><a th:href="@{/edit/{id}(id=${item.id})}">
+        <tr th:each="item,iterator : ${tasks}">
+            <td th:text="${iterator.index}"></td>
+            <td><a th:href="@{/task/{id}(id=${item.id})}"> <span th:text="${item.title}"> Title </span></a></td>
+            <td class="col-md-5"><a th:href="@{/task/{id}(id=${item.id})}">
                 <span style="white-space: pre-wrap" th:text="${item.description}"> Description </span>
             </a>
             </td>
@@ -44,17 +54,26 @@
                 </div>
             </td>
 
-            <td><a th:href="@{/edit/{id}(id=${item.id})}"><span th:text="${#dates.format(item.date, 'dd/MM/yyyy')}"> Date </span></a>
+            <td><a th:href="@{/task/{id}(id=${item.id})}"><span th:text="${#dates.format(item.date, 'dd/MM/yyyy')}"> Date </span></a>
             </td>
-
+            <td>
+                <div class="row text-center">
+                    <p>
+                        <a th:href="@{/edit/{id}(id=${item.id})}" class="btn btn-info"><span
+                                class="glyphicon glyphicon-edit"></span>Edit</a>
+                    </p>
+                    <p>
+                        <a th:href="@{/delete/{id}(id=${item.id})}" class="btn btn-danger"><span
+                                class="glyphicon glyphicon-delete"></span>Delete</a>
+                    </p>
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>
 
 </div>
 </div>
-
-
 <div th:substituteby="/fragments/footer :: copy"></div>
 </body>
 </html>

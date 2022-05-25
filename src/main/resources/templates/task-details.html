@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your todo list</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<head th:substituteby="/fragments/header :: copy"></head>
+
+<h5 class="card-header">Task detail</h5>
+<div class="card-body">
+
+    <tbody>
+    <div th:if="${task}">
+        <span class="label label-default">Task Title:</span>
+        <p class="lead bg-light border-info">
+            <span th:text="${task.title}"> Title </span>
+        </p>
+        <span class="label label-default">Summary</span>
+        <p class="lead bg-light border-info">
+        <span style="white-space: pre-wrap" th:text="${task.description}"> Description </span>
+        </p>
+        <span class="label label-default">Status</span>
+        <p class="lead bg-light border-info">
+        <div th:switch="${task.status}">
+            <p th:case="Inprogress"> <span th:style="${'color: blue;'}">
+                    <span th:text="${task.status}"> Status </span>
+                </span></p>
+            <p th:case="Done"> <span th:style="${'color: green  ;'}">
+                    <span th:text="${task.status}"> Status </span>
+                </span></p>
+            <p th:case="Todo"> <span th:style="${'color: orange;'}">
+                   <span th:text="${task.status}"> Status </span>
+                </span></p>
+
+            <p>
+                <a th:href="@{/edit/{id}(id=${task.id})}" class="btn btn-info">
+                    <span class="glyphicon glyphicon-edit"></span>Edit</a>
+            </p>
+        </div>
+        </p>
+    </div>
+
+</div>
+</div>
+
+<div th:substituteby="/fragments/footer :: copy"></div>
+</body>
+</html>

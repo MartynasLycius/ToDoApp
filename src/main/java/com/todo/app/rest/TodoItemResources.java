@@ -26,9 +26,16 @@ class TodoItemResources {
 
     @GetMapping("/task/all")
     String showAll(Model model) {
-        model.addAttribute("task", service.getAll());
+        model.addAttribute("tasks", service.getAll());
         return "todolist";
     }
+
+    @GetMapping("/task/{id}")
+    String taskDetails(@PathVariable("id") long id, Model model) {
+        model.addAttribute("task", service.findById(id));
+        return "task-details";
+    }
+
 
     @GetMapping("/task/new")
     String showNewTaskForm(TodoItem todoItem, Model model) {
@@ -50,11 +57,20 @@ class TodoItemResources {
 
 
     @GetMapping("/edit/{id}")
-    public String editTask(@PathVariable("id") long id, Model model) {
+    public String editTaskById(@PathVariable("id") long id, Model model) {
         TodoItem task = service.findById(id);
         model.addAttribute("task", task);
         return "update-task";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteTaskId(@PathVariable("id") long id, Model model,RedirectAttributes attributes) {
+        service.deleteById(id);
+        attributes.addFlashAttribute(MessageConstantes.REDIRECT_ATTRIBUTE_KEY,
+                MessageConstantes.TASK_DELETE_SUCCESSFUL);
+        return "redirect:/task/all";
+    }
+
 
     @PostMapping("/update/{id}")
     public String updateTask(@PathVariable("id") long id, @Valid TodoItem todoItem,
@@ -67,5 +83,4 @@ class TodoItemResources {
                 MessageConstantes.TASK_EDIT_SUCCESSFUL);
         return "redirect:/task/all";
     }
-
 }
