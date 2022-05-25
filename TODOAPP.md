@@ -46,7 +46,7 @@ Before running this application you should have to confirm following:
 Then run the following command on terminal:
 * Application will start on 50001 port. (http://localhost:5001/app)
 <pre>
-    itg clone https://github.com/asraful/ToDoApp.git
+    git clone https://github.com/asraful/ToDoApp.git  [change as you needed]
     cd workspace
     mvn spring-boot:run
 </pre>
