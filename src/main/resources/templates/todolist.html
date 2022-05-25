@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Your todo list</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body style="font-size: 1.5em">
+<head th:substituteby="/fragments/header :: copy"></head>
+
+<h3 class="card-header">
+    <p>
+        <span class="btn btn-info btn-lg">
+            <span class="glyphicon glyphicon-th-list"></span> Your todo list
+              </span>
+    </p>
+</h3>
+<div class="card-body">
+    <div th:insert="/fragments/message"></div>
+    <table class="table table-bordered text-xl-left">
+        <thead class="thead-dark">
+        <tr class="text-center">
+            <th scope="row"> #</th>
+            <th scope="row"> Title</th>
+            <th scope="row"> Description</th>
+            <th scope="row"> Status</th>
+            <th scope="row"> Date</th>
+            <th scope="row"> Action</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="item,iterator : ${tasks}">
+            <td th:text="${iterator.index + 1}"></td>
+            <td><a th:href="@{/task/{id}(id=${item.id})}"> <span th:text="${item.title}"> Title </span></a></td>
+            <td class="col-md-5"><a th:href="@{/task/{id}(id=${item.id})}">
+                <span style="white-space: pre-wrap" th:text="${item.description}"> Description </span>
+            </a>
+            </td>
+
+            <td>
+                <div th:switch="${item.status}">
+                    <p th:case="Inprogress"> <span th:style="${'color: blue;'}">
+                    <span th:text="${item.status}"> Status </span>
+                </span></p>
+                    <p th:case="Done"> <span th:style="${'color: green  ;'}">
+                    <span th:text="${item.status}"> Status </span>
+                </span></p>
+                    <p th:case="Todo"> <span th:style="${'color: orange;'}">
+                   <span th:text="${item.status}"> Status </span>
+                </span></p>
+
+                </div>
+            </td>
+
+            <td><a th:href="@{/task/{id}(id=${item.id})}"><span th:text="${#dates.format(item.date, 'dd/MM/yyyy')}"> Date </span></a>
+            </td>
+            <td>
+                <div class="row text-center" style="margin-left: 20px">
+                    <p>
+                        <a th:href="@{/edit/{id}(id=${item.id})}" class="btn btn-info"><span
+                                class="glyphicon glyphicon-edit"></span>Edit</a>
+                    </p>
+                    <p>
+                        <a th:href="@{/delete/{id}(id=${item.id})}" class="btn btn-danger"><span
+                                class="glyphicon glyphicon-delete"></span>Delete</a>
+                    </p>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</div>
+<div th:substituteby="/fragments/footer :: copy"></div>
+</body>
+</html>

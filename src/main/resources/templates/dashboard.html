@@ -1,0 +1,15 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<head th:substituteby="/fragments/header :: copy"></head>
+
+<div class="main">
+    <h2>Todo Management Application.</h2>
+    <p>Manage all of your task in single place.</p>
+</div>
+<div th:substituteby="/fragments/footer :: copy"></div>
+</body>
+</html>

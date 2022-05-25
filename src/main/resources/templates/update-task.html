@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Your todo list</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+
+<body>
+<head th:substituteby="/fragments/header :: copy"></head>
+<div class="container">
+
+    <h3 class="card-header">
+        <p>
+        <span class="btn btn-info btn-lg">
+            <span class="glyphicon glyphicon-th-list"></span> Update your todo's
+              </span>
+        </p>
+    </h3>
+    <div class="card-body">
+    <form action="#" th:action="@{/update/{id}(id=${task.id})}" th:object="${task}" method="post">
+
+        <table class="table table-bordered">
+            <tr>
+                <td>Title:</td>
+                <td><input type="text" th:field="*{title}"/></td>
+                <td th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Name Error</td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td><textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                              th:field="*{description}"></textarea></td>
+                <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description error</td>
+            </tr>
+
+            <tr>
+                <td>Status:</td>
+                <td>
+                    <select th:field="*{status}">
+                        <option th:value="'Todo'" th:text="Todo"></option>
+                        <option th:value="'Inprogress'" th:text="Inprogress"></option>
+                        <option th:value="'Done'" th:text="Done"></option>
+                    </select>
+                </td>
+
+                <td th:if="${#fields.hasErrors('status')}" th:errors="*{status}">Status Error</td>
+            </tr>
+            <tr>
+                <td>Date:</td>
+                <td><input type="date" th:field="*{date}"/></td>
+                <td th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit" class="btn btn-secondary btn-lg">Update</button>
+                </td>
+            </tr>
+        </table>
+
+    </form>
+
+    </div>
+</div>
+<div th:substituteby="/fragments/footer :: copy"></div>
+</body>
+</html>
