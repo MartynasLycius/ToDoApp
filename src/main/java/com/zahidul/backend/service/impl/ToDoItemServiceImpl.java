@@ -2,8 +2,6 @@ package com.zahidul.backend.service.impl;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +14,6 @@ public class ToDoItemServiceImpl implements ToDoItemService {
 
 	@Autowired
 	private ToDoItemRepository repository;
-
-	private static final Logger logger = LoggerFactory.getLogger(ToDoItemServiceImpl.class);
 
 	@Override
 	public List<ToDoItem> getAllItem() {
@@ -33,7 +29,6 @@ public class ToDoItemServiceImpl implements ToDoItemService {
 	public void saveItem(ToDoItem todoItem) {
 		if (todoItem != null) {
 			repository.save(todoItem);
-			logger.info("Item saved successfully, Item Details=" + todoItem);
 		}
 	}
 
@@ -41,7 +36,6 @@ public class ToDoItemServiceImpl implements ToDoItemService {
 	public void deleteItem(ToDoItem todoItem) {
 		if (todoItem != null) {
 			repository.delete(todoItem);
-			logger.info("Item deleted successfully, Item Details=" + todoItem);
 		}
 	}
 }
