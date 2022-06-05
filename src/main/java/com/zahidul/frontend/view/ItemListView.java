@@ -23,7 +23,7 @@ import com.zahidul.frontend.util.LabelKey;
 import com.zahidul.frontend.util.Settings;
 
 @PageTitle("Item List")
-@Route(value = "items", layout = MainLayout.class)
+@Route(value = "/", layout = MainLayout.class)
 public class ItemListView extends VerticalLayout {
 
 	private ToDoItemService toDoItemService;
