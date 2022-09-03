@@ -1,5 +1,7 @@
 package com.todo.web.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,6 +14,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "todo_item")
+@Data
 public class TodoItem {
 
     @Id
@@ -27,39 +30,4 @@ public class TodoItem {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "target_date", nullable = false)
     private Date targetDate;
-
-    public TodoItem() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getItemName() {
-        return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getTargetDate() {
-        return targetDate;
-    }
-
-    public void setTargetDate(Date targetDate) {
-        this.targetDate = targetDate;
-    }
 }

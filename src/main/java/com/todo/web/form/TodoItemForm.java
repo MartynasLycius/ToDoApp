@@ -1,5 +1,7 @@
 package com.todo.web.form;
 
+import lombok.Data;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -10,6 +12,7 @@ import javax.validation.constraints.Size;
  * @version 1.0
  * @since 2020-20-05
  */
+@Data
 public class TodoItemForm {
     private static final long serialVersionUID = 1L;
 
@@ -24,36 +27,4 @@ public class TodoItemForm {
 
     @NotBlank(message = "Target date is mandatory")
     private String targetDate;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getItemName() {
-        return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getTargetDate() {
-        return targetDate;
-    }
-
-    public void setTargetDate(String targetDate) {
-        this.targetDate = targetDate;
-    }
 }
